@@ -38,6 +38,7 @@
             color: var(--text-main);
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
+            overflow-x: hidden;
         }
 
         /* --- BOUTON THÈME --- */
@@ -96,7 +97,7 @@
         }
 
         #portfolio-section { border-top: 1px solid var(--section-border); }
-        #testimonials-section { border-top: 1px solid var(--section-border); }
+        #testimonials-section { border-top: 1px solid var(--section-border); max-width: 100%; padding: 60px 0; }
         #contact-section { border-top: 1px solid var(--section-border); max-width: 100%; }
 
         .section h2 {
@@ -117,6 +118,7 @@
         .intro-text {
             color: var(--text-secondary);
             margin-bottom: 30px;
+            padding: 0 20px;
         }
 
         /* --- GRILLES DU PORTFOLIO --- */
@@ -124,6 +126,21 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .hidden-media {
+            display: none;
+        }
+
+        .portfolio-grid.show-all .hidden-media {
+            display: block;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .portfolio-card {
@@ -132,7 +149,6 @@
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 8px 24px var(--shadow-color);
-            transform: translateY(0);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -143,7 +159,7 @@
 
         .media-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            padding-bottom: 56.25%;
             background-color: #111;
             overflow: hidden;
         }
@@ -154,7 +170,6 @@
             object-fit: cover;
         }
 
-        /* Icône de lecture pour les miniatures vidéos */
         .video-play-icon {
             position: absolute;
             top: 50%; left: 50%;
@@ -172,7 +187,70 @@
         .card-info h4 { font-size: 1.15rem; margin-bottom: 4px; }
         .card-info p { font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* --- SYSTÈME DE LIGHTBOX (VISUALISATION GRAND FORMAT) --- */
+        /* --- BOUTONS DÉCOUVRIR PLUS --- */
+        .cta-container {
+            margin: 25px 0 40px 0;
+            width: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #0071e3;
+            color: #ffffff;
+            padding: 10px 22px;
+            border-radius: 980px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #147ce5;
+            transform: scale(1.02);
+        }
+
+        /* --- SYSTÈME DE TÉMOIGNAGES DÉFILANTS --- */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            position: relative;
+            display: flex;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scrollMarquee 25s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: left;
+            width: 350px;
+            margin-right: 30px;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+
+        .testimonial-text { font-style: italic; margin-bottom: 15px; font-size: 0.95rem; }
+        .author-name { font-weight: 600; display: block; font-size: 0.95rem; }
+        .author-role { font-size: 0.85rem; color: #0071e3; }
+
+        /* --- LIGHTBOX (REDIMENSIONNÉE ET SÉCURISÉE) --- */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -185,43 +263,26 @@
             transition: opacity 0.3s ease;
         }
 
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
+        .lightbox.active { display: flex; opacity: 1; }
+
+        /* Redimensionnement précis de l'image ou vidéo sélectionnée */
+        .lightbox-content { 
+            max-width: 85vw; /* Maximum 85% de la largeur de l'écran */
+            max-height: 80vh; /* Maximum 80% de la hauteur de l'écran */
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Garde les proportions sans écraser */
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
 
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+        .lightbox-close { 
+            position: absolute; 
+            top: 20px; right: 25px; 
+            color: #fff; font-size: 2.5rem; 
+            cursor: pointer; 
+            z-index: 2100;
         }
-
-        .lightbox-close {
-            position: absolute;
-            top: 25px; right: 25px;
-            color: #fff; font-size: 2.5rem;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        /* --- TÉMOIGNAGES --- */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .testimonial-card {
-            background-color: var(--card-bg);
-            border-radius: 18px;
-            padding: 25px;
-            text-align: left;
-        }
-
-        .testimonial-text { font-style: italic; margin-bottom: 15px; }
-        .author-name { font-weight: 600; display: block; }
-        .author-role { font-size: 0.85rem; color: #0071e3; }
 
         /* --- CONTACT & FOOTER --- */
         .contact-link { color: #2997ff; text-decoration: none; font-size: 1.2rem; display: inline-block; margin-top: 15px; }
@@ -231,6 +292,8 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
             .section h2 { font-size: 1.8rem; }
+            .testimonial-card { width: 290px; margin-right: 20px; }
+            .lightbox-content { max-width: 90vw; max-height: 75vh; }
         }
     </style>
 </head>
@@ -250,65 +313,80 @@
         
         <!-- ================= SOUS-PARTIE : VIDÉOS ================= -->
         <h3 class="sub-part-title">Projets Vidéos</h3>
-        <div class="portfolio-grid">
-            
-            <!-- Vidéo 1 -->
+        <div class="portfolio-grid" id="videoGrid">
             <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                 <div class="media-wrapper">
-                    <!-- Image de couverture de la vidéo (remplaçable) -->
                     <div class="video-thumb-placeholder" style="background: #222;"></div>
                     <div class="video-play-icon">▶</div>
                 </div>
-                <div class="card-info">
-                    <h4>Projet Vidéo 1</h4>
-                    <p>Animation 3D / Montage</p>
-                </div>
+                <div class="card-info"><h4>Projet Vidéo 1</h4><p>Animation 3D / Montage</p></div>
             </div>
 
-            <!-- Vidéo 2 -->
             <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                 <div class="media-wrapper">
                     <div class="video-thumb-placeholder" style="background: #222;"></div>
                     <div class="video-play-icon">▶</div>
                 </div>
-                <div class="card-info">
-                    <h4>Projet Vidéo 2</h4>
-                    <p>Motion Design</p>
-                </div>
+                <div class="card-info"><h4>Projet Vidéo 2</h4><p>Motion Design</p></div>
             </div>
 
+            <div class="portfolio-card" data-type="video" data-src="video3.mp4">
+                <div class="media-wrapper">
+                    <div class="video-thumb-placeholder" style="background: #222;"></div>
+                    <div class="video-play-icon">▶</div>
+                </div>
+                <div class="card-info"><h4>Projet Vidéo 3</h4><p>VFX & Compositing</p></div>
+            </div>
+
+            <div class="portfolio-card hidden-media" data-type="video" data-src="video4.mp4">
+                <div class="media-wrapper">
+                    <div class="video-thumb-placeholder" style="background: #222;"></div>
+                    <div class="video-play-icon">▶</div>
+                </div>
+                <div class="card-info"><h4>Projet Vidéo 4</h4><p>Court-métrage</p></div>
+            </div>
+        </div>
+        <div class="cta-container">
+            <button class="cta-button" id="loadVideosBtn">Découvrir plus de vidéos</button>
         </div>
 
         <!-- ================= SOUS-PARTIE : IMAGES ================= -->
         <h3 class="sub-part-title">Concept Arts & Designs</h3>
-        <div class="portfolio-grid">
-            
-            <!-- Image 1 (Votre Phrase 2.png) -->
+        <div class="portfolio-grid" id="imageGrid">
             <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                 <div class="media-wrapper">
                     <img src="Phrase 2.png" alt="Création BRK Creative">
                 </div>
-                <div class="card-info">
-                    <h4>Phrase 2</h4>
-                    <p>Design Typographique / Concept Art</p>
-                </div>
+                <div class="card-info"><h4>Phrase 2</h4><p>Design Typographique</p></div>
             </div>
 
-            <!-- Image 2 -->
             <div class="portfolio-card" data-type="image" data-src="image2.jpg">
                 <div class="media-wrapper">
                     <img src="image2.jpg" alt="Design Graphique">
                 </div>
-                <div class="card-info">
-                    <h4>Identité Visuelle</h4>
-                    <p>Branding & Logo</p>
-                </div>
+                <div class="card-info"><h4>Identité Visuelle</h4><p>Branding & Logo</p></div>
             </div>
 
+            <div class="portfolio-card" data-type="image" data-src="image3.jpg">
+                <div class="media-wrapper">
+                    <img src="image3.jpg" alt="Moodboard">
+                </div>
+                <div class="card-info"><h4>Concept Art 1</h4><p>Digital Art</p></div>
+            </div>
+
+            <div class="portfolio-card hidden-media" data-type="image" data-src="image4.jpg">
+                <div class="media-wrapper">
+                    <img src="image4.jpg" alt="Rendu 3D">
+                </div>
+                <div class="card-info"><h4>Rendu Raymond</h4><p>Blender 3D</p></div>
+            </div>
+        </div>
+        <div class="cta-container">
+            <button class="cta-button" id="loadImagesBtn">Découvrir plus d'images</button>
         </div>
     </div>
 
-    <!-- Fenêtre de visualisation (Lightbox) cachée au départ -->
+    <!-- Lightbox -->
     <div class="lightbox" id="lightboxView">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
         <div id="lightboxMediaContainer"></div>
@@ -317,16 +395,35 @@
     <!-- Section Témoignages -->
     <div id="testimonials-section" class="section">
         <h2>Témoignages</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a totalement transcendé notre projet."</p>
-                <span class="author-name">Lucas Mandji</span>
-                <span class="author-role">Réalisateur Indépendant</span>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"La direction artistique pour nos animations 3D est tout simplement incroyable. Équipe très à l'écoute."</p>
-                <span class="author-name">Sarah B.</span>
-                <span class="author-role">Directrice Marketing</span>
+        <p class="intro-text">Ce que nos partenaires disent de l'expertise de BRK Creative.</p>
+        
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
+                    <span class="author-name">Lucas Mandji</span><span class="author-role">Réalisateur Indépendant</span>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
+                    <span class="author-name">Sarah B.</span><span class="author-role">Directrice Marketing</span>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Professionnel, réactif et doté d'une sensibilité technique impressionnante en motion design."</p>
+                    <span class="author-name">Marc MBA</span><span class="author-role">Créateur de Contenu</span>
+                </div>
+                <!-- Duplication -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
+                    <span class="author-name">Lucas Mandji</span><span class="author-role">Réalisateur Indépendant</span>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
+                    <span class="author-name">Sarah B.</span><span class="author-role">Directrice Marketing</span>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Professionnel, réactif et doté d'une sensibilité technique impressionnante en motion design."</p>
+                    <span class="author-name">Marc MBA</span><span class="author-role">Créateur de Contenu</span>
+                </div>
             </div>
         </div>
     </div>
@@ -343,13 +440,8 @@
     </footer>
 
     <script>
-        // --- GESTION DU THÈME ---
+        // --- THÈME ---
         const themeSlider = document.getElementById('themeSlider');
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        if (currentTheme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeSlider.textContent = "☀️";
-        }
         themeSlider.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
             if (theme === 'light') {
@@ -363,7 +455,25 @@
             }
         });
 
-        // --- SYSTÈME INTERACTIF DE SÉLECTION ET VISUALISATION ---
+        // --- BOUTONS DÉCOUVRIR PLUS ---
+        function setupToggle(buttonId, gridId, textMore, textLess) {
+            const btn = document.getElementById(buttonId);
+            const grid = document.getElementById(gridId);
+            btn.addEventListener('click', () => {
+                if (grid.classList.contains('show-all')) {
+                    grid.classList.remove('show-all');
+                    btn.textContent = textMore;
+                    grid.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    grid.classList.add('show-all');
+                    btn.textContent = textLess;
+                }
+            });
+        }
+        setupToggle('loadVideosBtn', 'videoGrid', "Découvrir plus de vidéos", "Voir moins de vidéos");
+        setupToggle('loadImagesBtn', 'imageGrid', "Découvrir plus d'images", "Voir moins d'images");
+
+        // --- LIGHTBOX INTERACTIVE ---
         const lightbox = document.getElementById('lightboxView');
         const lightboxClose = document.getElementById('lightboxClose');
         const mediaContainer = document.getElementById('lightboxMediaContainer');
@@ -373,17 +483,14 @@
             card.addEventListener('click', () => {
                 const type = card.getAttribute('data-type');
                 const src = card.getAttribute('data-src');
-                
-                mediaContainer.innerHTML = ''; // On nettoie l'ancienne vue
+                mediaContainer.innerHTML = '';
 
                 if (type === 'image') {
-                    // Si c'est une image, on crée une balise img
                     const img = document.createElement('img');
                     img.src = src;
                     img.classList.add('lightbox-content');
                     mediaContainer.appendChild(img);
                 } else if (type === 'video') {
-                    // Si c'est une vidéo, on crée un lecteur complet
                     const video = document.createElement('video');
                     video.src = src;
                     video.controls = true;
@@ -391,24 +498,16 @@
                     video.classList.add('lightbox-content');
                     mediaContainer.appendChild(video);
                 }
-
-                // On affiche la fenêtre
                 lightbox.classList.add('active');
             });
         });
 
-        // Fermer la fenêtre au clic sur le bouton de fermeture ou sur le fond noir
         function closeLightbox() {
             lightbox.classList.remove('active');
-            mediaContainer.innerHTML = ''; // Coupe le son de la vidéo en fermant
+            mediaContainer.innerHTML = '';
         }
-
         lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     </script>
 </body>
 </html>
