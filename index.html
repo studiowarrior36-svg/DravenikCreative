@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRK Creative</title>
     <style>
-        /* --- VARIABLES DE COULEURS (Gestion dynamique) --- */
+        /* --- VARIABLES DE COULEURS --- */
         :root {
             --bg-color: #000000;
             --text-main: #ffffff;
@@ -15,7 +15,6 @@
             --shadow-color: rgba(0, 0, 0, 0.7);
         }
 
-        /* --- STYLES POUR LE MODE LIGHT (WHITE) --- */
         [data-theme="light"] {
             --bg-color: #ffffff;
             --text-main: #1d1d1f;
@@ -30,7 +29,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Transition fluide au changement de mode */
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -41,7 +40,7 @@
             line-height: 1.5;
         }
 
-        /* --- BOUTON DE CHANGEMENT DE MODE (Style Apple Épuré) --- */
+        /* --- BOUTON THEME (TOP RIGHT) --- */
         .theme-toggle-btn {
             position: fixed;
             top: 20px;
@@ -56,10 +55,6 @@
             font-weight: 500;
             z-index: 1000;
             box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        .theme-toggle-btn:hover {
-            transform: scale(1.05);
         }
 
         /* --- HERO SECTION --- */
@@ -89,7 +84,7 @@
             letter-spacing: 0.004em;
         }
 
-        /* --- STRUCTURE DES SECTIONS --- */
+        /* --- STRUCTURE SECTIONS --- */
         .section {
             padding: 80px 20px;
             max-width: 1100px;
@@ -97,20 +92,9 @@
             text-align: center;
         }
 
-        #services-section {
-            background-color: var(--bg-color);
-        }
-
-        #portfolio-section {
-            background-color: var(--bg-color);
-            border-top: 1px solid var(--section-border);
-        }
-
-        #contact-section {
-            background-color: var(--bg-color);
-            border-top: 1px solid var(--section-border);
-            max-width: 100%;
-        }
+        #services-section { background-color: var(--bg-color); }
+        #portfolio-section { background-color: var(--bg-color); border-top: 1px solid var(--section-border); }
+        #contact-section { background-color: var(--bg-color); border-top: 1px solid var(--section-border); max-width: 100%; }
 
         .section h2 {
             font-size: 2.5rem;
@@ -128,12 +112,29 @@
             line-height: 1.6;
         }
 
-        /* --- GRILLE VIDÉO --- */
+        /* --- GRILLE VIDÉO (STYLE APPLE) --- */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             margin-top: 20px;
+        }
+
+        /* SECTION CACHÉE AU DÉPART (Plus de vidéos) */
+        .hidden-videos {
+            display: none; /* Reste masqué par défaut */
+            margin-top: 30px;
+        }
+
+        /* Classe activée en JavaScript pour afficher les vidéos */
+        .hidden-videos.show {
+            display: grid;
+            animation: fadeIn 0.6s ease forward;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .video-card {
@@ -156,13 +157,10 @@
             background-color: #000;
         }
 
-        .video-wrapper iframe, 
         .video-wrapper video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: none;
         }
 
@@ -184,10 +182,11 @@
             margin: 0;
         }
 
-        /* --- BOUTONS & LIENS STYLE APPLE --- */
+        /* --- BOUTONS STYLE APPLE --- */
         .cta-container {
             display: block;
             width: 100%;
+            margin-top: 40px;
         }
 
         .cta-button {
@@ -195,10 +194,12 @@
             text-decoration: none;
             background-color: #0071e3;
             color: #ffffff;
-            padding: 12px 22px;
+            padding: 12px 24px;
             border-radius: 980px;
             font-size: 1rem;
             font-weight: 400;
+            cursor: pointer;
+            border: none;
             transition: all 0.3s ease;
         }
 
@@ -215,11 +216,8 @@
             margin-top: 10px;
         }
 
-        .contact-link:hover {
-            text-decoration: underline;
-        }
+        .contact-link:hover { text-decoration: underline; }
 
-        /* --- FOOTER --- */
         footer {
             background-color: var(--bg-color);
             padding: 40px 20px;
@@ -227,13 +225,8 @@
             border-top: 1px solid var(--section-border);
         }
 
-        footer p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            letter-spacing: -0.01em;
-        }
+        footer p { font-size: 0.85rem; color: var(--text-secondary); }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.2rem; }
@@ -245,19 +238,16 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeSlider">🌓</button>
+    <button class="theme-toggle-btn" id="themeSlider">🌓 Mode Clair</button>
 
     <div class="hero">
         <h1>BRK Creative</h1>
-        <p>Creer pour inspirer</p>
+        <p>Design qui inspire</p>
     </div>
 
     <div id="services-section" class="section">
         <h2>Nos Services</h2>
         <p>Nous créons des expériences visuelles uniques, inspirées par le minimalisme et la puissance du design moderne.</p>
-        <div class="cta-container">
-            <a href="#portfolio-section" class="cta-button">Découvrir nos créations</a>
-        </div>
     </div>
 
     <div id="portfolio-section" class="section">
@@ -265,71 +255,74 @@
         <p>Découvrez une sélection de nos derniers projets en réalisation, motion design et effets visuels.</p>
         
         <div class="video-grid">
-            
             <div class="video-card">
                 <div class="video-wrapper">
-                    <video controls poster="miniature1.jpg">
-                        <source src="chemin-de-votre-video1.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas cette vidéo.
-                    </video>
+                    <video controls><source src="video1.mp4" type="video/mp4"></video>
                 </div>
-                <div class="video-info">
-                    <h3>Nom du Projet 1</h3>
-                    <p>Motion Design & Animation 3D</p>
-                </div>
+                <div class="video-info"><h3>Projet Principal 1</h3><p>3D Animation</p></div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
-                    <video controls poster="miniature2.jpg">
-                        <source src="chemin-de-votre-video2.mp4" type="video/mp4">
-                    </video>
+                    <video controls><source src="video2.mp4" type="video/mp4"></video>
                 </div>
-                <div class="video-info">
-                    <h3>Nom du Projet 2</h3>
-                    <p>Montage Vidéo & Post-Production</p>
-                </div>
+                <div class="video-info"><h3>Projet Principal 2</h3><p>Motion Design</p></div>
             </div>
-
             <div class="video-card">
                 <div class="video-wrapper">
-                    <video controls poster="miniature3.jpg">
-                        <source src="chemin-de-votre-video3.mp4" type="video/mp4">
-                    </video>
+                    <video controls><source src="video3.mp4" type="video/mp4"></video>
                 </div>
-                <div class="video-info">
-                    <h3>Nom du Projet 3</h3>
-                    <p>Visual Effects & Compositing</p>
-                </div>
+                <div class="video-info"><h3>Projet Principal 3</h3><p>VFX Pro</p></div>
             </div>
+        </div>
 
+        <div class="video-grid hidden-videos" id="moreVideosContainer">
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls><source src="video4.mp4" type="video/mp4"></video>
+                </div>
+                <div class="video-info"><h3>Projet Supplémentaire 1</h3><p>Montage Vidéo</p></div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls><source src="video5.mp4" type="video/mp4"></video>
+                </div>
+                <div class="video-info"><h3>Projet Supplémentaire 2</h3><p>Direction Artistique</p></div>
+            </div>
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls><source src="video6.mp4" type="video/mp4"></video>
+                </div>
+                <div class="video-info"><h3>Projet Supplémentaire 3</h3><p>Production 3D</p></div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <button class="cta-button" id="loadMoreBtn">Découvrir nos créations</button>
         </div>
     </div>
 
     <div id="contact-section" class="section">
         <h2>Contactez-nous</h2>
         <p>Envoyez-nous un message pour collaborer sur vos projets créatifs.</p>
-        <a href="studiowarrior36@gmail.com" class="contact-link">Collaborer avec nous &gt;</a>
+        <a href="mailto:votre-email@exemple.com" class="contact-link">Collaborer avec nous &gt;</a>
     </div>
 
     <footer>
-        <p>Copyright © 2026 WaveAtlantic. Tous droits réservés.</p>
+        <p>© 2026 BRK Creative. Tous droits réservés.</p>
     </footer>
 
     <script>
+        // 1. GESTION DU MODE CLAIR / SOMBRE
         const themeSlider = document.getElementById('themeSlider');
         const currentTheme = localStorage.getItem('theme') || 'dark';
 
-        // Appliquer le thème sauvegardé au chargement initial
         if (currentTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
             themeSlider.textContent = "🌓 Mode Sombre";
         }
 
-        // Écouter le clic sur le bouton
         themeSlider.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
-            
             if (theme === 'light') {
                 document.documentElement.removeAttribute('data-theme');
                 themeSlider.textContent = "🌓 Mode Clair";
@@ -340,7 +333,23 @@
                 localStorage.setItem('theme', 'light');
             }
         });
-    </script>
 
+        // 2. GESTION DU BOUTON "DÉCOUVRIR NOS CRÉATIONS" (AFFICHER PLUS)
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const moreVideosContainer = document.getElementById('moreVideosContainer');
+
+        loadMoreBtn.addEventListener('click', () => {
+            // Vérifie si les vidéos bonus sont déjà affichées
+            if (moreVideosContainer.classList.contains('show')) {
+                moreVideosContainer.classList.remove('show');
+                loadMoreBtn.textContent = "Découvrir nos créations";
+                // Remonte doucement à la section créations pour le confort visuel
+                document.getElementById('portfolio-section').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                moreVideosContainer.classList.add('show');
+                loadMoreBtn.textContent = "Voir moins de créations";
+            }
+        });
+    </script>
 </body>
 </html>
