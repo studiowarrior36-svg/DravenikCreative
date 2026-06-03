@@ -40,7 +40,7 @@
             line-height: 1.5;
         }
 
-        /* --- BOUTON THEME (TOP RIGHT) --- */
+        /* --- BOUTON ICONE UNIQUE (Style Circulaire Minimaliste) --- */
         .theme-toggle-btn {
             position: fixed;
             top: 20px;
@@ -48,40 +48,55 @@
             background-color: var(--card-bg);
             border: 1px solid var(--section-border);
             color: var(--text-main);
-            padding: 10px 16px;
-            border-radius: 980px;
+            width: 44px;  /* Largeur fixe pour faire un cercle parfait */
+            height: 44px; /* Hauteur fixe */
+            border-radius: 50%; /* Arrondi parfait */
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 1000;
             box-shadow: 0 4px 12px var(--shadow-color);
+            outline: none;
         }
 
-        /* --- HERO SECTION --- */
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- HERO SECTION AVEC DÉGRADÉ BLANC/NOIR --- */
         .hero {
-            min-height: 75vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
-            background: var(--bg-color);
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 30%, #000000 100%);
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
             letter-spacing: -0.015em;
-            color: var(--text-main);
+            color: #1d1d1f; 
             margin-bottom: 10px;
         }
 
         .hero p {
             font-size: 1.5rem;
             font-weight: 400;
-            color: var(--text-secondary);
+            color: #515154; 
             letter-spacing: 0.004em;
+        }
+
+        [data-theme="light"] .hero {
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+        }
+        [data-theme="light"] .hero p {
+            color: #6e6e73;
         }
 
         /* --- STRUCTURE SECTIONS --- */
@@ -112,7 +127,7 @@
             line-height: 1.6;
         }
 
-        /* --- GRILLE VIDÉO (STYLE APPLE) --- */
+        /* --- GRILLE VIDÉO --- */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -120,16 +135,14 @@
             margin-top: 20px;
         }
 
-        /* SECTION CACHÉE AU DÉPART (Plus de vidéos) */
         .hidden-videos {
-            display: none; /* Reste masqué par défaut */
+            display: none;
             margin-top: 30px;
         }
 
-        /* Classe activée en JavaScript pour afficher les vidéos */
         .hidden-videos.show {
             display: grid;
-            animation: fadeIn 0.6s ease forward;
+            animation: fadeIn 0.6s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -182,7 +195,7 @@
             margin: 0;
         }
 
-        /* --- BOUTONS STYLE APPLE --- */
+        /* --- BOUTONS --- */
         .cta-container {
             display: block;
             width: 100%;
@@ -238,11 +251,11 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeSlider">🌓 Mode Clair</button>
+    <button class="theme-toggle-btn" id="themeSlider">🌙</button>
 
     <div class="hero">
         <h1>BRK Creative</h1>
-        <p>Design qui inspire</p>
+        <p>Créer pour inspirer</p>
     </div>
 
     <div id="services-section" class="section">
@@ -304,7 +317,7 @@
     <div id="contact-section" class="section">
         <h2>Contactez-nous</h2>
         <p>Envoyez-nous un message pour collaborer sur vos projets créatifs.</p>
-        <a href="mailto:votre-email@exemple.com" class="contact-link">Collaborer avec nous &gt;</a>
+        <a href="mailto:studiowarrior36@gmail.com" class="contact-link">Collaborer avec nous &gt;</a>
     </div>
 
     <footer>
@@ -312,38 +325,37 @@
     </footer>
 
     <script>
-        // 1. GESTION DU MODE CLAIR / SOMBRE
         const themeSlider = document.getElementById('themeSlider');
         const currentTheme = localStorage.getItem('theme') || 'dark';
 
+        // Appliquer le thème et l'icône au chargement
         if (currentTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-            themeSlider.textContent = "🌓 Mode Sombre";
+            themeSlider.textContent = "☀️"; // Soleil si le mode est clair
+        } else {
+            themeSlider.textContent = "🌙"; // Lune si le mode est sombre
         }
 
         themeSlider.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
             if (theme === 'light') {
                 document.documentElement.removeAttribute('data-theme');
-                themeSlider.textContent = "🌓 Mode Clair";
+                themeSlider.textContent = "🌙";
                 localStorage.setItem('theme', 'dark');
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-                themeSlider.textContent = "🌓 Mode Sombre";
+                themeSlider.textContent = "☀️";
                 localStorage.setItem('theme', 'light');
             }
         });
 
-        // 2. GESTION DU BOUTON "DÉCOUVRIR NOS CRÉATIONS" (AFFICHER PLUS)
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         const moreVideosContainer = document.getElementById('moreVideosContainer');
 
         loadMoreBtn.addEventListener('click', () => {
-            // Vérifie si les vidéos bonus sont déjà affichées
             if (moreVideosContainer.classList.contains('show')) {
                 moreVideosContainer.classList.remove('show');
                 loadMoreBtn.textContent = "Découvrir nos créations";
-                // Remonte doucement à la section créations pour le confort visuel
                 document.getElementById('portfolio-section').scrollIntoView({ behavior: 'smooth' });
             } else {
                 moreVideosContainer.classList.add('show');
