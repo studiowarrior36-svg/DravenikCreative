@@ -54,9 +54,7 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             z-index: 1000;
             box-shadow: 0 4px 12px var(--shadow-color);
             outline: none;
@@ -129,9 +127,7 @@
             margin-bottom: 20px;
         }
 
-        .hidden-media {
-            display: none;
-        }
+        .hidden-media { display: none; }
 
         .portfolio-grid.show-all .hidden-media {
             display: block;
@@ -250,7 +246,7 @@
         .author-name { font-weight: 600; display: block; font-size: 0.95rem; }
         .author-role { font-size: 0.85rem; color: #0071e3; }
 
-        /* --- LIGHTBOX (REDIMENSIONNÉE ET SÉCURISÉE) --- */
+        /* --- LIGHTBOX --- */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -265,13 +261,12 @@
 
         .lightbox.active { display: flex; opacity: 1; }
 
-        /* Redimensionnement précis de l'image ou vidéo sélectionnée */
         .lightbox-content { 
-            max-width: 85vw; /* Maximum 85% de la largeur de l'écran */
-            max-height: 80vh; /* Maximum 80% de la hauteur de l'écran */
+            max-width: 85vw;
+            max-height: 80vh;
             width: auto;
             height: auto;
-            object-fit: contain; /* Garde les proportions sans écraser */
+            object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
@@ -353,11 +348,15 @@
         <!-- ================= SOUS-PARTIE : IMAGES ================= -->
         <h3 class="sub-part-title">Concept Arts & Designs</h3>
         <div class="portfolio-grid" id="imageGrid">
+            <!-- Image 1 corrigée -->
             <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                 <div class="media-wrapper">
-                    <img src="Phrase 2.png" alt="Création BRK Creative">
+                    <img src="Phrase 2.png" alt="Conception Graphique - BRK Creative">
                 </div>
-                <div class="card-info"><h4>Phrase 2</h4><p>Design Typographique</p></div>
+                <div class="card-info">
+                    <h4>Conception Graphique</h4>
+                    <p>Design Typographique & Concept Art</p>
+                </div>
             </div>
 
             <div class="portfolio-card" data-type="image" data-src="image2.jpg">
