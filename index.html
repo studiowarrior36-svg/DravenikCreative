@@ -105,13 +105,22 @@
             font-weight: 700;
             letter-spacing: -0.015em;
             color: var(--text-main);
-            margin-bottom: 10px;
+            margin-bottom: 2px;
+        }
+
+        .hero .brand-sub {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
         }
 
         .hero p {
             font-size: 1.6rem;
             font-weight: 400;
-            color: var(--text-secondary);
+            color: var(--text-main);
             margin-bottom: 25px;
         }
 
@@ -507,6 +516,7 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
+            .hero .brand-sub { font-size: 0.9rem; }
             .blue-title { font-size: 1.7rem; }
             .portfolio-card { width: 310px; height: 105px; }
             .media-wrapper { width: 120px; }
@@ -523,9 +533,10 @@
 
     <button class="theme-toggle-btn" id="themeSlider">🌙</button>
 
-    <!-- Écran 1 : Hero + Bouton Beacons Corrigé -->
+    <!-- Écran 1 : Hero + Label WaveAtlantic + Bouton Beacons -->
     <div class="hero">
         <h1>BRK Creative</h1>
+        <div class="brand-sub">Une marque de WaveAtlantic</div>
         <p>Créer pour inspirer</p>
         <a href="https://beacons.ai/brkcreative" target="_blank" style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
              Visiter notre Beacons
