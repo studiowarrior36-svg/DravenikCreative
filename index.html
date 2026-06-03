@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRK Creative</title>
     <style>
-        /* --- VARIABLES DE COULEURS (Inspiration Canal+) --- */
+        /* --- VARIABLES DE COULEURS (Mix Canal+ & Apple) --- */
         :root {
             --bg-color: #000000;
             --text-main: #ffffff;
             --text-secondary: #86868b;
             --section-border: #1c1c1e;
-            --card-bg: #111111; /* Blocs rectangles très sombres */
+            --card-bg: #111111; 
             --shadow-color: rgba(0, 0, 0, 0.8);
-            --accent-color: #ffffff; /* Canal+ utilise le blanc pur sur fond noir */
+            --apple-blue: #0071e3; /* Le bleu signature d'Apple */
         }
 
         [data-theme="light"] {
@@ -23,7 +23,7 @@
             --section-border: #d2d2d7;
             --card-bg: #f5f5f7;
             --shadow-color: rgba(0, 0, 0, 0.05);
-            --accent-color: #000000;
+            --apple-blue: #0071e3;
         }
 
         /* --- RESET & POLICE --- */
@@ -134,10 +134,10 @@
             text-align: center;
         }
 
-        /* --- PORTFOLIO DÉFILANT VERTICAL (DU BAS VERS LE HAUT) --- */
+        /* --- PRESENTATION VIDEOS & IMAGES (STYLE CANAL+ EN BANDEAU) --- */
         .scroll-wrapper {
             position: relative;
-            height: 480px; /* Hauteur de la zone visible */
+            height: 480px; 
             overflow: hidden;
             background-color: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--section-border);
@@ -152,14 +152,13 @@
             animation: scrollUp 20s linear infinite;
         }
 
-        /* Pause le défilement au survol pour pouvoir cliquer */
         .scroll-wrapper:hover .scroll-track {
             animation-play-state: paused;
         }
 
         @keyframes scrollUp {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); } /* Doit correspondre à la moitié de la hauteur totale du contenu dupliqué */
+            100% { transform: translateY(-50%); } 
         }
 
         .portfolio-card {
@@ -167,7 +166,7 @@
             border: 1px solid var(--section-border);
             overflow: hidden;
             cursor: pointer;
-            display: flex; /* Format rectangulaire horizontal type liste Canal */
+            display: flex; 
             height: 120px;
             width: 100%;
             max-width: 800px;
@@ -177,12 +176,12 @@
 
         .portfolio-card:hover {
             transform: scale(1.01);
-            border-color: var(--text-main);
+            border-color: var(--apple-blue); /* Lueur subtile au survol */
         }
 
         .media-wrapper {
             position: relative;
-            width: 200px; /* Largeur fixe de la miniature */
+            width: 200px; 
             height: 100%;
             background-color: #111;
             flex-shrink: 0;
@@ -210,7 +209,7 @@
         .card-info h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; text-transform: uppercase; }
         .card-info p { font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* --- BLOCS RECANGLES STYLE CANAL+ (TARIFS) --- */
+        /* --- BLOCS RECTANGLES STYLE CANAL+ (TARIFS) --- */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -220,7 +219,7 @@
 
         .pricing-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--section-border); /* Angles droits, pas d'arrondis pour le style Canal */
+            border: 1px solid var(--section-border); 
             padding: 40px 30px;
             text-align: left;
             display: flex;
@@ -231,11 +230,11 @@
         }
 
         .pricing-card:hover {
-            border-color: var(--text-main);
+            border-color: var(--apple-blue);
         }
 
         .pricing-card.featured {
-            border: 2px solid var(--text-main);
+            border: 2px solid var(--apple-blue); /* Mise en avant façon Apple */
         }
 
         .pricing-card h3 {
@@ -276,30 +275,31 @@
 
         .pricing-features li::before {
             content: "—";
-            color: var(--text-main);
+            color: var(--apple-blue); /* Tiret bleu style tech */
             margin-right: 10px;
             font-weight: bold;
         }
 
-        /* --- BOUTONS CANAL+ (Rectangles Noir & Blanc) --- */
+        /* --- BOUTONS STYLE APPLE (BLEU ARRONDI) --- */
         .cta-button {
             display: inline-block;
             text-decoration: none;
-            background-color: var(--text-main);
-            color: var(--bg-color);
+            background-color: var(--apple-blue);
+            color: #ffffff;
             padding: 12px 24px;
             font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-weight: 500;
+            border-radius: 24px; /* Arrondi signature d'Apple */
             cursor: pointer;
             border: none;
             text-align: center;
             width: 100%;
+            transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
         .cta-button:hover {
-            opacity: 0.9;
+            background-color: #0077ed;
+            transform: scale(1.01);
         }
 
         /* --- TÉMOIGNAGES --- */
@@ -357,8 +357,20 @@
         .lightbox-content { max-width: 85vw; max-height: 80vh; width: auto; height: auto; object-fit: contain; }
         .lightbox-close { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 2100; }
 
-        /* --- CONTACT & FOOTER --- */
-        .contact-link { color: var(--text-main); text-decoration: underline; font-size: 1.2rem; display: inline-block; margin-top: 15px; font-weight: 600; text-transform: uppercase; }
+        /* --- LIENS STYLE APPLE (BLEU AVEC FLÈCHE) --- */
+        .contact-link { 
+            color: var(--apple-blue); 
+            text-decoration: none; 
+            font-size: 1.25rem; 
+            display: inline-block; 
+            margin-top: 15px; 
+            font-weight: 500; 
+        }
+        
+        .contact-link:hover { 
+            text-decoration: underline; 
+        }
+
         footer { padding: 30px; text-align: center; border-top: 1px solid var(--section-border); font-size: 0.85rem; color: var(--text-secondary); }
 
         @media (max-width: 768px) {
@@ -379,15 +391,14 @@
         <p>Créer pour inspirer</p>
     </div>
 
-    <!-- Section Portfolio Défilant Verticalement -->
+    <!-- Section Portfolio (Style de présentation Canal+) -->
     <div id="portfolio-section" class="section">
         <h2>Créations</h2>
         
-        <!-- ================= VIDÉOS (DÉFILEMENT BAS -> HAUT) ================= -->
+        <!-- ================= VIDÉOS ================= -->
         <h3 class="sub-part-title">Projets Vidéos</h3>
         <div class="scroll-wrapper">
             <div class="scroll-track" id="videoTrack">
-                <!-- Groupe Principal -->
                 <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                     <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
                     <div class="card-info"><h4>Projet Vidéo 1</h4><p>Animation 3D / Montage</p></div>
@@ -416,11 +427,10 @@
             </div>
         </div>
 
-        <!-- ================= IMAGES (DÉFILEMENT BAS -> HAUT) ================= -->
+        <!-- ================= IMAGES ================= -->
         <h3 class="sub-part-title">Concept Arts & Designs</h3>
         <div class="scroll-wrapper">
             <div class="scroll-track" id="imageTrack">
-                <!-- Groupe Principal -->
                 <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                     <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
                     <div class="card-info"><h4>Conception Graphique</h4><p>Design Typographique & Concept Art</p></div>
@@ -490,13 +500,12 @@
         </div>
     </div>
 
-    <!-- ================= SECTION TARIFS (STYLE BLOCS RECTANGLES CANAL+) ================= -->
+    <!-- ================= SECTION TARIFS (Blocs Canal+ / Boutons Apple) ================= -->
     <div id="pricing-section" class="section">
         <h2>Tarifs</h2>
         <p class="intro-text">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
         
         <div class="pricing-grid">
-            <!-- Bloc 1 -->
             <div class="pricing-card">
                 <div>
                     <h3>Identité & Design</h3>
@@ -511,7 +520,6 @@
                 <a href="#contact-section" class="cta-button">Demander un devis</a>
             </div>
 
-            <!-- Bloc 2 (Mis en avant) -->
             <div class="pricing-card featured">
                 <div>
                     <h3>Montage & Post-Prod</h3>
@@ -526,7 +534,6 @@
                 <a href="#contact-section" class="cta-button">Estimer mon projet</a>
             </div>
 
-            <!-- Bloc 3 -->
             <div class="pricing-card">
                 <div>
                     <h3>Production Complète</h3>
@@ -543,7 +550,7 @@
         </div>
     </div>
 
-    <!-- Section Contact -->
+    <!-- Section Contact (Style Apple Link) -->
     <div id="contact-section" class="section">
         <h2>Contactez-nous</h2>
         <p>Envoyez-nous un message pour collaborer sur vos projets créatifs.</p>
@@ -556,7 +563,7 @@
         <div class="about-content">
             <p><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
             <br>
-            <p>Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent. Guidé par une esthétique minimalist et moderne, le studio évolue constamment, intégrant de nouvelles techniques, de nouveaux langages visuels et de nouvelles ambitions.</p>
+            <p>Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent. Guidé par une esthétique minimaliste et moderne, le studio évolue constamment, intégrant de nouvelles techniques, de nouveaux langages visuels et de nouvelles ambitions.</p>
             <br>
             <p>Chaque création est pensée comme une expérience. Chaque image raconte une intention. Chaque projet est une vision qui prend vie.</p>
         </div>
