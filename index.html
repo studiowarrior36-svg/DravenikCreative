@@ -207,7 +207,7 @@
             display: block;
         }
 
-        /* --- TARIFS STYLE CANAL+ MODIFIÉ --- */
+        /* --- TARIFS STYLE CANAL+ --- */
         .tarifs-section {
             background-color: var(--bg-tarifs);
             padding: 100px 10%;
@@ -246,7 +246,6 @@
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Masquage initial du badge pour éviter les conflits visuels */
         .badge-premium {
             position: absolute;
             top: -12px;
@@ -262,7 +261,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Affichage dynamique uniquement au survol actif */
         .tarif-card:hover {
             border-color: var(--bleu-accent);
             box-shadow: 0 20px 40px var(--shadow-color);
@@ -303,7 +301,7 @@
             background-color: var(--bleu-hover);
         }
 
-        /* --- TÉMOIGNAGES AVEC PAUSE HOVER --- */
+        /* --- TÉMOIGNAGES --- */
         .testimonials-section {
             padding: 100px 10%;
             text-align: center;
@@ -338,7 +336,6 @@
             cursor: pointer;
         }
 
-        /* Condition Hover : Arrête l'animation CSS immédiatement au survol */
         .testimonials-container:hover .testimonial-card {
             animation-play-state: paused !important;
         }
@@ -423,29 +420,29 @@
                 <div class="dropdown-menu-pays">
                     <div class="menu-col">
                         <h4>AFRIQUE</h4>
-                        <a onclick="changeCountry('Gabon')">Gabon</a>
-                        <a onclick="changeCountry('Côte d\'Ivoire')">Côte d'Ivoire</a>
-                        <a onclick="changeCountry('Sénégal')">Sénégal</a>
-                        <a onclick="changeCountry('Cameroun')">Cameroun</a>
-                        <a onclick="changeCountry('Congo')">Congo</a>
+                        <a onclick="changeCountry('Gabon', 'fr')">Gabon</a>
+                        <a onclick="changeCountry('Côte d\'Ivoire', 'fr')">Côte d'Ivoire</a>
+                        <a onclick="changeCountry('Sénégal', 'fr')">Sénégal</a>
+                        <a onclick="changeCountry('Cameroun', 'fr')">Cameroun</a>
+                        <a onclick="changeCountry('Congo', 'fr')">Congo</a>
                     </div>
                     <div class="menu-col">
                         <h4>AMÉRIQUES</h4>
-                        <a onclick="changeCountry('États-Unis')">États-Unis</a>
-                        <a onclick="changeCountry('Canada')">Canada</a>
-                        <a onclick="changeCountry('Mexique')">Mexique</a>
+                        <a onclick="changeCountry('États-Unis', 'en')">États-Unis</a>
+                        <a onclick="changeCountry('Canada', 'en')">Canada</a>
+                        <a onclick="changeCountry('Mexique', 'es')">Mexique</a>
                     </div>
                     <div class="menu-col">
                         <h4>EUROPE</h4>
-                        <a onclick="changeCountry('France')">France</a>
-                        <a onclick="changeCountry('Belgique')">Belgique</a>
-                        <a onclick="changeCountry('Suisse')">Suisse</a>
+                        <a onclick="changeCountry('France', 'fr')">France</a>
+                        <a onclick="changeCountry('Belgique', 'fr')">Belgique</a>
+                        <a onclick="changeCountry('Suisse', 'fr')">Suisse</a>
                     </div>
                     <div class="menu-col">
                         <h4>ASIE / MOYEN-ORIENT</h4>
-                        <a onclick="changeCountry('Chine')">Chine</a>
-                        <a onclick="changeCountry('Singapour')">Singapour</a>
-                        <a onclick="changeCountry('Qatar')">Qatar</a>
+                        <a onclick="changeCountry('Chine', 'en')">Chine</a>
+                        <a onclick="changeCountry('Singapour', 'en')">Singapour</a>
+                        <a onclick="changeCountry('Qatar', 'en')">Qatar</a>
                     </div>
                 </div>
             </div>
@@ -455,9 +452,9 @@
 
     <section class="presentation-section">
         <div class="presentation-text">
-            <span class="subtitle">À PROPOS</span>
-            <h2>Nous transcendons vos idées en masterpieces visuelles</h2>
-            <p>BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.</p>
+            <span class="subtitle" id="trans-about-sub">À PROPOS</span>
+            <h2 id="trans-about-title">Nous transcendons vos idées en masterpieces visuelles</h2>
+            <p id="trans-about-desc">BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.</p>
         </div>
         
         <div class="presentation-media-scroller">
@@ -475,61 +472,107 @@
 
     <section class="tarifs-section">
         <div class="tarifs-header">
-            <h2>TARIFS</h2>
-            <p>Des solutions nettes et transparentes adaptées à vos ambitions.</p>
+            <h2 id="trans-tarifs-title">TARIFS</h2>
+            <p id="trans-tarifs-sub">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
         </div>
         
         <div class="tarifs-container">
             <div class="tarif-card">
-                <h3>OPTION 1 : PROFESSIONNELLE</h3>
-                <p class="tarif-desc">Les tarifs varient selon la complexité et les besoins spécifiques du projet. Contactez notre équipe pour concevoir un devis entièrement sur-mesure.</p>
-                <a href="#" class="btn-canal">Demander un devis</a>
+                <h3 id="trans-opt1-title">OPTION 1 : PROFESSIONNELLE</h3>
+                <p class="tarif-desc" id="trans-opt1-desc">Les tarifs varient selon la complexité et les besoins spécifiques du projet. Contactez notre équipe pour concevoir un devis entièrement sur-mesure.</p>
+                <a href="#" class="btn-canal id-trans-btn">Demander un devis</a>
             </div>
 
-            <!-- Ajout de la classe active-premium pour isoler le comportement du badge -->
             <div class="tarif-card active-premium">
-                <div class="badge-premium">CONSEILLÉ</div>
-                <h3>OPTION 2 : BUSINESS PREMIUM</h3>
-                <p class="tarif-desc">Prise en charge complète, déploiement d'identité visuelle intégrale, animations graphiques avancées, et livrables prioritaires avec suivi personnalisé.</p>
-                <a href="#" class="btn-canal">Demander un devis</a>
+                <div class="badge-premium" id="trans-badge">CONSEILLÉ</div>
+                <h3 id="trans-opt2-title">OPTION 2 : BUSINESS PREMIUM</h3>
+                <p class="tarif-desc" id="trans-opt2-desc">Prise en charge complète, déploiement d'identité visuelle intégrale, animations graphiques avancées, et livrables prioritaires avec suivi personnalisé.</p>
+                <a href="#" class="btn-canal id-trans-btn2">Demander un devis</a>
             </div>
         </div>
     </section>
 
     <section class="testimonials-section">
-        <h2>CE QUE DISENT NOS CLIENTS</h2>
+        <h2 id="trans-testi-title">CE QUE DISENT NOS CLIENTS</h2>
         
         <div class="testimonials-container">
             <div class="testimonial-card speed-fast">
-                <p class="quote">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
+                <p class="quote" id="trans-q1">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
                 <h4 class="client-name">LUCAS MANDJI</h4>
-                <span class="client-role">Réalisateur Indépendant</span>
+                <span class="client-role" id="trans-r1">Réalisateur Indépendant</span>
             </div>
 
             <div class="testimonial-card speed-medium">
-                <p class="quote">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."</p>
+                <p class="quote" id="trans-q2">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."</p>
                 <h4 class="client-name">NDJI</h4>
-                <span class="client-role">Producteur Indépendant</span>
+                <span class="client-role" id="trans-r2">Producteur Indépendant</span>
             </div>
 
             <div class="testimonial-card speed-slow">
-                <p class="quote">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."</p>
+                <p class="quote" id="trans-q3">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."</p>
                 <h4 class="client-name">SOPHIE M.</h4>
-                <span class="client-role">Directrice Artistique</span>
+                <span class="client-role" id="trans-r3">Directrice Artistique</span>
             </div>
         </div>
     </section>
 
     <footer class="site-footer">
-        <div class="footer-copyright">
+        <div class="footer-copyright" id="trans-footer-copy">
             © 2026 BRK Creative. Tous droits réservés.
         </div>
         <div class="footer-legal">
-            <a href="#">Mentions Légales</a>
+            <a href="#" id="trans-footer-legal">Mentions Légales</a>
         </div>
     </footer>
 
     <script>
+        const translations = {
+            fr: {
+                aboutSub: "À PROPOS",
+                aboutTitle: "Nous transcendons vos idées en masterpieces visuelles",
+                aboutDesc: "BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.",
+                tarifsTitle: "TARIFS",
+                tarifsSub: "Des solutions nettes et transparentes adaptées à vos ambitions.",
+                opt1Title: "OPTION 1 : PROFESSIONNELLE",
+                opt1Desc: "Les tarifs varient selon la complexité et les besoins spécifiques du projet. Contactez notre équipe pour concevoir un devis entièrement sur-mesure.",
+                opt2Title: "OPTION 2 : BUSINESS PREMIUM",
+                opt2Desc: "Prise en charge complète, déploiement d'identité visuelle intégrale, animations graphiques avancées, et livrables prioritaires avec suivi personnalisé.",
+                badge: "CONSEILLÉ",
+                btn: "Demander un devis",
+                testiTitle: "CE QUE DISENT NOS CLIENTS",
+                q1: '"Un travail de post-production d\'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."',
+                r1: "Réalisateur Indépendant",
+                q2: '"L\'équipe a su capter instantanément l\'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."',
+                r2: "Producteur Indépendant",
+                q3: '"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."',
+                r3: "Directrice Artistique",
+                footerCopy: "© 2026 BRK Creative. Tous droits réservés.",
+                footerLegal: "Mentions Légales"
+            },
+            en: {
+                aboutSub: "ABOUT US",
+                aboutTitle: "We transcend your ideas into visual masterpieces",
+                aboutDesc: "BRK Creative is a studio specializing in high-quality post-production, impactful Motion Design, and 3D animation. We showcase your brand through rigorous technical expertise and boundless creativity.",
+                tarifsTitle: "PRICING",
+                tarifsSub: "Clear and transparent solutions tailored to your ambitions.",
+                opt1Title: "OPTION 1: PROFESSIONAL",
+                opt1Desc: "Rates vary depending on the complexity and specific needs of the project. Contact our team for a fully customized quote.",
+                opt2Title: "OPTION 2: BUSINESS PREMIUM",
+                opt2Desc: "Full support, comprehensive visual identity deployment, advanced motion graphics, and priority deliverables with personalized tracking.",
+                badge: "RECOMMENDED",
+                btn: "Request a quote",
+                testiTitle: "WHAT OUR CLIENTS SAY",
+                q1: '"Post-production work of rare quality. The rhythm of the editing transcended our project from start to finish."',
+                r1: "Freelance Filmmaker",
+                q2: '"The team instantly captured the core essence of our brand. The final visual result far exceeded our expectations."',
+                r2: "Independent Producer",
+                q3: '"Professionalism, constant responsiveness, and total fluidity in exchanges. Deadlines were strictly met."',
+                r3: "Art Director",
+                footerCopy: "© 2026 BRK Creative. All rights reserved.",
+                footerLegal: "Legal Notices"
+            }
+        };
+
         function toggleTheme() {
             const body = document.documentElement;
             const currentTheme = body.getAttribute('data-theme');
@@ -544,9 +587,37 @@
             }
         }
 
-        function changeCountry(countryName) {
-            // Changement purement dynamique de l'élément sans rechargement de lien vide '#'
+        function changeCountry(countryName, langCode) {
+            // Mettre à jour l'étiquette pays du bouton
             document.getElementById('country-label').textContent = countryName;
+            
+            // Appliquer la traduction si elle existe
+            const data = translations[langCode] || translations['en']; 
+            
+            document.getElementById('trans-about-sub').textContent = data.aboutSub;
+            document.getElementById('trans-about-title').textContent = data.aboutTitle;
+            document.getElementById('trans-about-desc').textContent = data.aboutDesc;
+            document.getElementById('trans-tarifs-title').textContent = data.tarifsTitle;
+            document.getElementById('trans-tarifs-sub').textContent = data.tarifsSub;
+            document.getElementById('trans-opt1-title').textContent = data.opt1Title;
+            document.getElementById('trans-opt1-desc').textContent = data.opt1Desc;
+            document.getElementById('trans-opt2-title').textContent = data.opt2Title;
+            document.getElementById('trans-opt2-desc').textContent = data.opt2Desc;
+            document.getElementById('trans-badge').textContent = data.badge;
+            
+            document.querySelectorAll('.id-trans-btn, .id-trans-btn2').forEach(btn => {
+                btn.textContent = data.btn;
+            });
+
+            document.getElementById('trans-testi-title').textContent = data.testiTitle;
+            document.getElementById('trans-q1').textContent = data.q1;
+            document.getElementById('trans-r1').textContent = data.r1;
+            document.getElementById('trans-q2').textContent = data.q2;
+            document.getElementById('trans-r2').textContent = data.r2;
+            document.getElementById('trans-q3').textContent = data.q3;
+            document.getElementById('trans-r3').textContent = data.r3;
+            document.getElementById('trans-footer-copy').textContent = data.footerCopy;
+            document.getElementById('trans-footer-legal').textContent = data.footerLegal;
         }
     </script>
 </body>
