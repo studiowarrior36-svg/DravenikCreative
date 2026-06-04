@@ -197,7 +197,7 @@
 
         @keyframes scrollLeft {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Doit bouger de pile 50% pour la boucle */
+            100% { transform: translateX(-50%); } /* Bouge de pile 50% pour la boucle parfaite */
         }
 
         .portfolio-card {
@@ -575,7 +575,7 @@
         </a>
     </div>
 
-    <!-- Écran 2 : Portfolio (Avec duplications pour relancer le défilement) -->
+    <!-- Écran 2 : Portfolio (Avec duplications pour le défilement) -->
     <div id="portfolio-section" class="section">
         <div class="section-container">
             <h2 class="blue-title" data-lang-fr="Créations" data-lang-en="Creations" data-lang-es="Creaciones">Créations</h2>
@@ -586,28 +586,46 @@
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1">Projet Vidéo 1</h4><p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1">Projet Vidéo 1</h4>
+                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2">Projet Vidéo 2</h4><p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2">Projet Vidéo 2</h4>
+                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video3.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4 data-lang-fr="Projet Vidéo 3" data-lang-en="Video Project 3" data-lang-es="Proyecto de Video 3">Projet Vidéo 3</h4><p data-lang-fr="VFX & Compositing" data-lang-en="VFX & Compositing" data-lang-es="VFX y Composición">VFX & Compositing</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 3" data-lang-en="Video Project 3" data-lang-es="Proyecto de Video 3">Projet Vidéo 3</h4>
+                            <p data-lang-fr="VFX & Compositing" data-lang-en="VFX & Compositing" data-lang-es="VFX y Composición">VFX & Compositing</p>
+                        </div>
                     </div>
-                    <!-- DUPLICATION INDISPENSABLE POUR LE DÉFILEMENT INFINI -->
+                    <!-- DUPLICATIONS SÉCURISÉES POUR LE MARQUEE -->
                     <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 1</h4><p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1">Projet Vidéo 1</h4>
+                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 2</h4><p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2">Projet Vidéo 2</h4>
+                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video3.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 3</h4><p data-lang-fr="VFX & Compositing" data-lang-en="VFX & Compositing" data-lang-es="VFX y Composición">VFX & Compositing</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 3" data-lang-en="Video Project 3" data-lang-es="Proyecto de Video 3">Projet Vidéo 3</h4>
+                            <p data-lang-fr="VFX & Compositing" data-lang-en="VFX & Compositing" data-lang-es="VFX y Composición">VFX & Compositing</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -618,20 +636,32 @@
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                         <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info"><h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico">Conception Graphique</h4><p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico">Conception Graphique</h4>
+                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="image" data-src="image2.jpg">
                         <div class="media-wrapper"><img src="image2.jpg" alt="Design Graphique"></div>
-                        <div class="card-info"><h4 data-lang-fr="Identité Visuelle" data-lang-en="Visual Identity" data-lang-es="Identidad Visual">Identité Visuelle</h4><p data-lang-fr="Branding & Logo" data-lang-en="Branding & Logo" data-lang-es="Branding y Logotipo">Branding & Logo</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Identité Visuelle" data-lang-en="Visual Identity" data-lang-es="Identidad Visual">Identité Visuelle</h4>
+                            <p data-lang-fr="Branding & Logo" data-lang-en="Branding & Logo" data-lang-es="Branding y Logotipo">Branding & Logo</p>
+                        </div>
                     </div>
-                    <!-- DUPLICATION INDISPENSABLE POUR LE DÉFILEMENT INFINI -->
+                    <!-- DUPLICATIONS SÉCURISÉES POUR LE MARQUEE -->
                     <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                         <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info"><h4>Conception Graphique</h4><p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico">Conception Graphique</h4>
+                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p>
+                        </div>
                     </div>
                     <div class="portfolio-card" data-type="image" data-src="image2.jpg">
                         <div class="media-wrapper"><img src="image2.jpg" alt="Design Graphique"></div>
-                        <div class="card-info"><h4>Identité Visuelle</h4><p data-lang-fr="Branding & Logo" data-lang-en="Branding & Logo" data-lang-es="Branding y Logotipo">Branding & Logo</p></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Identité Visuelle" data-lang-en="Visual Identity" data-lang-es="Identidad Visual">Identité Visuelle</h4>
+                            <p data-lang-fr="Branding & Logo" data-lang-en="Branding & Logo" data-lang-es="Branding y Logotipo">Branding & Logo</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -660,7 +690,7 @@
         </div>
     </div>
 
-    <!-- Écran 4 : Testimonials (Avec duplications pour restaurer le défilement) -->
+    <!-- Écran 4 : Testimonials -->
     <div id="testimonials-section" class="section">
         <div class="section-container">
             <h2 class="blue-title" data-lang-fr="CE QUE DISENT NOS CLIENTS" data-lang-en="WHAT OUR CLIENTS SAY" data-lang-es="LO QUE DICEN NUESTROS CLIENTES">CE QUE DISENT NOS CLIENTS</h2>
@@ -668,27 +698,31 @@
                 <div class="marquee-track">
                     <div class="testimonial-card">
                         <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;A rare quality of post-production work. The rhythm of the edit transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span><span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente">Réalisateur Indépendant</span>
+                        <span class="author-name">Lucas Mandji</span>
+                        <span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente">Réalisateur Indépendant</span>
                     </div>
                     <div class="testimonial-card">
                         <p class="testimonial-text" data-lang-fr="&quot;La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute.&quot;" data-lang-en="&quot;The artistic direction for our 3D animations is simply incredible. Very attentive.&quot;" data-lang-es="&quot;La dirección artística de nuestras animaciones 3D es simplemente increíble. Muy atentos.&quot;">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
-                        <span class="author-name">Sarah B.</span><span class="author-role-blue" data-lang-fr="Directrice Marketing" data-lang-en="Marketing Director" data-lang-es="Directora de Marketing">Directrice Marketing</span>
+                        <span class="author-name">Sarah B.</span>
+                        <span class="author-role-blue" data-lang-fr="Directrice Marketing" data-lang-en="Marketing Director" data-lang-es="Directora de Marketing">Directrice Marketing</span>
                     </div>
-                    <!-- DUPLICATION DES CARTES POUR FAIRE TOURNER LE MARQUEE EN BOUCLE -->
+                    <!-- DUPLICATIONS SÉCURISÉES POUR LE MARQUEE -->
                     <div class="testimonial-card">
                         <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;A rare quality of post-production work. The rhythm of the edit transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span><span class="author-role-blue">Réalisateur Indépendant</span>
+                        <span class="author-name">Lucas Mandji</span>
+                        <span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente">Réalisateur Indépendant</span>
                     </div>
                     <div class="testimonial-card">
                         <p class="testimonial-text" data-lang-fr="&quot;La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute.&quot;" data-lang-en="&quot;The artistic direction for our 3D animations is simply incredible. Very attentive.&quot;" data-lang-es="&quot;La dirección artística de nuestras animaciones 3D es simplemente increíble. Muy atentos.&quot;">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
-                        <span class="author-name">Sarah B.</span><span class="author-role-blue">Directrice Marketing</span>
+                        <span class="author-name">Sarah B.</span>
+                        <span class="author-role-blue" data-lang-fr="Directrice Marketing" data-lang-en="Marketing Director" data-lang-es="Directora de Marketing">Directrice Marketing</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Écran 5 : Grille des Tarifs (Restauration des deux colonnes Apple) -->
+    <!-- Écran 5 : Grille des Tarifs -->
     <div id="pricing-section" class="section">
         <div class="section-container">
             <h2 class="blue-title" data-lang-fr="Tarifs" data-lang-en="Pricing" data-lang-es="Precios">Tarifs</h2>
@@ -721,7 +755,7 @@
             <div class="about-content">
                 <p data-lang-fr="<strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible." data-lang-en="<strong>BRK Creative</strong> was born from a raw passion for cinema, image and emotion. Far more than a post-production studio, it is a visual laboratory where each project becomes an experimental playground, a space to push the boundaries of what's possible." data-lang-es="<strong>BRK Creative</strong> nació de una pasión pura por el cine, la imagen y la emoción. Mucho más que un estudio de postproducción, es un laboratorio visual donde cada proyecto se convierte en un campo de experimentación."><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
                 <br>
-                <p data-lang-fr="Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent." data-lang-en="Specialized in editing, post-production and graphic design, BRK Creative shapes strong visual identities and narratives that matter." data-lang-es="Especializado en edición, postproducción y diseño gráfico, BRK Creative da forma a identidades visuales fuertes y narrativas que dejan huella.">Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent.</p>
+                <p data-lang-fr="Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent." data-lang-en="Specialized in editing, post-production and graphic design, BRK Creative shapes strong visual identities and narratives that matter." data-lang-es="Especializado en edición, postproducción y diseño gráfico, BRK Creative da forma a identidades visuales fortes y narrativas que dejan huella.">Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent.</p>
             </div>
 
             <div id="contact-section" style="margin-top: 30px; text-align: center;">
@@ -767,7 +801,7 @@
     </div>
 
     <script>
-        // --- SYSTEME DE TRADUCTION AVANCÉ ---
+        // --- SYSTEME DE TRADUCTION SÉCURISÉ (TEXT-ONLY) ---
         const langSelect = document.getElementById('langSelect');
         let defaultLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'fr';
         
@@ -775,10 +809,19 @@
         if (!supportedLanguages.includes(defaultLang)) { defaultLang = 'fr'; }
 
         function setLanguage(lang) {
+            // Cible tous les éléments contenant des attributs de traduction
             const elements = document.querySelectorAll('[data-lang-fr]');
             elements.forEach(el => {
                 const translatedText = el.getAttribute(`data-lang-${lang}`) || el.getAttribute('data-lang-fr');
-                if (translatedText) { el.innerHTML = translatedText; }
+                if (translatedText) {
+                    // Si l'élément a des balises HTML complexes (comme <strong>), on utilise innerHTML doucement
+                    if (translatedText.includes('<strong') || translatedText.includes('&quot;')) {
+                        el.innerHTML = translatedText;
+                    } else {
+                        // Sinon, on met à jour uniquement le texte pur pour préserver les balises enfants (images, icônes)
+                        el.textContent = translatedText;
+                    }
+                }
             });
             langSelect.value = lang;
             document.documentElement.lang = lang;
