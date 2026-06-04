@@ -13,25 +13,55 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Variables pour gérer facilement les couleurs des modes Sombre / Lumière */
+        :root {
+            --bg-principal: #050b14;
+            --bg-navbar: rgba(5, 11, 20, 0.95);
+            --bg-carte: #0c1524;
+            --bg-tarifs: #081225;
+            --texte-principal: #ffffff;
+            --texte-secondaire: #a0aec0;
+            --texte-muet: #718096;
+            --bleu-accent: #007bff;
+            --bleu-hover: #0056b3;
+            --bordure: rgba(255, 255, 255, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-principal: #f4f7fc;
+            --bg-navbar: rgba(244, 247, 252, 0.95);
+            --bg-carte: #ffffff;
+            --bg-tarifs: #ebf1fa;
+            --texte-principal: #1a202c;
+            --texte-secondaire: #4a5568;
+            --texte-muet: #718096;
+            --bleu-accent: #0066cc;
+            --bleu-hover: #004499;
+            --bordure: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
         body {
-            background-color: #050b14;
-            color: #ffffff;
+            background-color: var(--bg-principal);
+            color: var(--texte-principal);
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR & MENU DES PAYS (CORRECTION WINDOWS/EDGE RÉDUIT) --- */
+        /* --- NAVBAR & SÉLECTEUR DE PAYS / THÈME --- */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
-            background-color: rgba(5, 11, 20, 0.95);
+            background-color: var(--bg-navbar);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--bordure);
         }
 
         .logo {
@@ -40,36 +70,61 @@
             letter-spacing: 1px;
         }
 
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .dropdown-pays-container {
             position: relative;
         }
 
+        /* Bouton Pays & Thème unifié et modifiable graphiquement */
         .dropdown-trigger {
             background: transparent;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--texte-principal);
+            border: 1px solid var(--bleu-accent);
             padding: 8px 16px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Le correctif clé pour éviter le rognage visuel sur Edge réduit */
+        .dropdown-trigger:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--texte-principal);
+        }
+
+        /* Fenêtre des pays adaptative sur Edge réduit */
         .dropdown-menu-pays {
             display: none;
             position: absolute;
             right: 0;
             top: 45px;
-            background-color: #0c1524;
-            border: 1px solid rgba(0, 123, 255, 0.2);
+            background-color: var(--bg-carte);
+            border: 1px solid var(--bleu-accent);
             border-radius: 8px;
             padding: 25px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 40px var(--shadow-color);
             
             width: max-content;
             max-width: 90vw; 
             max-height: 80vh; 
-            overflow-y: auto; /* Déclenche un défilement interne propre si l'écran est petit */
+            overflow-y: auto;
             
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 25px;
@@ -80,7 +135,7 @@
         }
 
         .menu-col h4 {
-            color: #007bff;
+            color: var(--bleu-accent);
             font-size: 0.8rem;
             margin-bottom: 12px;
             letter-spacing: 1px;
@@ -88,24 +143,22 @@
 
         .menu-col a {
             display: block;
-            color: #a0aec0;
+            color: var(--texte-secondaire);
             text-decoration: none;
             font-size: 0.9rem;
             margin-bottom: 8px;
-            transition: color 0.2s;
         }
 
         .menu-col a:hover {
-            color: #ffffff;
+            color: var(--texte-principal);
         }
 
-        /* --- PRÉSENTATION DE L'ENTREPRISE (SHOWCASE DU FOND NOIR) --- */
+        /* --- SECTION À PROPOS --- */
         .presentation-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 80px 10%;
-            background: linear-gradient(135deg, #050b14 40%, #0a192f 100%);
             height: 550px;
             overflow: hidden;
         }
@@ -115,7 +168,7 @@
         }
 
         .presentation-text .subtitle {
-            color: #007bff;
+            color: var(--bleu-accent);
             font-weight: bold;
             letter-spacing: 2px;
             font-size: 0.85rem;
@@ -128,17 +181,17 @@
         }
 
         .presentation-text p {
-            color: #a0aec0;
+            color: var(--texte-secondaire);
             line-height: 1.6;
         }
 
-        /* Scroller vertical asynchrone des photos et projets */
         .presentation-media-scroller {
             width: 40%;
             height: 100%;
             position: relative;
             overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
 
         .media-item {
@@ -146,8 +199,8 @@
             width: 100%;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--bordure);
+            box-shadow: 0 10px 25px var(--shadow-color);
             background-color: #000;
         }
 
@@ -158,12 +211,12 @@
             display: block;
         }
 
-        /* --- TARIFS STYLE CANAL+ (FOND BLEU & CARTE COULEUR PREMIUM) --- */
+        /* --- TARIFS STYLE CANAL+ --- */
         .tarifs-section {
-            background-color: #081225; /* Couleur de base inspirée de l'interface Canal+ */
+            background-color: var(--bg-tarifs);
             padding: 100px 10%;
-            border-top: 1px solid rgba(0, 123, 255, 0.1);
-            border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+            border-top: 1px solid var(--bordure);
+            border-bottom: 1px solid var(--bordure);
         }
 
         .tarifs-header {
@@ -173,12 +226,11 @@
 
         .tarifs-header h2 {
             font-size: 2.2rem;
-            color: #ffffff;
             letter-spacing: 1px;
         }
 
         .tarifs-header p {
-            color: #718096;
+            color: var(--texte-muet);
             margin-top: 10px;
         }
 
@@ -191,8 +243,8 @@
         }
 
         .tarif-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--bg-carte);
+            border: 1px solid var(--bordure);
             border-radius: 12px;
             padding: 45px 35px;
             width: 360px;
@@ -200,14 +252,11 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* L'éclat bleu électrique Canal+ lors de la mise en avant */
         .tarif-card:hover, .tarif-card.active-premium {
-            border-color: #007bff;
-            background: rgba(0, 123, 255, 0.04);
-            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.15);
+            border-color: var(--bleu-accent);
+            box-shadow: 0 20px 40px var(--shadow-color);
             transform: translateY(-8px);
         }
 
@@ -218,7 +267,7 @@
         }
 
         .tarif-desc {
-            color: #a0aec0;
+            color: var(--texte-secondaire);
             font-size: 0.95rem;
             line-height: 1.6;
             flex-grow: 1;
@@ -228,7 +277,7 @@
             position: absolute;
             top: -12px;
             left: 35px;
-            background-color: #007bff;
+            background-color: var(--bleu-accent);
             color: white;
             font-size: 0.75rem;
             font-weight: bold;
@@ -240,7 +289,7 @@
         .btn-canal {
             display: inline-block;
             text-align: center;
-            background-color: #007bff;
+            background-color: var(--bleu-accent);
             color: white;
             padding: 14px;
             text-decoration: none;
@@ -248,18 +297,16 @@
             font-weight: bold;
             margin-top: 35px;
             font-size: 0.95rem;
-            transition: background 0.2s;
         }
 
         .btn-canal:hover {
-            background-color: #0056b3;
+            background-color: var(--bleu-hover);
         }
 
-        /* --- TÉMOIGNAGES (DÉFILEMENT VERTICAL DE BAS EN HAUT) --- */
+        /* --- TÉMOIGNAGES --- */
         .testimonials-section {
             padding: 100px 10%;
             text-align: center;
-            background-color: #050b14;
         }
 
         .testimonials-section h2 {
@@ -276,21 +323,22 @@
             justify-content: space-around;
             align-items: flex-start;
             mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
         }
 
         .testimonial-card {
             position: absolute;
             width: 300px;
-            background: #0c1524;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-carte);
+            border: 1px solid var(--bordure);
             padding: 30px;
             border-radius: 12px;
             text-align: left;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
 
         .testimonial-card .quote {
-            color: #e2e8f0;
+            color: var(--texte-principal);
             font-style: italic;
             line-height: 1.5;
             font-size: 0.95rem;
@@ -298,74 +346,76 @@
         }
 
         .testimonial-card .client-name {
-            color: #007bff;
+            color: var(--bleu-accent);
             font-size: 0.9rem;
             letter-spacing: 1px;
         }
 
         .testimonial-card .client-role {
-            color: #718096;
+            color: var(--texte-muet);
             font-size: 0.8rem;
             display: block;
             margin-top: 4px;
         }
 
-        /* --- LOGIQUE DES SYSTEMES DE DÉFILEMENT (MÉCANISME ASYNCHRONE) --- */
+        /* --- ANIMATIONS DE DÉFILEMENT VERTICAL --- */
         @keyframes scrollUpAnimation {
-            0% {
-                transform: translateY(450px);
-            }
-            100% {
-                transform: translateY(-550px);
-            }
+            0% { transform: translateY(450px); }
+            100% { transform: translateY(-550px); }
         }
 
-        /* Gestion de la vitesse et de la désynchronisation des témoignages */
-        .speed-fast {
-            animation: scrollUpAnimation 14s linear infinite;
-        }
+        .speed-fast { animation: scrollUpAnimation 14s linear infinite; }
+        .speed-medium { animation: scrollUpAnimation 22s linear infinite; animation-delay: 3s; }
+        .speed-slow { animation: scrollUpAnimation 30s linear infinite; animation-delay: 6s; }
 
-        .speed-medium {
-            animation: scrollUpAnimation 22s linear infinite;
-            animation-delay: 3s; 
-        }
-
-        .speed-slow {
-            animation: scrollUpAnimation 30s linear infinite;
-            animation-delay: 6s;
-        }
-
-        /* Application de la vitesse désynchronisée sur la section Showcase de l'entreprise */
         .presentation-media-scroller .media-item.speed-fast { top: 0; animation-duration: 16s; }
         .presentation-media-scroller .media-item.speed-medium { top: 0; animation-duration: 24s; animation-delay: 2s; }
         .presentation-media-scroller .media-item.speed-slow { top: 0; animation-duration: 32s; animation-delay: 5s; }
 
-        /* Écartement fixe sur la grille horizontale pour les colonnes de témoignages */
         .testimonials-container .testimonial-card:nth-child(1) { left: 5%; }
         .testimonials-container .testimonial-card:nth-child(2) { left: 38%; }
         .testimonials-container .testimonial-card:nth-child(3) { left: 70%; }
 
-        /* --- COMPORTEMENT SUR APPAREILS MOBILES (RESPONSIVE) --- */
+        /* --- FOOTER COHÉRENT ET ALIGNÉ --- */
+        .site-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10%;
+            background-color: var(--bg-navbar);
+            border-top: 1px solid var(--bordure);
+            font-size: 0.9rem;
+            color: var(--texte-muet);
+        }
+
+        .footer-legal a {
+            color: var(--texte-muet);
+            text-decoration: none;
+        }
+
+        .footer-legal a:hover {
+            color: var(--bleu-accent);
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 968px) {
             .presentation-section {
                 flex-direction: column;
                 height: auto;
                 padding: 40px 5%;
-                text-align: center;
             }
             .presentation-text, .presentation-media-scroller {
                 width: 100%;
                 margin-bottom: 40px;
             }
-            .presentation-media-scroller {
-                height: 300px;
-            }
+            .presentation-media-scroller { height: 300px; }
             .testimonials-container {
                 height: auto;
                 flex-direction: column;
                 align-items: center;
                 overflow: visible;
                 mask-image: none;
+                -webkit-mask-image: none;
             }
             .testimonials-container .testimonial-card {
                 position: relative;
@@ -373,95 +423,75 @@
                 margin-bottom: 20px;
                 animation: none; 
             }
+            .site-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ==========================================
-       2. RECONSTRUCTION DES SECTIONS HTML
-       ========================================== -->
-
-    <!-- BARRE DE NAVIGATION & CORRECTION DE LA LISTE DES PAYS -->
     <header class="navbar">
         <div class="logo">BRK Creative</div>
-        <nav class="nav-links">
+        <div class="nav-controls">
             <div class="dropdown-pays-container">
-                <button class="dropdown-trigger">FR 🌙</button>
+                <button class="dropdown-trigger" id="country-label">Gabon</button>
                 
                 <div class="dropdown-menu-pays">
                     <div class="menu-col">
                         <h4>AFRIQUE</h4>
-                        <a href="#">Gabon</a>
-                        <a href="#">Côte d'Ivoire</a>
-                        <a href="#">Sénégal</a>
-                        <a href="#">Cameroun</a>
-                        <a href="#">Congo</a>
-                        <a href="#">Algérie</a>
-                        <a href="#">Maroc</a>
-                        <a href="#">Tunisie</a>
+                        <a href="#" onclick="changeCountry('Gabon')">Gabon</a>
+                        <a href="#" onclick="changeCountry('Côte d\'Ivoire')">Côte d'Ivoire</a>
+                        <a href="#" onclick="changeCountry('Sénégal')">Sénégal</a>
+                        <a href="#" onclick="changeCountry('Cameroun')">Cameroun</a>
+                        <a href="#" onclick="changeCountry('Congo')">Congo</a>
                     </div>
                     <div class="menu-col">
                         <h4>AMÉRIQUES</h4>
-                        <a href="#">États-Unis</a>
-                        <a href="#">Canada</a>
-                        <a href="#">Mexique</a>
-                        <a href="#">Colombie</a>
-                        <a href="#">Argentine</a>
-                        <a href="#">Pérou</a>
+                        <a href="#" onclick="changeCountry('États-Unis')">États-Unis</a>
+                        <a href="#" onclick="changeCountry('Canada')">Canada</a>
+                        <a href="#" onclick="changeCountry('Mexique')">Mexique</a>
                     </div>
                     <div class="menu-col">
                         <h4>EUROPE</h4>
-                        <a href="#">France</a>
-                        <a href="#">Belgique</a>
-                        <a href="#">Suisse</a>
-                        <a href="#">Luxembourg</a>
-                        <a href="#">Espagne</a>
-                        <a href="#">Royaume-Uni</a>
+                        <a href="#" onclick="changeCountry('France')">France</a>
+                        <a href="#" onclick="changeCountry('Belgique')">Belgique</a>
+                        <a href="#" onclick="changeCountry('Suisse')">Suisse</a>
                     </div>
                     <div class="menu-col">
                         <h4>ASIE / MOYEN-ORIENT</h4>
-                        <a href="#">Chine Continentale</a>
-                        <a href="#">Taïwan</a>
-                        <a href="#">Hong Kong</a>
-                        <a href="#">Singapour</a>
-                        <a href="#">Émirats Arabes Unis</a>
-                        <a href="#">Arabie Saoudite</a>
-                        <a href="#">Qatar</a>
-                    </div>
-                    <div class="menu-col">
-                        <h4>OCÉANIE</h4>
-                        <a href="#">Australie</a>
+                        <a href="#" onclick="changeCountry('Chine')">Chine</a>
+                        <a href="#" onclick="changeCountry('Singapour')">Singapour</a>
+                        <a href="#" onclick="changeCountry('Qatar')">Qatar</a>
                     </div>
                 </div>
             </div>
-        </nav>
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-icon">🌙</button>
+        </div>
     </header>
 
-    <!-- PRÉSENTATION VALORISANTE DE L'ENTREPRISE (REMPLACE L'ÉCRAN NOIR VIDE) -->
     <section class="presentation-section">
         <div class="presentation-text">
-            <span class="subtitle">QUI SOMMES-NOUS ?</span>
+            <span class="subtitle">À PROPOS</span>
             <h2>Nous transcendons vos idées en masterpieces visuelles</h2>
             <p>BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.</p>
         </div>
         
-        <!-- Galerie de médias animée du bas vers le haut (même logique que les avis) -->
         <div class="presentation-media-scroller">
             <div class="media-item speed-fast">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Concept Art 1">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Showcase 1">
             </div>
             <div class="media-item speed-medium">
-                <!-- Remplacer cette vidéo libre de droit par votre propre production mp4 ultérieurement -->
                 <video autoplay loop muted src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42013-large.mp4"></video>
             </div>
             <div class="media-item speed-slow">
-                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=80" alt="Concept Art 2">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=80" alt="Showcase 2">
             </div>
         </div>
     </section>
 
-    <!-- GRILLE DE TARIFS STYLE PREMIUM CANAL+ AVEC RETOUR DE L'OPTION 2 -->
     <section class="tarifs-section">
         <div class="tarifs-header">
             <h2>TARIFS</h2>
@@ -469,14 +499,12 @@
         </div>
         
         <div class="tarifs-container">
-            <!-- Option 1 -->
             <div class="tarif-card">
                 <h3>OPTION 1 : PROFESSIONNELLE</h3>
                 <p class="tarif-desc">Les tarifs varient selon la complexité et les besoins spécifiques du projet. Contactez notre équipe pour concevoir un devis entièrement sur-mesure.</p>
                 <a href="#" class="btn-canal">Demander un devis</a>
             </div>
 
-            <!-- Option 2 Restaurée avec brio -->
             <div class="tarif-card active-premium">
                 <div class="badge-premium">CONSEILLÉ</div>
                 <h3>OPTION 2 : BUSINESS PREMIUM</h3>
@@ -486,33 +514,57 @@
         </div>
     </section>
 
-    <!-- TÉMOIGNAGES CLIENTS À FILTRAGE VERTICAL ET VITESSES MODULÉES -->
     <section class="testimonials-section">
         <h2>CE QUE DISENT NOS CLIENTS</h2>
         
         <div class="testimonials-container">
-            <!-- Témoignage 1 - Lucas Mandji (Vitesse Rapide) -->
             <div class="testimonial-card speed-fast">
                 <p class="quote">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
                 <h4 class="client-name">LUCAS MANDJI</h4>
                 <span class="client-role">Réalisateur Indépendant</span>
             </div>
 
-            <!-- Témoignage 2 - NDJI (Vitesse Moyenne) -->
             <div class="testimonial-card speed-medium">
-                <p class="quote">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes initiales."</p>
+                <p class="quote">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."</p>
                 <h4 class="client-name">NDJI</h4>
                 <span class="client-role">Producteur Indépendant</span>
             </div>
 
-            <!-- Témoignage 3 - Sophie (Vitesse Modérée) -->
             <div class="testimonial-card speed-slow">
-                <p class="quote">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances de livraison ont été scrupuleusement respectées."</p>
+                <p class="quote">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."</p>
                 <h4 class="client-name">SOPHIE M.</h4>
                 <span class="client-role">Directrice Artistique</span>
             </div>
         </div>
     </section>
 
+    <footer class="site-footer">
+        <div class="footer-copyright">
+            © 2026 BRK Creative. Tous droits réservés.
+        </div>
+        <div class="footer-legal">
+            <a href="#">Mentions Légales</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.documentElement;
+            const currentTheme = body.getAttribute('data-theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (currentTheme === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        function changeCountry(countryName) {
+            document.getElementById('country-label').textContent = countryName;
+        }
+    </script>
 </body>
 </html>
