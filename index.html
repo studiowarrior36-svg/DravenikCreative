@@ -55,6 +55,23 @@
             height: 100%;
         }
 
+        /* Support pour l'écriture de droite à gauche (Arabe) */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        body.rtl .controls-container {
+            right: auto;
+            left: 20px;
+        }
+        body.rtl .pricing-card, body.rtl .testimonial-card, body.rtl .sub-part-title-blue, body.rtl .apple-footer-wrapper {
+            text-align: right;
+        }
+        body.rtl .legal-link {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+
         /* --- BARRE DE CONTRÔLES FIXE (HAUT DROITE) --- */
         .controls-container {
             position: fixed;
@@ -70,17 +87,21 @@
             background-color: var(--card-bg);
             border: 1px solid var(--section-border);
             color: var(--text-main);
-            padding: 0 12px;
+            padding: 0 4px;
+            width: 55px;
             height: 44px;
             border-radius: 22px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             font-weight: 500;
             box-shadow: 0 4px 12px var(--shadow-color);
             outline: none;
             appearance: none;
             -webkit-appearance: none;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .control-btn {
@@ -196,6 +217,10 @@
             animation: scrollLeft 25s linear infinite;
         }
 
+        body.rtl .scroll-track-horizontal {
+            animation: scrollRight 25s linear infinite;
+        }
+
         .scroll-wrapper-horizontal:hover .scroll-track-horizontal {
             animation-play-state: paused;
         }
@@ -203,6 +228,11 @@
         @keyframes scrollLeft {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
         }
 
         .portfolio-card {
@@ -248,6 +278,7 @@
         }
 
         .card-info { padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+        body.rtl .card-info { text-align: right; }
         .card-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
         .card-info p { font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 
@@ -358,7 +389,7 @@
             width: 100%;
         }
 
-        /* --- TEMOIGNAGES --- */
+        /* --- TEMOIGNAGES (MARQUEE INFINI) --- */
         .marquee-container {
             width: 100%;
             overflow: hidden;
@@ -373,6 +404,10 @@
             animation: scrollMarquee 25s linear infinite;
         }
 
+        body.rtl .marquee-track {
+            animation: scrollMarqueeRTL 25s linear infinite;
+        }
+
         .marquee-container:hover .marquee-track {
             animation-play-state: paused;
         }
@@ -380,6 +415,11 @@
         @keyframes scrollMarquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollMarqueeRTL {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
         }
 
         .testimonial-card {
@@ -406,7 +446,7 @@
             text-align: center;
         }
 
-        /* --- FOOTER SÉPARÉ (LOOK APPLE) --- */
+        /* --- FOOTER SÉPARÉ (LOOK APPLE ULTRA-ÉPURÉ SANS INTITULÉ) --- */
         .apple-footer-wrapper {
             margin-top: 50px;
             width: 100%;
@@ -422,13 +462,6 @@
         .footer-left-area {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .footer-country-label {
-            font-size: 0.8rem; 
-            color: var(--text-secondary);
-            font-weight: 400;
         }
 
         .select-country-apple {
@@ -436,10 +469,11 @@
             border: none;
             color: var(--apple-blue);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 500;
             outline: none;
-            padding-right: 5px;
+            padding: 5px 0;
+            font-family: inherit;
         }
         .select-country-apple:hover {
             text-decoration: underline;
@@ -524,12 +558,14 @@
 </head>
 <body>
 
-    <!-- Barre de Contrôles Fixe -->
+    <!-- Barre de Contrôles Fixe (Haut Droite) -->
     <div class="controls-container">
-        <select class="lang-selector" id="langSelect" title="Langues prioritaires">
-            <option value="fr">🇫🇷 FR</option>
-            <option value="en">🇬🇧 EN</option>
-            <option value="es">🇪🇸 ES</option>
+        <select class="lang-selector" id="langSelect" title="Langues">
+            <option value="fr">🇫🇷</option>
+            <option value="en">🇬🇧</option>
+            <option value="es">🇪🇸</option>
+            <option value="ar">🇦🇪</option>
+            <option value="zh">🇨🇳</option>
         </select>
         <button class="control-btn" id="themeSlider" title="Changer de thème">🌙</button>
     </div>
@@ -537,9 +573,24 @@
     <!-- Écran 1 : Hero -->
     <div class="hero">
         <h1>BRK Creative</h1>
-        <div class="brand-sub" data-lang-fr="Une marque de WaveAtlantic" data-lang-en="A brand of WaveAtlantic" data-lang-es="Una marca de WaveAtlantic">Une marque de WaveAtlantic</div>
-        <p data-lang-fr="Créer pour inspirer" data-lang-en="Create to inspire" data-lang-es="Crear para inspirar">Créer pour inspirer</p>
-        <a href="https://beacons.ai/brkcreative" target="_blank" data-lang-fr="Visiter notre Beacons" data-lang-en="Visit our Beacons" data-lang-es="Visita nuestro Beacons" style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px);">
+        <div class="brand-sub" 
+             data-lang-fr="Une marque de WaveAtlantic" 
+             data-lang-en="A brand of WaveAtlantic" 
+             data-lang-es="Una marca de WaveAtlantic"
+             data-lang-ar="علامة تجارية لشركة WaveAtlantic"
+             data-lang-zh="WaveAtlantic 旗下品牌">Une marque de WaveAtlantic</div>
+        <p data-lang-fr="Créer pour inspirer" 
+           data-lang-en="Create to inspire" 
+           data-lang-es="Crear para inspirar"
+           data-lang-ar="ابتكار من أجل الإلهام"
+           data-lang-zh="创造以启发灵感">Créer pour inspirer</p>
+        <a href="https://beacons.ai/brkcreative" target="_blank" 
+           data-lang-fr="Visiter notre Beacons" 
+           data-lang-en="Visit our Beacons" 
+           data-lang-es="Visita nuestro Beacons"
+           data-lang-ar="قم بزيارة Beacons الخاص بنا"
+           data-lang-zh="访问我们的 Beacons"
+           style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px);">
              Visiter notre Beacons
         </a>
     </div>
@@ -547,36 +598,44 @@
     <!-- Écran 2 : Portfolio -->
     <div id="portfolio-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="Créations" data-lang-en="Creations" data-lang-es="Creaciones">Créations</h2>
+            <h2 class="blue-title" data-lang-fr="Créations" data-lang-en="Creations" data-lang-es="Creaciones" data-lang-ar="الإبداعات" data-lang-zh="创意作品">Créations</h2>
             
-            <h3 class="sub-part-title-blue" data-lang-fr="Projets Vidéos" data-lang-en="Video Projects" data-lang-es="Proyectos de Video">Projets Vidéos</h3>
+            <h3 class="sub-part-title-blue" data-lang-fr="Projets Vidéos" data-lang-en="Video Projects" data-lang-es="Proyectos de Video" data-lang-ar="مشاريع الفيديو" data-lang-zh="视频项目">Projets Vidéos</h3>
             <div class="scroll-wrapper-horizontal">
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
                         <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1">Projet Vidéo 1</h4>
-                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p>
+                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1" data-lang-ar="مشروع فيديو 1" data-lang-zh="视频项目 1">Projet Vidéo 1</h4>
+                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición" data-lang-ar="رسوم متحركة ثلاثية الأبعاد / مونتاج" data-lang-zh="3D 动画 / 剪辑">Animation 3D / Montage</p>
                         </div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
                         <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2">Projet Vidéo 2</h4>
-                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p>
+                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2" data-lang-ar="مشروع فيديو 2" data-lang-zh="视频项目 2">Projet Vidéo 2</h4>
+                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento" data-lang-ar="موشن ديزاين" data-lang-zh="动态 tab 设计">Motion Design</p>
+                        </div>
+                    </div>
+                    <!-- Doublons -->
+                    <div class="portfolio-card" data-type="video" data-src="video1.mp4">
+                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
+                        <div class="card-info">
+                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1" data-lang-ar="مشروع فيديو 1" data-lang-zh="视频项目 1">Projet Vidéo 1</h4>
+                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición" data-lang-ar="رسوم متحركة ثلاثية الأبعاد / مونتاج" data-lang-zh="3D 动画 / 剪辑">Animation 3D / Montage</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h3 class="sub-part-title-blue" data-lang-fr="Concept Arts & Designs" data-lang-en="Concept Arts & Designs" data-lang-es="Arte de Concepto y Diseños">Concept Arts & Designs</h3>
+            <h3 class="sub-part-title-blue" data-lang-fr="Concept Arts & Designs" data-lang-en="Concept Arts & Designs" data-lang-es="Arte de Concepto y Diseños" data-lang-ar="الفنون والمفاهيم" data-lang-zh="概念艺术与设计">Concept Arts & Designs</h3>
             <div class="scroll-wrapper-horizontal">
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                         <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
                         <div class="card-info">
-                            <h4 data-lang-fr="Conception Graphic" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico">Conception Graphique</h4>
-                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p>
+                            <h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico" data-lang-ar="التصميم الجرافيكي" data-lang-zh="平面设计">Conception Graphique</h4>
+                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto" data-lang-ar="تصميم الحروف وفن المفاهيم" data-lang-zh="排版与概念艺术">Design Typographique & Concept Art</p>
                         </div>
                     </div>
                 </div>
@@ -590,12 +649,12 @@
             <div class="apple-slider-container">
                 <div class="apple-slider-track">
                     <div class="apple-slide">
-                        <h3 class="slide-title" data-lang-fr="L'art du Montage" data-lang-en="The Art of Editing" data-lang-es="El Arte de la Edición">L'art du Montage</h3>
-                        <p class="slide-text" data-lang-fr="Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
+                        <h3 class="slide-title" data-lang-fr="L'art du Montage" data-lang-en="The Art of Editing" data-lang-es="El Arte de la Edición" data-lang-ar="فن المونتاج" data-lang-zh="剪辑的艺术">L'art du Montage</h3>
+                        <p class="slide-text" data-lang-fr="Un rythme et une fluidité calibrés pour donner de l'impact à vos productions." data-lang-en="A calibrated rhythm and fluidity to bring impact to your productions." data-lang-es="Un ritmo y fluidez calibrados para dar impacto a tus producciones." data-lang-ar="إيقاع وسلاسة مدروسة لإعطاء تأثير قوي لإنتاجاتك." data-lang-zh="精准把控的节奏与流畅度，让您的作品极具冲击力。">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
                     </div>
                     <div class="apple-slide">
-                        <h3 class="slide-title" data-lang-fr="Post-Production de pointe" data-lang-en="Advanced Post-Production" data-lang-es="Postproducción de Vanguardia">Post-Production de pointe</h3>
-                        <p class="slide-text" data-lang-fr="Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.">Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.</p>
+                        <h3 class="slide-title" data-lang-fr="Post-Production de pointe" data-lang-en="Advanced Post-Production" data-lang-es="Postproducción de Vanguardia" data-lang-ar="مرحلة ما بعد الإنتاج المتقدمة" data-lang-zh="顶尖后期制作">Post-Production de pointe</h3>
+                        <p class="slide-text" data-lang-fr="Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images." data-lang-en="VFX compositing, technical masking, and precise color grading to elevate your visuals." data-lang-es="Composición de VFX, enmascaramiento técnico y gradación de color precisa para mejorar tus imágenes." data-lang-ar="مؤثرات بصرية VFX، عزل تقني، وتصحيح ألوان دقيق لإبراز جمال صورك." data-lang-zh="VFX 特效合成、技术性遮罩与精准调色，让画面更臻完美。">Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.</p>
                     </div>
                 </div>
             </div>
@@ -605,13 +664,13 @@
     <!-- Écran 4 : Testimonials -->
     <div id="testimonials-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="CE QUE DISENT NOS CLIENTS" data-lang-en="WHAT OUR CLIENTS SAY" data-lang-es="LO QUE DICEN NUESTROS CLIENTES">CE QUE DISENT NOS CLIENTS</h2>
+            <h2 class="blue-title" data-lang-fr="CE QUE DISENT NOS CLIENTS" data-lang-en="WHAT OUR CLIENTS SAY" data-lang-es="LO QUE DICEN NUESTROS CLIENTES" data-lang-ar="ماذا يقول عملاؤنا" data-lang-zh="客户见证">CE QUE DISENT NOS CLIENTS</h2>
             <div class="marquee-container">
                 <div class="marquee-track">
                     <div class="testimonial-card">
-                        <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
+                        <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;Rare quality post-production work. The pacing of the edit completely transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;" data-lang-ar="&quot;عمل احترافي بجودة نادرة في مرحلة ما بعد الإنتاج. إيقاع المونتاج ارتقى بالمشروع إلى مستوى آخر.&quot;" data-lang-zh="&quot;难得一见的高品质后期制作。剪辑的节奏让我们的项目得到了升华。&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
                         <span class="author-name">Lucas Mandji</span>
-                        <span class="author-role-blue">Réalisateur Indépendant</span>
+                        <span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente" data-lang-ar="مخرج مستقل" data-lang-zh="独立导演">Réalisateur Indépendant</span>
                     </div>
                 </div>
             </div>
@@ -621,24 +680,16 @@
     <!-- Écran 5 : Grille des Tarifs -->
     <div id="pricing-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="Tarifs" data-lang-en="Pricing" data-lang-es="Precios">Tarifs</h2>
-            <p class="intro-text" data-lang-fr="Des solutions nettes et transparentes adaptées à vos ambitions.">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
+            <h2 class="blue-title" data-lang-fr="Tarifs" data-lang-en="Pricing" data-lang-es="Precios" data-lang-ar="الأسعار" data-lang-zh="服务价格">Tarifs</h2>
+            <p class="intro-text" data-lang-fr="Des solutions nettes et transparentes adaptées à vos ambitions." data-lang-en="Clear and transparent solutions tailored to your ambitions." data-lang-es="Soluciones claras y transparentes adaptadas a tus ambiciones." data-lang-ar="حلول واضحة وشفافة مصممة خصيصًا لطموحاتك." data-lang-zh="清晰透明 pressure 的解决方案，助力实现您的雄心壮志。">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div>
-                        <h3 data-lang-fr="Option 1 : Professionnelle (Milieu de gamme)" data-lang-en="Option 1: Professional (Mid-range)" data-lang-es="Opción 1: Profesional (Gama media)">Option 1 : Professionnelle (Milieu de gamme)</h3>
-                        <p class="pricing-description" data-lang-fr="Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.">Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.</p>
+                        <h3 data-lang-fr="Option 1 : Professionnelle" data-lang-en="Option 1: Professional" data-lang-es="Opción 1: Profesional" data-lang-ar="الخيار 1: احترافي" data-lang-zh="方案 1：专业级">Option 1 : Professionnelle</h3>
+                        <p class="pricing-description" data-lang-fr="Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé." data-lang-en="Rates vary according to project complexity and needs. Contact us for a personalized quote." data-lang-es="Las tarifas varían según la complejidad y las necesidades del proyecto. Contáctenos para un presupuesto personalizado." data-lang-ar="تختلف الأسعار حسب تعقيد المشروع واحتياجاته. اتصل بنا للحصول على عرض سعر مخصص." data-lang-zh="价格依项目的复杂程度与具体需求而定。欢迎联系我们获取量身定制的报价。">Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.</p>
                     </div>
-                    <a href="#contact-section" class="cta-button" data-lang-fr="Demander un devis" data-lang-en="Request a quote" data-lang-es="Solicitar presupuesto">Demander un devis</a>
-                </div>
-
-                <div class="pricing-card">
-                    <div>
-                        <h3 data-lang-fr="Option 2 : Premium (Haut de gamme)" data-lang-en="Option 2: Premium (High-end)" data-lang-es="Opción 2: Premium (Gama alta)">Option 2 : Premium (Haut de gamme)</h3>
-                        <p class="pricing-description" data-lang-fr="Chaque création est unique. Les prix sont établis sur mesure selon votre vision et vos exigences.">Chaque création est unique. Les prix sont établis sur mesure selon votre vision et vos exigences.</p>
-                    </div>
-                    <a href="#contact-section" class="cta-button" data-lang-fr="Estimer mon projet" data-lang-en="Estimate my project" data-lang-es="Estimar mi proyecto">Estimer mon projet</a>
+                    <a href="#contact-section" class="cta-button" data-lang-fr="Demander un devis" data-lang-en="Request a quote" data-lang-es="Solicitar presupuesto" data-lang-ar="طلب عرض سعر" data-lang-zh="索取报价">Demander un devis</a>
                 </div>
             </div>
         </div>
@@ -647,27 +698,30 @@
     <!-- Écran 6 : À Propos & Footer Style Apple -->
     <div id="about-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="À Propos" data-lang-en="About" data-lang-es="Sobre Nosotros">À Propos</h2>
+            <h2 class="blue-title" data-lang-fr="À Propos" data-lang-en="About" data-lang-es="Sobre Nosotros" data-lang-ar="حول الاستوديو" data-lang-zh="关于我们">À Propos</h2>
             <div class="about-content">
-                <p data-lang-fr="<strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible."><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
+                <p data-lang-fr="<strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible."
+                   data-lang-en="<strong>BRK Creative</strong> was born from a raw passion for cinema, imagery, and emotion. Much more than a post‑production studio, it is a visual laboratory where every project becomes an experimentation ground, a space to push boundaries."
+                   data-lang-es="<strong>BRK Creative</strong> nació de una pasión pura por el cine, la imagen y la emoción. Más que un estudio de postproducción, es un laboratorio visual donde cada proyecto se convierte en un terreno de experimentación."
+                   data-lang-ar="ولدت <strong>BRK Creative</strong> من شغف خالص بالسينما والصورة والمشاعر. هي أكثر من مجرد استوديو لما بعد الإنتاج، إنها مختبر بصري حيث يصبح كل مشروع حقل تجارب لتجاوز حدود الممكن."
+                   data-lang-zh="<strong>BRK Creative</strong> 源于对电影、画面与情感 la 纯粹热爱。它不仅是一家后期制作 studio，更是一个视觉实验室，让每个项目都成为创新的实验场，不断突破可能的边界。"><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
             </div>
 
             <div id="contact-section" style="margin-top: 30px; text-align: center;">
-                <a href="mailto:studiowarrior36@gmail.com" class="contact-link" data-lang-fr="Collaborer avec nous &gt;" data-lang-en="Work with us &gt;" data-lang-es="Colabora con nosotros &gt;">Collaborer avec nous &gt;</a>
+                <a href="mailto:studiowarrior36@gmail.com" class="contact-link" data-lang-fr="Collaborer avec nous &gt;" data-lang-en="Work with us &gt;" data-lang-es="Colabora con nosotros &gt;" data-lang-ar="تعاون معنا &gt;" data-lang-zh="与我们合作 &gt;">Collaborer avec nous &gt;</a>
             </div>
 
-            <!-- FOOTER ULTRA-PREMIUM (STYLE APPLE AVEC SELECTION DU PAYS EN BAS A GAUCHE) -->
+            <!-- FOOTER STYLE APPLE ULTRA-ÉPURÉ -->
             <div class="apple-footer-wrapper">
                 <div class="footer-left-area">
-                    <span class="footer-country-label" data-lang-fr="Votre Pays :" data-lang-en="Your Country:" data-lang-es="Tu País:">Votre Pays :</span>
                     <select id="globalCountrySelect" class="select-country-apple">
-                        <!-- Les pays du monde sont injectés ici dynamiquement -->
+                        <!-- Rempli en JS par régions -->
                     </select>
                 </div>
                 
                 <div class="footer-right-area">
-                    © 2026 BRK Creative. <span data-lang-fr="Tous droits réservés." data-lang-en="All rights reserved." data-lang-es="Todos los derechos reservados.">Tous droits réservés.</span>
-                    <a class="legal-link" id="openLegal" data-lang-fr="Mentions Légales" data-lang-en="Legal Notices" data-lang-es="Avis Legales">Mentions Légales</a>
+                    © 2026 BRK Creative. <span data-lang-fr="Tous droits réservés." data-lang-en="All rights reserved." data-lang-es="Todos los derechos reservados." data-lang-ar="جميع الحقوق محفوظة." data-lang-zh="保留所有权利。">Tous droits réservés.</span>
+                    <a class="legal-link" id="openLegal" data-lang-fr="Mentions Légales" data-lang-en="Legal Notices" data-lang-es="Avis Legales" data-lang-ar="إشعار قانوني" data-lang-zh="法律声明">Mentions Légales</a>
                 </div>
             </div>
         </div>
@@ -681,12 +735,12 @@
 
     <!-- Cookies -->
     <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-text" data-lang-fr="En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires.">
+        <div class="cookie-text" data-lang-fr="En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires." data-lang-en="By browsing <strong>BRK Creative</strong>, you accept the use of necessary functional cookies." data-lang-es="Al navegar por <strong>BRK Creative</strong>, acepta el uso de cookies funcionales necesarias." data-lang-ar="بتصفحك لموقع <strong>BRK Creative</strong>، فإنك توافق على استخدام ملفات تعريف الارتباط الضرورية." data-lang-zh="浏览 <strong>BRK Creative</strong> 即表示您同意使用必要的运作型 Cookie。">
             En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires.
         </div>
         <div class="cookie-buttons">
-            <button class="cookie-btn-deny" id="cookieDeny" data-lang-fr="Refuser">Refuser</button>
-            <button class="cookie-btn-accept" id="cookieAccept" data-lang-fr="Accepter">Accepter</button>
+            <button class="cookie-btn-deny" id="cookieDeny" data-lang-fr="Refuser" data-lang-en="Refuse" data-lang-es="Rechazar" data-lang-ar="رفض" data-lang-zh="拒绝">Refuser</button>
+            <button class="cookie-btn-accept" id="cookieAccept" data-lang-fr="Accepter" data-lang-en="Accept" data-lang-es="Aceptar" data-lang-ar="قبول" data-lang-zh="接受">Accepter</button>
         </div>
     </div>
 
@@ -698,10 +752,24 @@
     </div>
 
     <script>
-        // --- 1. CONFIGURATION TRADUCTION ---
+        // --- 1. MAPPING DES LANGUES PAR PAYS ---
+        // Liste exhaustive ou ciblée des pays associés à leur langue par défaut
+        const countryLanguageMap = {
+            // Français
+            "GA": "fr", "FR": "fr", "BE": "fr", "CH": "fr", "CA": "fr", "MC": "fr", "LU": "fr", "CI": "fr", "SN": "fr", "CM": "fr", "CG": "fr", "CD": "fr", "BF": "fr", "ML": "fr", "NE": "fr", "TG": "fr", "BJ": "fr", "GN": "fr", "MG": "fr", "TD": "fr", "CF": "fr",
+            // Espagnol
+            "ES": "es", "MX": "es", "AR": "es", "CO": "es", "PE": "es", "VE": "es", "CL": "es", "EC": "es", "GT": "es", "CU": "es", "BO": "es", "DO": "es", "HN": "es", "PY": "es", "SV": "es", "NI": "es", "CR": "es", "PA": "es", "UY": "es",
+            // Arabe
+            "AF": "ar", "DZ": "ar", "BH": "ar", "EG": "ar", "IQ": "ar", "JO": "ar", "KW": "ar", "LB": "ar", "LY": "ar", "MA": "ar", "OM": "ar", "QA": "ar", "SA": "ar", "SD": "ar", "SY": "ar", "TN": "ar", "AE": "ar", "YE": "ar", "SO": "ar", "DJ": "ar", "MR": "ar",
+            // Chinois / Mandarin
+            "CN": "zh", "TW": "zh", "HK": "zh", "MO": "zh", "SG": "zh"
+            // Tout autre pays non listé ici basculera par défaut sur l'anglais ("en")
+        };
+
+        // --- 2. CONFIGURATION TRADUCTION ---
         const langSelect = document.getElementById('langSelect');
         let defaultLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'fr';
-        if (!['fr', 'en', 'es'].includes(defaultLang)) { defaultLang = 'fr'; }
+        if (!['fr', 'en', 'es', 'ar', 'zh'].includes(defaultLang)) { defaultLang = 'fr'; }
 
         function setLanguage(lang, updateCountryDropdown = true) {
             const elements = document.querySelectorAll('[data-lang-fr]');
@@ -719,7 +787,13 @@
             document.documentElement.lang = lang;
             localStorage.setItem('lang', lang);
             
-            // Met à jour la liste des pays selon la langue courante (sans écraser la sélection)
+            // Gestion de l'orientation du texte (RTL pour l'Arabe)
+            if (lang === 'ar') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+            
             if (updateCountryDropdown) {
                 populateGlobalCountries(lang);
             }
@@ -729,58 +803,74 @@
             setLanguage(e.target.value, true); 
         });
 
-        // --- 2. GENERATION DYNAMIQUE ET LOGIQUE AUTOMATIQUE DU SELECT PAYS ---
+        // --- 3. GENERATION REGIONALE DES PAYS (OPTGROUP) ---
         function populateGlobalCountries(currentLang) {
             const countrySelect = document.getElementById('globalCountrySelect');
             const savedSelectedCountry = countrySelect.value;
             countrySelect.innerHTML = '';
 
-            // Liste internationale ISO des pays
-            const countryCodes = ["AF","AX","AL","DZ","AS","AD","AO","AI","AQ","AG","AR","AM","AW","AU","AT","AZ","BS","BH","BD","BB","BY","BE","BZ","BJ","BM","BT","BO","BQ","BA","BW","BV","BR","IO","BN","BG","BF","BI","CV","KH","CM","CA","KY","CF","TD","CL","CN","CX","CC","CO","KM","CD","CG","CK","CR","CI","HR","CU","CW","CY","CZ","DK","DJ","DM","DO","EC","EG","SV","GQ","ER","EE","SZ","ET","FK","FO","FJ","FI","FR","GF","PF","TF","GA","GM","GE","DE","GH","GI","GR","GL","GD","GP","GU","GT","GG","GN","GW","GY","HT","HM","VA","HN","HK","HU","IS","IN","ID","IR","IQ","IE","IM","IL","IT","JM","JP","JE","JO","KZ","KE","KI","KP","KR","KW","KG","LA","LV","LB","LS","LR","LY","LI","LT","LU","MO","MG","MW","MY","MV","ML","MT","MH","MQ","MR","MU","YT","MX","FM","MD","MC","MN","ME","MS","MA","MZ","MM","NA","NR","NP","NL","NC","NZ","NI","NE","NG","NU","NF","MP","NO","OM","PK","PW","PS","PA","PG","PY","PE","PH","PN","PL","PT","PR","QA","RE","RO","RU","RW","BL","SH","KN","LC","MF","PM","VC","WS","SM","ST","SA","SN","RS","SC","SL","SG","SX","SK","SI","SB","SO","ZA","GS","SS","ES","LK","SD","SR","SJ","SE","CH","SY","TW","TJ","TZ","TH","TL","TG","TK","TO","TT","TN","TR","TM","TC","TV","UG","UA","AE","GB","UM","US","UY","UZ","VU","VE","VN","VG","VI","WF","EH","YE","ZM","ZW"];
+            const regions = {
+                africa: {
+                    label: { fr: "Afrique", en: "Africa", es: "África", ar: "أفريقيا", zh: "非洲" },
+                    codes: ["GA", "DZ", "AO", "BJ", "BW", "BF", "BI", "CV", "CM", "CF", "TD", "KM", "CG", "CD", "CI", "DJ", "EG", "GQ", "ER", "SZ", "ET", "GM", "GH", "GN", "GW", "KE", "LS", "LR", "LY", "MG", "MW", "ML", "MR", "MU", "YT", "MA", "MZ", "NA", "NE", "NG", "RE", "RW", "ST", "SN", "SC", "SL", "SO", "ZA", "SS", "SD", "TZ", "TG", "TN", "UG", "EH", "ZM", "ZW"]
+                },
+                america: {
+                    label: { fr: "Amérique", en: "America", es: "América", ar: "أمريكا", zh: "美洲" },
+                    codes: ["AI", "AG", "AR", "AW", "BS", "BB", "BZ", "BM", "BO", "BQ", "BR", "CA", "KY", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "SV", "FK", "GF", "GL", "GD", "GP", "GT", "GY", "HT", "HN", "JM", "MQ", "MX", "MS", "NI", "PA", "PY", "PE", "PR", "BL", "KN", "LC", "MF", "PM", "VC", "SX", "SR", "TT", "TC", "US", "UY", "VE", "VG", "VI"]
+                },
+                europe: {
+                    label: { fr: "Europe", en: "Europe", es: "Europa", ar: "أوروبا", zh: "欧洲" },
+                    codes: ["AX", "AL", "AD", "AT", "BY", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "EE", "FO", "FI", "FR", "DE", "GI", "GR", "GG", "HU", "IS", "IE", "IM", "IT", "JE", "LV", "LI", "LT", "LU", "MT", "MD", "MC", "ME", "NL", "MK", "NO", "PL", "PT", "RO", "RU", "SM", "RS", "SK", "SI", "ES", "SJ", "SE", "CH", "UA", "GB", "VA"]
+                },
+                asia: {
+                    label: { fr: "Asie", en: "Asia", es: "Asia", ar: "آسيا", zh: "亚洲" },
+                    codes: ["AF", "AM", "AZ", "BH", "BD", "BT", "BN", "KH", "CN", "CX", "CC", "GE", "HK", "IN", "ID", "IR", "IQ", "IL", "JP", "JO", "KZ", "KP", "KR", "KW", "KG", "LA", "LB", "MO", "MY", "MV", "MN", "MM", "NP", "OM", "PK", "PS", "PH", "QA", "SA", "SG", "LK", "SY", "TW", "TJ", "TH", "TL", "TR", "TM", "AE", "UZ", "VN", "YE"]
+                },
+                oceania: {
+                    label: { fr: "Océanie", en: "Oceania", es: "Oceanía", ar: "أوقيانوسيا", zh: "大洋洲" },
+                    codes: ["AS", "AQ", "AU", "BV", "IO", "CK", "FJ", "PF", "TF", "GU", "HM", "KI", "MH", "FM", "NR", "NC", "NZ", "NU", "NF", "MP", "PW", "PG", "PN", "WS", "TO", "TV", "UM", "VU", "WF"]
+                }
+            };
             
             const countryNames = new Intl.DisplayNames([currentLang], { type: 'region' });
 
-            let countriesArr = countryCodes.map(code => {
-                try { return { code: code, name: countryNames.of(code) }; } catch(e) { return null; }
-            }).filter(item => item !== null);
-            
-            countriesArr.sort((a, b) => a.name.localeCompare(b.name));
-            
-            countriesArr.forEach(c => {
-                let opt = document.createElement('option');
-                opt.value = c.code;
-                opt.textContent = c.name;
+            for (const key in regions) {
+                const region = regions[key];
+                let optGroup = document.createElement('optgroup');
+                optGroup.label = region.label[currentLang] || region.label['fr'];
+
+                let regionalCountries = region.codes.map(code => {
+                    try { return { code: code, name: countryNames.of(code) }; } catch(e) { return null; }
+                }).filter(item => item !== null);
                 
-                if (savedSelectedCountry) {
-                    if (c.code === savedSelectedCountry) opt.selected = true;
-                } else if (c.code === "GA") { // Par défaut sur le Gabon
-                    opt.selected = true;
-                }
-                countrySelect.appendChild(opt);
-            });
+                regionalCountries.sort((a, b) => a.name.localeCompare(b.name));
+                
+                regionalCountries.forEach(c => {
+                    let opt = document.createElement('option');
+                    opt.value = c.code;
+                    opt.textContent = c.name;
+                    
+                    if (savedSelectedCountry) {
+                        if (c.code === savedSelectedCountry) opt.selected = true;
+                    } else if (c.code === "GA") { 
+                        opt.selected = true; // Gabon par défaut
+                    }
+                    optGroup.appendChild(opt);
+                });
+                countrySelect.appendChild(optGroup);
+            }
         }
 
-        // MAPPING AUTOMATIQUE PAYS -> LANGUE
+        // --- 4. EVENEMENT DE CHANGEMENT DE PAYS (BASCILE AUTOMATIQUE DE LANGUE) ---
         document.getElementById('globalCountrySelect').addEventListener('change', (e) => {
             const countryCode = e.target.value;
-            let targetLang = 'en'; // Langue par défaut si non listée (ex: Russie -> EN)
+            // Si le pays est mappé, on prend sa langue, sinon par défaut on applique l'anglais ("en")
+            let targetLang = countryLanguageMap[countryCode] || 'en'; 
 
-            // Liste des pays qui forcent le Français (FR)
-            const frenchCountries = ["GA", "FR", "BE", "CH", "CA", "MC", "LU", "CI", "SN", "CM", "CG", "CD", "BF", "ML", "NE", "TG", "BJ", "GN", "MG", "TD", "CF"];
-            // Liste des pays qui forcent l'Espagnol (ES)
-            const spanishCountries = ["ES", "MX", "AR", "CO", "PE", "VE", "CL", "EC", "GT", "CU", "BO", "DO", "HN", "PY", "SV", "NI", "CR", "PA", "UY"];
-
-            if (frenchCountries.includes(countryCode)) {
-                targetLang = 'fr';
-            } else if (spanishCountries.includes(countryCode)) {
-                targetLang = 'es';
-            }
-
-            // Met à jour la langue du site instantanément sans recréer le menu déroulant pour garder le focus
             setLanguage(targetLang, false);
         });
 
-        // --- 3. GESTION DU THÈME ---
+        // --- 5. GESTION DU THÈME ---
         const themeSlider = document.getElementById('themeSlider');
         themeSlider.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
@@ -795,7 +885,7 @@
             }
         });
 
-        // --- 4. LIGHTBOX ---
+        // --- 6. LIGHTBOX & MODALES ---
         const lightbox = document.getElementById('lightboxView');
         const lightboxClose = document.getElementById('lightboxClose');
         const mediaContainer = document.getElementById('lightboxMediaContainer');
@@ -831,7 +921,7 @@
         lightboxClose.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 
-        // --- 5. COOKIES ---
+        // --- 7. INITIALISATION INITIALE ---
         const cookieBanner = document.getElementById('cookieBanner');
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(defaultLang, true);
