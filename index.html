@@ -4,588 +4,515 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRK Creative</title>
-    
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-
     <style>
-        /* --- VARIABLES DE COULEURS (Mix Canal+ & Apple) --- */
-        :root {
-            --bg-color: #000000;
-            --text-main: #ffffff;
-            --text-secondary: #86868b;
-            --section-border: #1c1c1e;
-            --card-bg: #111111; 
-            --shadow-color: rgba(0, 0, 0, 0.8);
-            --apple-blue: #0071e3;
-        }
-
-        [data-theme="light"] {
-            --bg-color: #ffffff;
-            --text-main: #000000;
-            --text-secondary: #6e6e73;
-            --section-border: #d2d2d7;
-            --card-bg: #f5f5f7;
-            --shadow-color: rgba(0, 0, 0, 0.05);
-            --apple-blue: #0071e3;
-        }
-
-        /* --- RESET & SCROLL SNAPPING --- */
+        /* ==========================================
+           1. CODE CSS (STYLE GÉNÉRAL & RESET)
+           ========================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.5;
+            background-color: #050b14;
+            color: #ffffff;
             overflow-x: hidden;
+        }
+
+        /* --- NAVBAR & MENU DES PAYS (CORRECTION WINDOWS/EDGE RÉDUIT) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(5, 11, 20, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .dropdown-pays-container {
+            position: relative;
+        }
+
+        .dropdown-trigger {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Le correctif clé pour éviter le rognage visuel sur Edge réduit */
+        .dropdown-menu-pays {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            background-color: #0c1524;
+            border: 1px solid rgba(0, 123, 255, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            
+            width: max-content;
+            max-width: 90vw; 
+            max-height: 80vh; 
+            overflow-y: auto; /* Déclenche un défilement interne propre si l'écran est petit */
+            
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+        }
+
+        .dropdown-pays-container:hover .dropdown-menu-pays {
+            display: grid;
+        }
+
+        .menu-col h4 {
+            color: #007bff;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .menu-col a {
+            display: block;
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .menu-col a:hover {
+            color: #ffffff;
+        }
+
+        /* --- PRÉSENTATION DE L'ENTREPRISE (SHOWCASE DU FOND NOIR) --- */
+        .presentation-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 10%;
+            background: linear-gradient(135deg, #050b14 40%, #0a192f 100%);
+            height: 550px;
+            overflow: hidden;
+        }
+
+        .presentation-text {
+            width: 50%;
+        }
+
+        .presentation-text .subtitle {
+            color: #007bff;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+        }
+
+        .presentation-text h2 {
+            font-size: 2.5rem;
+            margin: 15px 0;
+            line-height: 1.2;
+        }
+
+        .presentation-text p {
+            color: #a0aec0;
+            line-height: 1.6;
+        }
+
+        /* Scroller vertical asynchrone des photos et projets */
+        .presentation-media-scroller {
+            width: 40%;
             height: 100%;
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
 
-        /* Support pour l'écriture de droite à gauche (Arabe) */
-        body.rtl { direction: rtl; text-align: right; }
-        body.rtl .controls-container { right: auto; left: 20px; }
-        body.rtl .pricing-card, body.rtl .testimonial-card, body.rtl .sub-part-title-blue, body.rtl .apple-footer-wrapper, body.rtl .country-menu { text-align: right; }
-        body.rtl .legal-link { margin-left: 0; margin-right: 15px; }
-
-        /* --- BARRE DE CONTRÔLES FIXE (HAUT DROITE) --- */
-        .controls-container {
-            position: fixed; top: 20px; right: 20px;
-            display: flex; align-items: center; gap: 12px; z-index: 1000;
+        .media-item {
+            position: absolute;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-color: #000;
         }
 
-        .lang-selector {
-            background-color: var(--card-bg); border: 1px solid var(--section-border); color: var(--text-main);
-            padding: 0 4px; width: 55px; height: 44px; border-radius: 22px; cursor: pointer;
-            font-size: 1.2rem; font-weight: 500; box-shadow: 0 4px 12px var(--shadow-color);
-            outline: none; appearance: none; -webkit-appearance: none; text-align: center;
-            display: flex; align-items: center; justify-content: center;
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
         }
 
-        .control-btn {
-            background-color: var(--card-bg); border: 1px solid var(--section-border); color: var(--text-main);
-            width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.1rem;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px var(--shadow-color); outline: none;
+        /* --- TARIFS STYLE CANAL+ (FOND BLEU & CARTE COULEUR PREMIUM) --- */
+        .tarifs-section {
+            background-color: #081225; /* Couleur de base inspirée de l'interface Canal+ */
+            padding: 100px 10%;
+            border-top: 1px solid rgba(0, 123, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 123, 255, 0.1);
         }
 
-        /* --- SQUELETTE DES SECTIONS --- */
-        .hero, .section {
-            scroll-snap-align: start; scroll-snap-stop: always; min-height: 100vh; width: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 40px 20px; border-top: 1px solid var(--section-border); overflow: hidden;
-        }
-        .hero { border-top: none; }
-
-        .section-container { width: 100%; max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
-
-        /* --- HERO & TITRES --- */
-        .hero h1 { font-size: 4rem; font-weight: 700; letter-spacing: -0.015em; color: var(--text-main); margin-bottom: 2px; }
-        .hero .brand-sub { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 15px; }
-        .hero p { font-size: 1.6rem; font-weight: 400; color: var(--text-main); margin-bottom: 25px; }
-
-        .blue-title { color: var(--apple-blue) !important; font-size: 2.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; text-align: center; }
-        .sub-part-title-blue { color: var(--apple-blue); font-size: 1.3rem; font-weight: 600; text-transform: uppercase; margin: 15px 0 10px 0; text-align: left; letter-spacing: 0.03em; padding-left: 10px; }
-        .intro-text { color: var(--text-secondary); margin-bottom: 25px; text-align: center; }
-
-        /* --- PORTFOLIO HORIZONTAL (MARQUEE INFINI) --- */
-        .scroll-wrapper-horizontal { width: 100%; overflow: hidden; position: relative; padding: 10px 0; display: flex; }
-        .scroll-track-horizontal { display: flex; width: max-content; gap: 20px; padding-left: 10px; animation: scrollLeft 25s linear infinite; }
-        body.rtl .scroll-track-horizontal { animation: scrollRight 25s linear infinite; }
-        .scroll-wrapper-horizontal:hover .scroll-track-horizontal { animation-play-state: paused; }
-
-        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes scrollRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
-
-        .portfolio-card {
-            background-color: var(--card-bg); border: 1px solid var(--section-border); overflow: hidden;
-            cursor: pointer; display: flex; flex-direction: row; height: 115px; width: 390px; flex-shrink: 0;
-        }
-        .portfolio-card:hover { border-color: var(--apple-blue); }
-        .media-wrapper { position: relative; width: 160px; height: 100%; background-color: #111; flex-shrink: 0; }
-        .media-wrapper img, .media-wrapper .video-thumb-placeholder { width: 100%; height: 100%; object-fit: cover; }
-        .video-play-icon {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.8); border: 1px solid #fff; color: white; width: 34px; height: 34px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
-        }
-        .card-info { padding: 12px; text-align: left; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-        body.rtl .card-info { text-align: right; }
-        .card-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-        .card-info p { font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
-
-        /* --- SLIDER VERTICAL STYLE APPLE --- */
-        .apple-slider-container { width: 100%; height: 250px; overflow: hidden; position: relative; }
-        .apple-slider-track { display: flex; flex-direction: column; height: max-content; animation: moveAppleSlides 14s cubic-bezier(0.85, 0, 0.15, 1) infinite; }
-        .apple-slide { height: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
-        .slide-title { color: var(--apple-blue); font-size: 2rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.02em; }
-        .slide-text { color: var(--text-main); font-size: 1.3rem; max-width: 750px; font-weight: 300; line-height: 1.6; }
-
-        @keyframes moveAppleSlides {
-            0%, 20% { transform: translateY(0); }
-            25%, 45% { transform: translateY(-250px); }
-            50%, 70% { transform: translateY(-500px); }
-            75%, 95% { transform: translateY(-750px); }
-            100% { transform: translateY(-1000px); }
+        .tarifs-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
 
-        /* --- TARIFS --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px; width: 100%; }
-        .pricing-card { background-color: var(--card-bg); border: 1px solid var(--section-border); padding: 30px 20px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; min-height: 340px; }
-        .pricing-card:hover { transform: scale(1.04); border: 2px solid var(--apple-blue); box-shadow: 0 10px 30px rgba(0, 113, 227, 0.2); }
-        .pricing-card h3 { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 15px; color: var(--text-main); }
-        .pricing-description { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px; }
-        .cta-button { display: inline-block; text-decoration: none; background-color: var(--apple-blue); color: #ffffff; padding: 12px 20px; font-size: 0.85rem; font-weight: 500; border-radius: 24px; cursor: pointer; border: none; text-align: center; width: 100%; }
-
-        /* --- TEMOIGNAGES (MARQUEE INFINI) --- */
-        .marquee-container { width: 100%; overflow: hidden; padding: 15px 0; position: relative; display: flex; }
-        .marquee-track { display: flex; width: max-content; animation: scrollMarquee 25s linear infinite; }
-        body.rtl .marquee-track { animation: scrollMarqueeRTL 25s linear infinite; }
-        .marquee-container:hover .marquee-track { animation-play-state: paused; }
-
-        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes scrollMarqueeRTL { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
-
-        .testimonial-card { background-color: var(--card-bg); border: 1px solid var(--section-border); padding: 25px; text-align: left; width: 340px; margin-right: 25px; flex-shrink: 0; }
-        .testimonial-text { font-style: italic; margin-bottom: 15px; font-size: 0.95rem; }
-        .author-name { font-weight: 600; display: block; font-size: 0.95rem; text-transform: uppercase; }
-        .author-role-blue { font-size: 0.85rem; color: var(--apple-blue); font-weight: 500; }
-
-        /* --- À PROPOS --- */
-        .about-content { max-width: 750px; margin: 0 auto; font-size: 1.1rem; line-height: 1.7; color: var(--text-main); text-align: center; }
-
-        /* --- SÉLECTEUR DE PAYS (STYLE APPLE FLOTTANT) --- */
-        .country-selector { position: relative; margin-top: 40px; text-align: center; width: 100%; border-top: 1px solid var(--section-border); padding-top: 20px; }
-        .trigger { cursor: pointer; color: var(--text-secondary); font-size: 0.9rem; transition: color 0.3s; padding: 10px; display: inline-flex; align-items: center; gap: 5px; }
-        .trigger:hover { color: var(--apple-blue); }
-        
-        .country-menu { 
-            display: none; position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); 
-            background: var(--card-bg); border: 1px solid var(--section-border); padding: 25px; width: 90%; max-width: 600px;
-            border-radius: 12px; box-shadow: 0 20px 40px var(--shadow-color); z-index: 100; text-align: left;
+        .tarifs-header h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
-        .country-menu.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; }
-        .cat h4 { color: var(--apple-blue); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--section-border); padding-bottom: 5px;}
-        .country-item { display: block; color: var(--text-main); font-size: 0.85rem; padding: 5px 0; cursor: pointer; }
-        .country-item:hover { text-decoration: underline; color: var(--apple-blue); }
 
-        /* --- FOOTER STANDARD --- */
-        .apple-footer-wrapper {
-            margin-top: 15px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: center; text-align: left;
+        .tarifs-header p {
+            color: #718096;
+            margin-top: 10px;
         }
-        .footer-left-area, .footer-right-area { font-size: 0.8rem; color: var(--text-secondary); }
-        .legal-link { color: var(--text-secondary); text-decoration: none; font-size: 0.8rem; margin-left: 15px; cursor: pointer; }
-        .legal-link:hover { color: var(--apple-blue); text-decoration: underline; }
 
-        /* --- LIGHTBOX & MODALE --- */
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.95); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; }
-        .lightbox.active { display: flex; opacity: 1; }
-        .lightbox-content { max-width: 85vw; max-height: 80vh; width: auto; height: auto; object-fit: contain; }
-        .lightbox-close { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 2100; }
+        .tarifs-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
 
-        .legal-modal-card { background-color: var(--card-bg); border: 1px solid var(--section-border); width: 90%; max-width: 700px; max-height: 80vh; padding: 35px; overflow-y: auto; text-align: left; color: var(--text-main); border-radius: 12px; }
-        .legal-modal-card h2 { color: var(--apple-blue); font-size: 1.6rem; margin-bottom: 20px; text-transform: uppercase; border-bottom: 2px solid var(--apple-blue); padding-bottom: 10px; }
-        .legal-modal-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+        .tarif-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 45px 35px;
+            width: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        /* --- BANDEAU COOKIES --- */
-        .cookie-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150%); width: 90%; max-width: 480px; background-color: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px); border: 1px solid var(--section-border); padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px var(--shadow-color); z-index: 3000; display: flex; flex-direction: column; gap: 15px; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .cookie-banner.show { transform: translateX(-50%) translateY(0); }
-        .cookie-buttons { display: flex; gap: 10px; }
-        .cookie-btn-accept { background-color: var(--apple-blue); color: white; border: none; padding: 10px 16px; font-size: 0.8rem; font-weight: 600; border-radius: 20px; cursor: pointer; flex: 1; }
-        .cookie-btn-deny { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--section-border); padding: 10px 16px; font-size: 0.8rem; font-weight: 500; border-radius: 20px; cursor: pointer; }
+        /* L'éclat bleu électrique Canal+ lors de la mise en avant */
+        .tarif-card:hover, .tarif-card.active-premium {
+            border-color: #007bff;
+            background: rgba(0, 123, 255, 0.04);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.15);
+            transform: translateY(-8px);
+        }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .blue-title { font-size: 1.7rem; }
-            .portfolio-card { width: 310px; height: 105px; }
-            .pricing-grid { grid-template-columns: 1fr; gap: 15px; }
-            .apple-footer-wrapper { flex-direction: column; gap: 15px; align-items: flex-start; text-align: left; }
+        .tarif-card h3 {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .tarif-desc {
+            color: #a0aec0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: -12px;
+            left: 35px;
+            background-color: #007bff;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 14px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        .btn-canal {
+            display: inline-block;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 14px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 35px;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .btn-canal:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- TÉMOIGNAGES (DÉFILEMENT VERTICAL DE BAS EN HAUT) --- */
+        .testimonials-section {
+            padding: 100px 10%;
+            text-align: center;
+            background-color: #050b14;
+        }
+
+        .testimonials-section h2 {
+            font-size: 2rem;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        .testimonials-container {
+            position: relative;
+            height: 450px; 
+            overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+
+        .testimonial-card {
+            position: absolute;
+            width: 300px;
+            background: #0c1524;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .testimonial-card .quote {
+            color: #e2e8f0;
+            font-style: italic;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card .client-name {
+            color: #007bff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .testimonial-card .client-role {
+            color: #718096;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* --- LOGIQUE DES SYSTEMES DE DÉFILEMENT (MÉCANISME ASYNCHRONE) --- */
+        @keyframes scrollUpAnimation {
+            0% {
+                transform: translateY(450px);
+            }
+            100% {
+                transform: translateY(-550px);
+            }
+        }
+
+        /* Gestion de la vitesse et de la désynchronisation des témoignages */
+        .speed-fast {
+            animation: scrollUpAnimation 14s linear infinite;
+        }
+
+        .speed-medium {
+            animation: scrollUpAnimation 22s linear infinite;
+            animation-delay: 3s; 
+        }
+
+        .speed-slow {
+            animation: scrollUpAnimation 30s linear infinite;
+            animation-delay: 6s;
+        }
+
+        /* Application de la vitesse désynchronisée sur la section Showcase de l'entreprise */
+        .presentation-media-scroller .media-item.speed-fast { top: 0; animation-duration: 16s; }
+        .presentation-media-scroller .media-item.speed-medium { top: 0; animation-duration: 24s; animation-delay: 2s; }
+        .presentation-media-scroller .media-item.speed-slow { top: 0; animation-duration: 32s; animation-delay: 5s; }
+
+        /* Écartement fixe sur la grille horizontale pour les colonnes de témoignages */
+        .testimonials-container .testimonial-card:nth-child(1) { left: 5%; }
+        .testimonials-container .testimonial-card:nth-child(2) { left: 38%; }
+        .testimonials-container .testimonial-card:nth-child(3) { left: 70%; }
+
+        /* --- COMPORTEMENT SUR APPAREILS MOBILES (RESPONSIVE) --- */
+        @media (max-width: 968px) {
+            .presentation-section {
+                flex-direction: column;
+                height: auto;
+                padding: 40px 5%;
+                text-align: center;
+            }
+            .presentation-text, .presentation-media-scroller {
+                width: 100%;
+                margin-bottom: 40px;
+            }
+            .presentation-media-scroller {
+                height: 300px;
+            }
+            .testimonials-container {
+                height: auto;
+                flex-direction: column;
+                align-items: center;
+                overflow: visible;
+                mask-image: none;
+            }
+            .testimonials-container .testimonial-card {
+                position: relative;
+                left: unset !important;
+                margin-bottom: 20px;
+                animation: none; 
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="controls-container">
-        <select class="lang-selector" id="langSelect" title="Langues">
-            <option value="fr">🇫🇷</option>
-            <option value="en">🇬🇧</option>
-            <option value="es">🇪🇸</option>
-            <option value="ar">🇦🇪</option>
-            <option value="zh">🇨🇳</option>
-        </select>
-        <button class="control-btn" id="themeSlider" title="Changer de thème">🌙</button>
-    </div>
+    <!-- ==========================================
+       2. RECONSTRUCTION DES SECTIONS HTML
+       ========================================== -->
 
-    <div class="hero">
-        <h1>BRK Creative</h1>
-        <div class="brand-sub" 
-             data-lang-fr="Une marque de WaveAtlantic" 
-             data-lang-en="A brand of WaveAtlantic" 
-             data-lang-es="Una marca de WaveAtlantic"
-             data-lang-ar="علامة تجارية لشركة WaveAtlantic"
-             data-lang-zh="WaveAtlantic 旗下品牌">Une marque de WaveAtlantic</div>
-        <p data-lang-fr="Créer pour inspirer" 
-           data-lang-en="Create to inspire" 
-           data-lang-es="Crear para inspirar"
-           data-lang-ar="ابتكار من أجل الإلهام"
-           data-lang-zh="创造以启发灵感">Créer pour inspirer</p>
-        <a href="https://beacons.ai/brkcreative" target="_blank" 
-           data-lang-fr="Visiter notre Beacons" 
-           data-lang-en="Visit our Beacons" 
-           data-lang-es="Visita nuestro Beacons"
-           data-lang-ar="قم بزيارة Beacons الخاص بنا"
-           data-lang-zh="访问我们的 Beacons"
-           style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px);">
-             Visiter notre Beacons
-        </a>
-    </div>
-
-    <div id="portfolio-section" class="section">
-        <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="Créations" data-lang-en="Creations" data-lang-es="Creaciones" data-lang-ar="الإبداعات" data-lang-zh="创意作品">Créations</h2>
-            
-            <h3 class="sub-part-title-blue" data-lang-fr="Projets Vidéos" data-lang-en="Video Projects" data-lang-es="Proyectos de Video" data-lang-ar="مشاريع الفيديو" data-lang-zh="视频项目">Projets Vidéos</h3>
-            <div class="scroll-wrapper-horizontal">
-                <div class="scroll-track-horizontal">
-                    <div class="portfolio-card" data-type="video" data-src="video1.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1" data-lang-ar="مشروع فيديو 1" data-lang-zh="视频项目 1">Projet Vidéo 1</h4>
-                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición" data-lang-ar="رسوم متحركة ثلاثية الأبعاد / مونتاج" data-lang-zh="3D 动画 / 剪辑">Animation 3D / Montage</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-card" data-type="video" data-src="video2.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2" data-lang-ar="مشروع فيديو 2" data-lang-zh="视频项目 2">Projet Vidéo 2</h4>
-                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento" data-lang-ar="موشن ديزاين" data-lang-zh="动态设计">Motion Design</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-card" data-type="video" data-src="video1.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1" data-lang-ar="مشروع فيديو 1" data-lang-zh="视频项目 1">Projet Vidéo 1</h4>
-                            <p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición" data-lang-ar="رسوم متحركة ثلاثية الأبعاد / مونتاج" data-lang-zh="3D 动画 / 剪辑">Animation 3D / Montage</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-card" data-type="video" data-src="video2.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2" data-lang-ar="مشروع فيديو 2" data-lang-zh="视频项目 2">Projet Vidéo 2</h4>
-                            <p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento" data-lang-ar="موشن ديزاين" data-lang-zh="动态设计">Motion Design</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="sub-part-title-blue" data-lang-fr="Concept Arts & Designs" data-lang-en="Concept Arts & Designs" data-lang-es="Arte de Concepto y Diseños" data-lang-ar="الفنون والمفاهيم" data-lang-zh="概念艺术与设计">Concept Arts & Designs</h3>
-            <div class="scroll-wrapper-horizontal">
-                <div class="scroll-track-horizontal">
-                    <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
-                        <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico" data-lang-ar="التصميم الجرافيكي" data-lang-zh="平面设计">Conception Graphique</h4>
-                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto" data-lang-ar="تصميم الحروف وفن المفاهيم" data-lang-zh="排版与概念艺术">Design Typographique & Concept Art</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
-                        <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info">
-                            <h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico" data-lang-ar="التصميم الجرافيكي" data-lang-zh="平面设计">Conception Graphique</h4>
-                            <p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto" data-lang-ar="تصميم الحروف وفن المفاهيم" data-lang-zh="排版与概念艺术">Design Typographique & Concept Art</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-container">
-            <div class="apple-slider-container">
-                <div class="apple-slider-track">
-                    <div class="apple-slide">
-                        <h3 class="slide-title" data-lang-fr="L'art du Montage" data-lang-en="The Art of Editing" data-lang-es="El Arte de la Edición" data-lang-ar="فن المونتاج" data-lang-zh="剪辑的艺术">L'art du Montage</h3>
-                        <p class="slide-text" data-lang-fr="Un rythme et une fluidité calibrés pour donner de l'impact à vos productions." data-lang-en="A calibrated rhythm and fluidity to bring impact to your productions." data-lang-es="Un ritmo y fluidez calibrados para dar impacto a tus producciones." data-lang-ar="إيقاع وسلاسة مدروسة لإعطاء تأثير قوي لإنتاجاتك." data-lang-zh="精准把控的节奏与流畅度，让您的作品极具冲击力。">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
-                    </div>
-                    <div class="apple-slide">
-                        <h3 class="slide-title" data-lang-fr="Post-Production de pointe" data-lang-en="Advanced Post-Production" data-lang-es="Postproducción de Vanguardia" data-lang-ar="مرحلة ما بعد الإنتاج المتقدمة" data-lang-zh="顶尖后期制作">Post-Production de pointe</h3>
-                        <p class="slide-text" data-lang-fr="Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images." data-lang-en="VFX compositing, technical masking, and precise color grading to elevate your visuals." data-lang-es="Composición de VFX, enmascaramiento técnico y gradación de color precisa para mejorar tus imágenes." data-lang-ar="مؤثرات بصرية VFX، عزل تقني، وتصحيح ألوان دقيق لإبراز جمال صورك." data-lang-zh="VFX 特效合成、技术性遮罩与精准调色，让画面更臻完美。">Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="testimonials-section" class="section">
-        <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="CE QUE DISENT NOS CLIENTS" data-lang-en="WHAT OUR CLIENTS SAY" data-lang-es="LO QUE DICEN NUESTROS CLIENTES" data-lang-ar="ماذا يقول عملاؤنا" data-lang-zh="客户见证">CE QUE DISENT NOS CLIENTS</h2>
-            <div class="marquee-container">
-                <div class="marquee-track">
-                    <div class="testimonial-card">
-                        <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;Rare quality post-production work. The pacing of the edit completely transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;" data-lang-ar="&quot;عمل احترافي بجودة نادرة في مرحلة ما بعد الإنتاج. إيقاع المونتاج ارتقى بالمشروع إلى مستوى آخر.&quot;" data-lang-zh="&quot;难得一见的高品质后期制作。剪辑的节奏让我们的项目得到了升华。&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span>
-                        <span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente" data-lang-ar="مخرج مستقل" data-lang-zh="独立导演">Réalisateur Indépendant</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;Rare quality post-production work. The pacing of the edit completely transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;" data-lang-ar="&quot;عمل احترافي بجودة نادرة في مرحلة ما بعد الإنتاج. إيقاع المونتاج ارتقى بالمشروع إلى مستوى آخر.&quot;" data-lang-zh="&quot;难得一见的高品质后期制作。剪辑的节奏让我们的项目得到了升华。&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span>
-                        <span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente" data-lang-ar="مخرج مستقل" data-lang-zh="独立导演">Réalisateur Indépendant</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="pricing-section" class="section">
-        <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="Tarifs" data-lang-en="Pricing" data-lang-es="Precios" data-lang-ar="الأسعار" data-lang-zh="服务价格">Tarifs</h2>
-            <p class="intro-text" data-lang-fr="Des solutions nettes et transparentes adaptées à vos ambitions." data-lang-en="Clear and transparent solutions tailored to your ambitions." data-lang-es="Soluciones claras y transparentes adaptadas a tus ambiciones." data-lang-ar="حلول واضحة وشفافة مصممة خصيصًا لطموحاتك." data-lang-zh="清晰透明的解决方案，助力实现您的雄心壮志。">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div>
-                        <h3 data-lang-fr="Option 1 : Professionnelle" data-lang-en="Option 1: Professional" data-lang-es="Opción 1: Profesional" data-lang-ar="الخيار 1: احترافي" data-lang-zh="方案 1：专业级">Option 1 : Professionnelle</h3>
-                        <p class="pricing-description" data-lang-fr="Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé." data-lang-en="Rates vary according to project complexity and needs. Contact us for a personalized quote." data-lang-es="Las tarifas varían según la complejidad y las necesidades del proyecto. Contáctenos para un presupuesto personalizado." data-lang-ar="تختلف الأسعار حسب تعقيد المشروع واحتياجاته. اتصل بنا للحصول على عرض سعر مخصص." data-lang-zh="价格依项目的复杂程度与具体需求而定。欢迎联系我们获取量身定制的报价。">Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.</p>
-                    </div>
-                    <a href="#contact-section" class="cta-button" data-lang-fr="Demander un devis" data-lang-en="Request a quote" data-lang-es="Solicitar presupuesto" data-lang-ar="طلب عرض سعر" data-lang-zh="索取报价">Demander un devis</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="about-section" class="section">
-        <div class="section-container">
-            <h2 class="blue-title" data-lang-fr="À Propos" data-lang-en="About" data-lang-es="Sobre Nosotros" data-lang-ar="حول الاستوديو" data-lang-zh="关于我们">À Propos</h2>
-            <div class="about-content">
-                <p data-lang-fr="<strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible."
-                   data-lang-en="<strong>BRK Creative</strong> was born from a raw passion for cinema, imagery, and emotion. Much more than a post‑production studio, it is a visual laboratory where every project becomes an experimentation ground, a space to push boundaries."
-                   data-lang-es="<strong>BRK Creative</strong> nació de una pasión pura por el cine, la imagen y la emoción. Más que un estudio de postproducción, es un laboratorio visual donde cada proyecto se convierte en un terreno de experimentación."
-                   data-lang-ar="ولدت <strong>BRK Creative</strong> من شغف خالص بالسينما والصورة والمشاعر. هي أكثر من مجرد استوديو لما بعد الإنتاج، إنها مختبر بصري حيث يصبح كل مشروع حقل تجارب لتجاوز حدود الممكن."
-                   data-lang-zh="<strong>BRK Creative</strong> 源于对电影、画面与情感的纯粹热爱。它不仅是一家后期制作 studio，更是一个视觉实验室，让每个项目都成为创新的实验场，不断突破可能的边界。"><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
-            </div>
-
-            <div class="country-selector">
-                <div class="trigger" onclick="toggleMenu(event)">
-                    <span id="displayCountry">Gabon</span> ▾
-                </div>
-                <div class="country-menu" id="countryMenu">
-                    </div>
-
-                <div class="apple-footer-wrapper">
-                    <div class="footer-left-area">
-                        © 2026 BRK Creative. <span data-lang-fr="Tous droits réservés." data-lang-en="All rights reserved." data-lang-es="Todos los derechos reservados." data-lang-ar="جميع الحقوق محفوظة." data-lang-zh="保留所有权利。">Tous droits réservés.</span>
-                    </div>
-                    <div class="footer-right-area">
-                        <a class="legal-link" id="openLegal" data-lang-fr="Mentions Légales" data-lang-en="Legal Notices" data-lang-es="Avis Legales" data-lang-ar="إشعار قانوني" data-lang-zh="法律声明">Mentions Légales</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="lightbox" id="lightboxView">
-        <span class="lightbox-close" id="lightboxClose">&times;</span>
-        <div id="lightboxMediaContainer"></div>
-    </div>
-
-    <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-text" data-lang-fr="En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires." data-lang-en="By browsing <strong>BRK Creative</strong>, you accept the use of necessary functional cookies." data-lang-es="Al navegar por <strong>BRK Creative</strong>, acepta el uso de cookies funcionales necesarias." data-lang-ar="بتصفحك لموقع <strong>BRK Creative</strong>، فإنك توافق على استخدام ملفات تعريف الارتباط الضرورية." data-lang-zh="浏览 <strong>BRK Creative</strong> 即表示您同意使用必要的运作型 Cookie。">
-            En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires.
-        </div>
-        <div class="cookie-buttons">
-            <button class="cookie-btn-deny" id="cookieDeny" data-lang-fr="Refuser" data-lang-en="Refuse" data-lang-es="Rechazar" data-lang-ar="رفض" data-lang-zh="拒绝">Refuser</button>
-            <button class="cookie-btn-accept" id="cookieAccept" data-lang-fr="Accepter" data-lang-en="Accept" data-lang-es="Aceptar" data-lang-ar="قبول" data-lang-zh="接受">Accepter</button>
-        </div>
-    </div>
-
-    <div id="legalTemplate" style="display: none;">
-        <div class="legal-modal-card">
-            <h2>Mentions Légales</h2>
-            <p><strong>BRK Creative</strong><br>Libreville, Gabon<br>Email : studiowarrior36@gmail.com</p>
-        </div>
-    </div>
-
-    <script>
-        // --- 1. MAPPING DES LANGUES PAR PAYS ---
-        const countryLanguageMap = {
-            "GA": "fr", "FR": "fr", "BE": "fr", "CH": "fr", "CA": "fr", "LU": "fr", "CI": "fr", "SN": "fr", "CM": "fr", "CG": "fr",
-            "ES": "es", "MX": "es", "AR": "es", "CO": "es", "PE": "es", "VE": "es", "CL": "es",
-            "AE": "ar", "SA": "ar", "EG": "ar", "MA": "ar", "DZ": "ar", "TN": "ar", "QA": "ar",
-            "CN": "zh", "TW": "zh", "HK": "zh", "SG": "zh",
-            "US": "en", "GB": "en", "CA_EN": "en", "AU": "en"
-        };
-
-        // --- 2. CONFIGURATION TRADUCTION & THÈME ---
-        const langSelect = document.getElementById('langSelect');
-        let defaultLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'fr';
-        if (!['fr', 'en', 'es', 'ar', 'zh'].includes(defaultLang)) { defaultLang = 'fr'; }
-
-        let currentSelectedCountryCode = localStorage.getItem('selectedCountry') || "GA";
-
-        function setLanguage(lang, updateTableVisuals = true) {
-            const elements = document.querySelectorAll('[data-lang-fr]');
-            elements.forEach(el => {
-                const translatedText = el.getAttribute(`data-lang-${lang}`) || el.getAttribute('data-lang-fr');
-                if (translatedText) {
-                    if (translatedText.includes('<strong') || translatedText.includes('&quot;')) {
-                        el.innerHTML = translatedText;
-                    } else {
-                        el.textContent = translatedText;
-                    }
-                }
-            });
-            langSelect.value = lang;
-            document.documentElement.lang = lang;
-            localStorage.setItem('lang', lang);
-            
-            if (lang === 'ar') document.body.classList.add('rtl');
-            else document.body.classList.remove('rtl');
-            
-            if (updateTableVisuals) renderCountryTable(lang);
-        }
-
-        langSelect.addEventListener('change', (e) => { setLanguage(e.target.value, true); });
-
-        const themeSlider = document.getElementById('themeSlider');
-        themeSlider.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'light') {
-                document.documentElement.removeAttribute('data-theme');
-                themeSlider.textContent = "🌙";
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                themeSlider.textContent = "☀️";
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-        // --- 3. POPUP DE PAYS DYNAMIQUE (STYLE APPLE) ---
-        function toggleMenu(event) {
-            event.stopPropagation();
-            document.getElementById('countryMenu').classList.toggle('active');
-        }
-
-        window.onclick = function() {
-            const menu = document.getElementById('countryMenu');
-            if(menu) menu.classList.remove('active');
-        }
-
-        function pick(name, code) {
-            document.getElementById('displayCountry').innerText = name;
-            document.getElementById('countryMenu').classList.remove('active');
-            localStorage.setItem('selectedCountry', code);
-            
-            let targetLang = countryLanguageMap[code] || 'en';
-            setLanguage(targetLang, true);
-        }
-
-        function renderCountryTable(currentLang) {
-            const menuContainer = document.getElementById('countryMenu');
-            menuContainer.innerHTML = '';
-
-            const categories = {
-                africa: { label: { fr: "Afrique", en: "Africa", es: "África", ar: "أفريقيا", zh: "非洲" }, list: [{code:"GA", name:"Gabon"}, {code:"CI", name:"Côte d'Ivoire"}, {code:"SN", name:"Sénégal"}, {code:"CM", name:"Cameroun"}, {code:"CG", name:"Congo"}, {code:"DZ", name:"Algérie"}, {code:"MA", name:"Maroc"}, {code:"TN", name:"Tunisie"}] },
-                america: { label: { fr: "Amériques", en: "Americas", es: "Américas", ar: "الأمريكتان", zh: "美洲" }, list: [{code:"US", name:"United States"}, {code:"CA", name:"Canada"}, {code:"MX", name:"México"}, {code:"CO", name:"Colombia"}, {code:"AR", name:"Argentina"}, {code:"PE", name:"Perú"}] },
-                europe: { label: { fr: "Europe", en: "Europe", es: "Europa", ar: "أوروبا", zh: "欧洲" }, list: [{code:"FR", name:"France"}, {code:"BE", name:"Belgique"}, {code:"CH", name:"Suisse"}, {code:"LU", name:"Luxembourg"}, {code:"ES", name:"España"}, {code:"GB", name:"United Kingdom"}] },
-                asia: { label: { fr: "Asie / Moyen-Orient", en: "Asia / Middle East", es: "Asia / Oriente Medio", ar: "آسيا / الشرق الأوسط", zh: "亚洲 / 中东" }, list: [{code:"CN", name:"中国大陆"}, {code:"TW", name:"台灣"}, {code:"HK", name:"香港"}, {code:"SG", name:"Singapore"}, {code:"AE", name:"الإمارات"}, {code:"SA", name:"السعودية"}, {code:"QA", name:"قطر"}] },
-                oceania: { label: { fr: "Océanie", en: "Oceania", es: "Oceanía", ar: "أوقيانوسيا", zh: "大洋洲" }, list: [{code:"AU", name:"Australia"}] }
-            };
-
-            const countryNamesLocalizer = new Intl.DisplayNames([currentLang], { type: 'region' });
-
-            for (const key in categories) {
-                const cat = categories[key];
+    <!-- BARRE DE NAVIGATION & CORRECTION DE LA LISTE DES PAYS -->
+    <header class="navbar">
+        <div class="logo">BRK Creative</div>
+        <nav class="nav-links">
+            <div class="dropdown-pays-container">
+                <button class="dropdown-trigger">FR 🌙</button>
                 
-                const catDiv = document.createElement('div');
-                catDiv.classList.add('cat');
+                <div class="dropdown-menu-pays">
+                    <div class="menu-col">
+                        <h4>AFRIQUE</h4>
+                        <a href="#">Gabon</a>
+                        <a href="#">Côte d'Ivoire</a>
+                        <a href="#">Sénégal</a>
+                        <a href="#">Cameroun</a>
+                        <a href="#">Congo</a>
+                        <a href="#">Algérie</a>
+                        <a href="#">Maroc</a>
+                        <a href="#">Tunisie</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>AMÉRIQUES</h4>
+                        <a href="#">États-Unis</a>
+                        <a href="#">Canada</a>
+                        <a href="#">Mexique</a>
+                        <a href="#">Colombie</a>
+                        <a href="#">Argentine</a>
+                        <a href="#">Pérou</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>EUROPE</h4>
+                        <a href="#">France</a>
+                        <a href="#">Belgique</a>
+                        <a href="#">Suisse</a>
+                        <a href="#">Luxembourg</a>
+                        <a href="#">Espagne</a>
+                        <a href="#">Royaume-Uni</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>ASIE / MOYEN-ORIENT</h4>
+                        <a href="#">Chine Continentale</a>
+                        <a href="#">Taïwan</a>
+                        <a href="#">Hong Kong</a>
+                        <a href="#">Singapour</a>
+                        <a href="#">Émirats Arabes Unis</a>
+                        <a href="#">Arabie Saoudite</a>
+                        <a href="#">Qatar</a>
+                    </div>
+                    <div class="menu-col">
+                        <h4>OCÉANIE</h4>
+                        <a href="#">Australie</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-                const title = document.createElement('h4');
-                title.textContent = cat.label[currentLang] || cat.label['fr'];
-                catDiv.appendChild(title);
+    <!-- PRÉSENTATION VALORISANTE DE L'ENTREPRISE (REMPLACE L'ÉCRAN NOIR VIDE) -->
+    <section class="presentation-section">
+        <div class="presentation-text">
+            <span class="subtitle">QUI SOMMES-NOUS ?</span>
+            <h2>Nous transcendons vos idées en masterpieces visuelles</h2>
+            <p>BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.</p>
+        </div>
+        
+        <!-- Galerie de médias animée du bas vers le haut (même logique que les avis) -->
+        <div class="presentation-media-scroller">
+            <div class="media-item speed-fast">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" alt="Concept Art 1">
+            </div>
+            <div class="media-item speed-medium">
+                <!-- Remplacer cette vidéo libre de droit par votre propre production mp4 ultérieurement -->
+                <video autoplay loop muted src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42013-large.mp4"></video>
+            </div>
+            <div class="media-item speed-slow">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=400&q=80" alt="Concept Art 2">
+            </div>
+        </div>
+    </section>
 
-                cat.list.forEach(c => {
-                    const item = document.createElement('span');
-                    item.classList.add('country-item');
-                    
-                    let displayName = c.name;
-                    try {
-                        if (currentLang !== 'zh' && currentLang !== 'ar' && ["US","MX","CO","AR","PE","VE","FR","BE","CH","LU","ES","GB","AU","GA","CI","SN","CM","CG"].includes(c.code)) {
-                            displayName = countryNamesLocalizer.of(c.code);
-                        }
-                    } catch(e){}
+    <!-- GRILLE DE TARIFS STYLE PREMIUM CANAL+ AVEC RETOUR DE L'OPTION 2 -->
+    <section class="tarifs-section">
+        <div class="tarifs-header">
+            <h2>TARIFS</h2>
+            <p>Des solutions nettes et transparentes adaptées à vos ambitions.</p>
+        </div>
+        
+        <div class="tarifs-container">
+            <!-- Option 1 -->
+            <div class="tarif-card">
+                <h3>OPTION 1 : PROFESSIONNELLE</h3>
+                <p class="tarif-desc">Les tarifs varient selon la complexité et les besoins spécifiques du projet. Contactez notre équipe pour concevoir un devis entièrement sur-mesure.</p>
+                <a href="#" class="btn-canal">Demander un devis</a>
+            </div>
 
-                    item.textContent = displayName;
-                    if (c.code === currentSelectedCountryCode) {
-                        item.style.color = "var(--apple-blue)";
-                        item.style.textDecoration = "underline";
-                        document.getElementById('displayCountry').innerText = displayName;
-                    }
+            <!-- Option 2 Restaurée avec brio -->
+            <div class="tarif-card active-premium">
+                <div class="badge-premium">CONSEILLÉ</div>
+                <h3>OPTION 2 : BUSINESS PREMIUM</h3>
+                <p class="tarif-desc">Prise en charge complète, déploiement d'identité visuelle intégrale, animations graphiques avancées, et livrables prioritaires avec suivi personnalisé.</p>
+                <a href="#" class="btn-canal">Demander un devis</a>
+            </div>
+        </div>
+    </section>
 
-                    item.onclick = (e) => {
-                        e.stopPropagation();
-                        pick(displayName, c.code);
-                    };
+    <!-- TÉMOIGNAGES CLIENTS À FILTRAGE VERTICAL ET VITESSES MODULÉES -->
+    <section class="testimonials-section">
+        <h2>CE QUE DISENT NOS CLIENTS</h2>
+        
+        <div class="testimonials-container">
+            <!-- Témoignage 1 - Lucas Mandji (Vitesse Rapide) -->
+            <div class="testimonial-card speed-fast">
+                <p class="quote">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
+                <h4 class="client-name">LUCAS MANDJI</h4>
+                <span class="client-role">Réalisateur Indépendant</span>
+            </div>
 
-                    catDiv.appendChild(item);
-                });
+            <!-- Témoignage 2 - NDJI (Vitesse Moyenne) -->
+            <div class="testimonial-card speed-medium">
+                <p class="quote">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes initiales."</p>
+                <h4 class="client-name">NDJI</h4>
+                <span class="client-role">Producteur Indépendant</span>
+            </div>
 
-                menuContainer.appendChild(catDiv);
-            }
-        }
+            <!-- Témoignage 3 - Sophie (Vitesse Modérée) -->
+            <div class="testimonial-card speed-slow">
+                <p class="quote">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances de livraison ont été scrupuleusement respectées."</p>
+                <h4 class="client-name">SOPHIE M.</h4>
+                <span class="client-role">Directrice Artistique</span>
+            </div>
+        </div>
+    </section>
 
-        // --- 4. LIGHTBOX & MODALES ---
-        const lightbox = document.getElementById('lightboxView');
-        const lightboxClose = document.getElementById('lightboxClose');
-        const mediaContainer = document.getElementById('lightboxMediaContainer');
-        const cards = document.querySelectorAll('.portfolio-card');
-        const openLegal = document.getElementById('openLegal');
-        const legalTemplate = document.getElementById('legalTemplate');
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const type = card.getAttribute('data-type');
-                const src = card.getAttribute('data-src');
-                mediaContainer.innerHTML = '';
-
-                if (type === 'image') {
-                    const img = document.createElement('img');
-                    img.src = src; img.classList.add('lightbox-content'); mediaContainer.appendChild(img);
-                } else if (type === 'video') {
-                    const video = document.createElement('video');
-                    video.src = src; video.controls = true; video.autoplay = true; video.classList.add('lightbox-content'); mediaContainer.appendChild(video);
-                }
-                lightbox.classList.add('active');
-            });
-        });
-
-        openLegal.addEventListener('click', () => { mediaContainer.innerHTML = legalTemplate.innerHTML; lightbox.classList.add('active'); });
-        function closeLightbox() { lightbox.classList.remove('active'); mediaContainer.innerHTML = ''; }
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-
-        // --- 5. INITIALISATION ---
-        const cookieBanner = document.getElementById('cookieBanner');
-        window.addEventListener('DOMContentLoaded', () => {
-            setLanguage(defaultLang, true);
-            if (!localStorage.getItem('brk_cookies_accepted')) {
-                setTimeout(() => { cookieBanner.classList.add('show'); }, 1200);
-            }
-        });
-        document.getElementById('cookieAccept').addEventListener('click', () => { localStorage.setItem('brk_cookies_accepted', 'true'); cookieBanner.classList.remove('show'); });
-        document.getElementById('cookieDeny').addEventListener('click', () => { localStorage.setItem('brk_cookies_accepted', 'false'); cookieBanner.classList.remove('show'); });
-    </script>
 </body>
 </html>
