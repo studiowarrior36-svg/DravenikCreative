@@ -50,11 +50,36 @@
             height: 100%;
         }
 
-        /* --- BOUTON THÈME --- */
-        .theme-toggle-btn {
+        /* --- BARRE DE CONTRÔLES FIXE (THÈME & LANGUES) --- */
+        .controls-container {
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        /* Menu de sélection des langues épuré */
+        .lang-selector {
+            background-color: var(--card-bg);
+            border: 1px solid var(--section-border);
+            color: var(--text-main);
+            padding: 0 12px;
+            height: 44px;
+            border-radius: 22px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            outline: none;
+            appearance: none; /* Masque la flèche par défaut sur certains navigateurs */
+            -webkit-appearance: none;
+            text-align: center;
+        }
+
+        .control-btn {
             background-color: var(--card-bg);
             border: 1px solid var(--section-border);
             color: var(--text-main);
@@ -62,9 +87,8 @@
             height: 44px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex; align-items: center; justify-content: center;
-            z-index: 1000;
             box-shadow: 0 4px 12px var(--shadow-color);
             outline: none;
         }
@@ -152,7 +176,7 @@
             text-align: center;
         }
 
-        /* --- PORTFOLIO HORIZONTAL (DROITE VERS GAUCHE) --- */
+        /* --- PORTFOLIO HORIZONTAL --- */
         .scroll-wrapper-horizontal {
             width: 100%;
             overflow: hidden;
@@ -224,7 +248,7 @@
         .card-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
         .card-info p { font-size: 0.8rem; color: var(--text-secondary); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 
-        /* --- SLIDER VERTICAL COMPORTEMENT INTERACTIF (STYLE APPLE) --- */
+        /* --- SLIDER VERTICAL INTERACTIF --- */
         .apple-slider-container {
             width: 100%;
             height: 250px;
@@ -408,7 +432,7 @@
             text-decoration: underline;
         }
 
-        /* --- LIGHTBOX & MODALE POLITIQUES LÉGALES --- */
+        /* --- LIGHTBOX & MODALE --- */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -453,7 +477,7 @@
         }
         .contact-link:hover { text-decoration: underline; }
 
-        /* --- BANDEAU COOKIES DESIGN --- */
+        /* --- BANDEAU COOKIES --- */
         .cookie-banner {
             position: fixed;
             bottom: 20px;
@@ -531,14 +555,32 @@
 </head>
 <body>
 
-    <button class="theme-toggle-btn" id="themeSlider">🌙</button>
+    <!-- Zone de Contrôles Fixe (Langues Multiples + Thème) -->
+    <div class="controls-container">
+        <!-- Ajoute ou supprime des langues directement ici via les <option> -->
+        <select class="lang-selector" id="langSelect" title="Choisir la langue / Choose language">
+            <option value="fr">🇫🇷 FR</option>
+            <option value="en">🇬🇧 EN</option>
+            <option value="es">🇪🇸 ES</option>
+        </select>
+        <button class="control-btn" id="themeSlider" title="Changer de thème">🌙</button>
+    </div>
 
-    <!-- Écran 1 : Hero + Label WaveAtlantic + Bouton Beacons -->
+    <!-- Écran 1 : Hero -->
     <div class="hero">
         <h1>BRK Creative</h1>
-        <div class="brand-sub">Une marque de WaveAtlantic</div>
-        <p>Créer pour inspirer</p>
-        <a href="https://beacons.ai/brkcreative" target="_blank" style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <div class="brand-sub" 
+             data-lang-fr="Une marque de WaveAtlantic" 
+             data-lang-en="A brand of WaveAtlantic"
+             data-lang-es="Una marca de WaveAtlantic">Une marque de WaveAtlantic</div>
+        <p data-lang-fr="Créer pour inspirer" 
+           data-lang-en="Create to inspire"
+           data-lang-es="Crear para inspirar">Créer pour inspirer</p>
+        <a href="https://beacons.ai/brkcreative" target="_blank" 
+           data-lang-fr="Visiter notre Beacons" 
+           data-lang-en="Visit our Beacons"
+           data-lang-es="Visita nuestro Beacons" 
+           style="display:inline-block; padding:12px 24px; background:#ffffff10; border:1px solid #ffffff30; border-radius:8px; color:var(--text-main); text-decoration:none; font-weight:600; backdrop-filter:blur(6px); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
              Visiter notre Beacons
         </a>
     </div>
@@ -546,135 +588,76 @@
     <!-- Écran 2 : Portfolio -->
     <div id="portfolio-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title">Créations</h2>
+            <h2 class="blue-title" data-lang-fr="Créations" data-lang-en="Creations" data-lang-es="Creaciones">Créations</h2>
             
             <!-- Vidéos -->
-            <h3 class="sub-part-title-blue">Projets Vidéos</h3>
+            <h3 class="sub-part-title-blue" data-lang-fr="Projets Vidéos" data-lang-en="Video Projects" data-lang-es="Proyectos de Video">Projets Vidéos</h3>
             <div class="scroll-wrapper-horizontal">
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 1</h4><p>Animation 3D / Montage</p></div>
+                        <div class="card-info"><h4 data-lang-fr="Projet Vidéo 1" data-lang-en="Video Project 1" data-lang-es="Proyecto de Video 1">Projet Vidéo 1</h4><p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p></div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 2</h4><p>Motion Design</p></div>
+                        <div class="card-info"><h4 data-lang-fr="Projet Vidéo 2" data-lang-en="Video Project 2" data-lang-es="Proyecto de Video 2">Projet Vidéo 2</h4><p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p></div>
                     </div>
-                    <div class="portfolio-card" data-type="video" data-src="video3.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 3</h4><p>VFX & Compositing</p></div>
-                    </div>
-                    <!-- Duplication -->
+                    <!-- Duplication pour défilement infini -->
                     <div class="portfolio-card" data-type="video" data-src="video1.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 1</h4><p>Animation 3D / Montage</p></div>
+                        <div class="card-info"><h4>Projet Vidéo 1</h4><p data-lang-fr="Animation 3D / Montage" data-lang-en="3D Animation / Editing" data-lang-es="Animación 3D / Edición">Animation 3D / Montage</p></div>
                     </div>
                     <div class="portfolio-card" data-type="video" data-src="video2.mp4">
                         <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 2</h4><p>Motion Design</p></div>
-                    </div>
-                    <div class="portfolio-card" data-type="video" data-src="video3.mp4">
-                        <div class="media-wrapper"><div class="video-thumb-placeholder" style="background: #222;"></div><div class="video-play-icon">▶</div></div>
-                        <div class="card-info"><h4>Projet Vidéo 3</h4><p>VFX & Compositing</p></div>
+                        <div class="card-info"><h4>Projet Vidéo 2</h4><p data-lang-fr="Motion Design" data-lang-en="Motion Design" data-lang-es="Diseño de Movimiento">Motion Design</p></div>
                     </div>
                 </div>
             </div>
 
             <!-- Images -->
-            <h3 class="sub-part-title-blue">Concept Arts & Designs</h3>
+            <h3 class="sub-part-title-blue" data-lang-fr="Concept Arts & Designs" data-lang-en="Concept Arts & Designs" data-lang-es="Arte de Concepto y Diseños">Concept Arts & Designs</h3>
             <div class="scroll-wrapper-horizontal">
                 <div class="scroll-track-horizontal">
                     <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
                         <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info"><h4>Conception Graphique</h4><p>Design Typographique & Concept Art</p></div>
+                        <div class="card-info"><h4 data-lang-fr="Conception Graphique" data-lang-en="Graphic Design" data-lang-es="Diseño Gráfico">Conception Graphique</h4><p data-lang-fr="Design Typographique & Concept Art" data-lang-en="Typography & Concept Art" data-lang-es="Diseño Tipográfico y Arte de Concepto">Design Typographique & Concept Art</p></div>
                     </div>
                     <div class="portfolio-card" data-type="image" data-src="image2.jpg">
                         <div class="media-wrapper"><img src="image2.jpg" alt="Design Graphique"></div>
-                        <div class="card-info"><h4>Identité Visuelle</h4><p>Branding & Logo</p></div>
-                    </div>
-                    <div class="portfolio-card" data-type="image" data-src="image3.jpg">
-                        <div class="media-wrapper"><img src="image3.jpg" alt="Moodboard"></div>
-                        <div class="card-info"><h4>Concept Art</h4><p>Digital Art</p></div>
-                    </div>
-                    <!-- Duplication -->
-                    <div class="portfolio-card" data-type="image" data-src="Phrase 2.png">
-                        <div class="media-wrapper"><img src="Phrase 2.png" alt="Conception Graphique"></div>
-                        <div class="card-info"><h4>Conception Graphique</h4><p>Design Typographique & Concept Art</p></div>
-                    </div>
-                    <div class="portfolio-card" data-type="image" data-src="image2.jpg">
-                        <div class="media-wrapper"><img src="image2.jpg" alt="Design Graphique"></div>
-                        <div class="card-info"><h4>Identité Visuelle</h4><p>Branding & Logo</p></div>
-                    </div>
-                    <div class="portfolio-card" data-type="image" data-src="image3.jpg">
-                        <div class="media-wrapper"><img src="image3.jpg" alt="Moodboard"></div>
-                        <div class="card-info"><h4>Concept Art</h4><p>Digital Art</p></div>
+                        <div class="card-info"><h4 data-lang-fr="Identité Visuelle" data-lang-en="Visual Identity" data-lang-es="Identidad Visual">Identité Visuelle</h4><p data-lang-fr="Branding & Logo" data-lang-en="Branding & Logo" data-lang-es="Branding y Logotipo">Branding & Logo</p></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Écran 3 : Slider Autonome Vertical Style Apple -->
+    <!-- Écran 3 : Slider Vertical Style Apple -->
     <div class="section">
         <div class="section-container">
             <div class="apple-slider-container">
                 <div class="apple-slider-track">
                     <div class="apple-slide">
-                        <h3 class="slide-title">L'art du Montage</h3>
-                        <p class="slide-text">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
+                        <h3 class="slide-title" data-lang-fr="L'art du Montage" data-lang-en="The Art of Editing" data-lang-es="El Arte de la Edición">L'art du Montage</h3>
+                        <p class="slide-text" data-lang-fr="Un rythme et une fluidité calibrés pour donner de l'impact à vos productions." data-lang-en="A rhythm and fluidity calibrated to give impact to your productions." data-lang-es="Un ritmo y una fluidez calibrados para dar impacto a tus producciones.">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
                     </div>
                     <div class="apple-slide">
-                        <h3 class="slide-title">Post-Production de pointe</h3>
-                        <p class="slide-text">Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.</p>
-                    </div>
-                    <div class="apple-slide">
-                        <h3 class="slide-title">Design & Identité</h3>
-                        <p class="slide-text">Création de Concept Arts uniques et d'identités fortes adaptées à votre vision.</p>
-                    </div>
-                    <div class="apple-slide">
-                        <h3 class="slide-title">Solutions Sur Mesure</h3>
-                        <p class="slide-text">Chaque projet est traité comme une œuvre unique, de la scénarisation au rendu final.</p>
-                    </div>
-                    <!-- Boucle -->
-                    <div class="apple-slide">
-                        <h3 class="slide-title">L'art du Montage</h3>
-                        <p class="slide-text">Un rythme et une fluidité calibrés pour donner de l'impact à vos productions.</p>
+                        <h3 class="slide-title" data-lang-fr="Post-Production de pointe" data-lang-en="Advanced Post-Production" data-lang-es="Postproducción de Vanguardia">Post-Production de pointe</h3>
+                        <p class="slide-text" data-lang-fr="Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images." data-lang-en="VFX compositing, technical masking and precise color grading to elevate your images." data-lang-es="Composición de VFX, enmascaramiento técnico y gradación de color precisa para mejorar tus imágenes.">Incrustations VFX, masquages techniques et étalonnage précis pour sublimer vos images.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Écran 4 : CE QUE DISENT NOS CLIENTS -->
+    <!-- Écran 4 : Testimonials -->
     <div id="testimonials-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title">CE QUE DISENT NOS CLIENTS</h2>
+            <h2 class="blue-title" data-lang-fr="CE QUE DISENT NOS CLIENTS" data-lang-en="WHAT OUR CLIENTS SAY" data-lang-es="LO QUE DICEN NUESTROS CLIENTES">CE QUE DISENT NOS CLIENTS</h2>
             <div class="marquee-container">
                 <div class="marquee-track">
                     <div class="testimonial-card">
-                        <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span><span class="author-role-blue">Réalisateur Indépendant</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
-                        <span class="author-name">Sarah B.</span><span class="author-role-blue">Directrice Marketing</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"Professionnel, réactif et doté d'une sensibilité technique impressionnante en motion design."</p>
-                        <span class="author-name">Marc MBA</span><span class="author-role-blue">Créateur de Contenu</span>
-                    </div>
-                    <!-- Duplication -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
-                        <span class="author-name">Lucas Mandji</span><span class="author-role-blue">Réalisateur Indépendant</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"La direction artistique pour nos animations 3D est tout simplement incroyable. Très à l'écoute."</p>
-                        <span class="author-name">Sarah B.</span><span class="author-role-blue">Directrice Marketing</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"Professionnel, réactif et doté d'une sensibilité technique impressionnante en motion design."</p>
-                        <span class="author-name">Marc MBA</span><span class="author-role-blue">Créateur de Contenu</span>
+                        <p class="testimonial-text" data-lang-fr="&quot;Un travail de post-production d'une quality rare. Le rythme du montage a transcendé notre projet.&quot;" data-lang-en="&quot;A rare quality of post-production work. The rhythm of the edit transcended our project.&quot;" data-lang-es="&quot;Un trabajo de postproducción de una calidad excepcional. El ritmo de la edición trascendió nuestro proyecto.&quot;">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet."</p>
+                        <span class="author-name">Lucas Mandji</span><span class="author-role-blue" data-lang-fr="Réalisateur Indépendant" data-lang-en="Independent Director" data-lang-es="Director Independiente">Réalisateur Indépendant</span>
                     </div>
                 </div>
             </div>
@@ -684,70 +667,44 @@
     <!-- Écran 5 : Grille des Tarifs -->
     <div id="pricing-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title">Tarifs</h2>
-            <p class="intro-text">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
+            <h2 class="blue-title" data-lang-fr="Tarifs" data-lang-en="Pricing" data-lang-es="Precios">Tarifs</h2>
+            <p class="intro-text" data-lang-fr="Des solutions nettes et transparentes adaptées à vos ambitions." data-lang-en="Clean and transparent solutions adapted to your ambitions." data-lang-es="Soluciones claras y transparentes adaptadas a sus ambiciones.">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div>
-                        <h3>Option 1 : Professionnelle</h3>
-                        <p class="pricing-description">Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.</p>
+                        <h3 data-lang-fr="Option Unique" data-lang-en="Single Option" data-lang-es="Opción Única">Option Unique</h3>
+                        <p class="pricing-description" data-lang-fr="Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé." data-lang-en="Rates vary depending on the complexity and needs of the project. Contact us for a custom quote." data-lang-es="Las tarifas varían según la complejidad y las necesidades del proyecto. Contáctenos para un presupuesto personalizado.">Les tarifs varient selon la complexité et les besoins du projet. Contactez-nous pour un devis personnalisé.</p>
                     </div>
-                    <a href="#contact-section" class="cta-button">Demander un devis</a>
-                </div>
-
-                <div class="pricing-card">
-                    <div>
-                        <h3>Option 2 : Premium</h3>
-                        <p class="pricing-description">Chaque création est unique. Les prix sont établis sur mesure selon votre vision et vos exigences.</p>
-                    </div>
-                    <a href="#contact-section" class="cta-button">Estimer mon projet</a>
-                </div>
-
-                <div class="pricing-card">
-                    <div>
-                        <h3>Option 3 : Studio créatif</h3>
-                        <p class="pricing-description">BRK Creative propose des prestations adaptées à chaque projet. Demandez un devis pour une estimation précise.</p>
-                    </div>
-                    <a href="#contact-section" class="cta-button">Discuter du projet</a>
-                </div>
-
-                <div class="pricing-card">
-                    <div>
-                        <h3>Option 4 : Minimaliste</h3>
-                        <p class="pricing-description">Tarifs sur demande.</p>
-                    </div>
-                    <a href="#contact-section" class="cta-button">Nous contacter</a>
+                    <a href="#contact-section" class="cta-button" data-lang-fr="Demander un devis" data-lang-en="Request a quote" data-lang-es="Solicitar un presupuesto">Demander un devis</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Écran 6 : À Propos & Contact & Footer -->
+    <!-- Écran 6 : À Propos -->
     <div id="about-section" class="section">
         <div class="section-container">
-            <h2 class="blue-title">À Propos</h2>
+            <h2 class="blue-title" data-lang-fr="À Propos" data-lang-en="About" data-lang-es="Sobre Nosotros">À Propos</h2>
             <div class="about-content">
-                <p><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel où chaque projet devient un terrain d’expérimentation, un espace pour repousser les limites du possible.</p>
-                <br>
-                <p>Spécialisé dans le montage, la post‑production et la conception graphique, BRK Creative façonne des identités visuelles fortes et des récits qui marquent. Guidé par une esthétique minimaliste et moderne, le studio évolue constamment, intégrant de nouvelles techniques, de nouveaux langages visuels et de nouvelles ambitions.</p>
+                <p data-lang-fr="<strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel." data-lang-en="<strong>BRK Creative</strong> was born from a raw passion for cinema, image and emotion. Far more than a post-production studio, it is a visual laboratory." data-lang-es="<strong>BRK Creative</strong> nació de una pasión pura por el cine, la imagen y la emoción. Mucho más que un estudio de postproducción, es un laboratorio visual."><strong>BRK Creative</strong> est né d’une passion brute pour le cinéma, l’image et l’émotion. Bien plus qu’un studio de post‑production, c’est un laboratoire visuel.</p>
             </div>
 
             <div id="contact-section" style="margin-top: 30px; text-align: center;">
-                <p style="color: var(--text-secondary);">Prêt à collaborer sur vos projets créatifs ?</p>
-                <a href="mailto:studiowarrior36@gmail.com" class="contact-link">Collaborer avec nous &gt;</a>
+                <p style="color: var(--text-secondary);" data-lang-fr="Prêt à collaborer sur vos projets créatifs ?" data-lang-en="Ready to collaborate on your creative projects?" data-lang-es="¿Listo para colaborar en tus proyectos creativos?">Prêt à collaborer sur vos projets créatifs ?</p>
+                <a href="mailto:studiowarrior36@gmail.com" class="contact-link" data-lang-fr="Collaborer avec nous &gt;" data-lang-en="Work with us &gt;" data-lang-es="Colabora con nosotros &gt;">Collaborer avec nous &gt;</a>
             </div>
 
             <center>
                 <p class="footer-text">
-                    © 2026 BRK Creative. Tous droits réservés.
-                    <a class="legal-link" id="openLegal">Mentions Légales & Politiques</a>
+                    © 2026 BRK Creative. <span data-lang-fr="Tous droits réservés." data-lang-en="All rights reserved." data-lang-es="Todos los derechos reservados.">Tous droits réservés.</span>
+                    <a class="legal-link" id="openLegal" data-lang-fr="Mentions Légales" data-lang-en="Legal Notices" data-lang-es="Avis Legales">Mentions Légales</a>
                 </p>
             </center>
         </div>
     </div>
 
-    <!-- Lightbox Unique pour Médias ET Documents Légaux -->
+    <!-- Lightbox Unique -->
     <div class="lightbox" id="lightboxView">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
         <div id="lightboxMediaContainer"></div>
@@ -755,59 +712,66 @@
 
     <!-- Bandeau Cookies -->
     <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-text">
-            En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires à l'optimisation visuelle et à la fluidité du site. Consultez notre <a href="#" id="cookiePolicyLink">Politique de Confidentialité</a>.
+        <div class="cookie-text" 
+             data-lang-fr="En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires." 
+             data-lang-en="By browsing <strong>BRK Creative</strong>, you accept the use of necessary functional cookies."
+             data-lang-es="Al navegar por <strong>BRK Creative</strong>, acepta el uso de cookies funcionales necesarias.">
+            En naviguant sur <strong>BRK Creative</strong>, vous acceptez l’utilisation de cookies fonctionnels nécessaires.
         </div>
         <div class="cookie-buttons">
-            <button class="cookie-btn-deny" id="cookieDeny">Refuser</button>
-            <button class="cookie-btn-accept" id="cookieAccept">Accepter</button>
+            <button class="cookie-btn-deny" id="cookieDeny" data-lang-fr="Refuser" data-lang-en="Deny" data-lang-es="Rechazar">Refuser</button>
+            <button class="cookie-btn-accept" id="cookieAccept" data-lang-fr="Accepter" data-lang-en="Accept" data-lang-es="Aceptar">Accepter</button>
         </div>
     </div>
 
-    <!-- Conteneur masqué des Mentions Légales, CGU, Confidentialité et Cookies -->
+    <!-- Conteneur masqué des Mentions Légales -->
     <div id="legalTemplate" style="display: none;">
         <div class="legal-modal-card">
-            <h2>Mentions Légales & Conditions Générales</h2>
-            <p><strong>BRK Creative</strong><br>Studio de création audiovisuelle et design graphique<br>Libreville, Gabon</p>
-            
-            <h3>1. Propriétaire & Éditeur</h3>
-            <p>Eden (BRK Creative)<br>Email : studiowarrior36@gmail.com</p>
-            
-            <h3>2. Hébergement</h3>
-            <p>Le site est hébergé par GitHub Pages<br>GitHub, Inc.<br>88 Colin P. Kelly Jr Street, San Francisco, CA 94107, USA<br>Site : https://pages.github.com</p>
-            
-            <h3>3. Conditions Générales d’Utilisation (CGU)</h3>
-            <p>L’accès et l’utilisation de ce portfolio / site vitrine implique l’acceptation pleine et entière des conditions suivantes :</p>
-            <ul>
-                <li>Le site est accessible gratuitement à tout utilisateur disposant d'un accès à internet.</li>
-                <li>L’utilisateur s’engage à ne pas perturber le bon fonctionnement du site ou à tenter d'accéder aux fichiers sources de manière malveillante.</li>
-                <li>BRK Creative s'efforce de maintenir le site fluide, mais ne peut être tenu responsable des pannes de réseau ou d'incompatibilités techniques d'affichage.</li>
-            </ul>
-
-            <h3>4. Propriété intellectuelle</h3>
-            <p>L’ensemble du contenu présent sur ce site (textes, images, vidéos, logos, créations graphiques, animations, etc.) est la propriété exclusive de BRK Creative, sauf mention contraire. Toute reproduction, modification, distribution ou exploitation sans autorisation écrite préalable est strictement interdite.</p>
-            
-            <h3>5. Politique de Confidentialité</h3>
-            <p>BRK Creative accorde une importance primordiale au respect de votre vie privée :</p>
-            <ul>
-                <li><strong>Collecte des données :</strong> Ce site ne requiert aucune inscription obligatoire et ne collecte aucune donnée personnelle nominative en tâche de fond.</li>
-                <li><strong>Formulaire et contact :</strong> Si vous nous contactez par email, votre adresse n'est utilisée que dans le cadre strict de l'échange professionnel (établissement de devis, collaborations) et ne sera jamais partagée, cédée ou vendue à des tiers.</li>
-                <li><strong>Vos droits :</strong> Vous disposez d’un droit d’accès, de modification et de suppression de vos informations en écrivant simplement à : studiowarrior36@gmail.com.</li>
-            </ul>
-
-            <h3>6. Politique relative aux Cookies</h3>
-            <p>Ce site utilise uniquement des cookies dits techniques et essentiels pour mémoriser vos préférences d'affichage (comme le mode sombre ou clair) et assurer le bon fonctionnement du défilement magnétique.</p>
-            <ul>
-                <li>Aucun cookie tiers à but publicitaire ou de tracking commercial n'est implanté sur ce site.</li>
-                <li>Le bandeau d’acceptation vous permet de valider leur usage. Vous pouvez configurer ou bloquer ces cookies à tout moment via les paramètres de votre navigateur web.</li>
-            </ul>
-
-            <h3>7. Modifications des présentes clauses</h3>
-            <p>BRK Creative se réserve le droit de modifier ces mentions, CGU et politiques à tout moment afin de rester conforme aux évolutions légales et techniques. Nous vous invitons à les consulter régulièrement.</p>
+            <h2>Mentions Légales</h2>
+            <p><strong>BRK Creative</strong><br>Libreville, Gabon<br>Email : studiowarrior36@gmail.com</p>
         </div>
     </div>
 
     <script>
+        // --- SYSTEME DE TRADUCTION AVANCÉ (SANS LIMITE DE LANGUES) ---
+        const langSelect = document.getElementById('langSelect');
+        
+        // Détecter automatiquement la langue par défaut (Stockée -> Langue Navigateur -> Français de secours)
+        let defaultLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'fr';
+        
+        // Si la langue du navigateur n'est pas gérée dans notre menu, on force le Français
+        const supportedLanguages = ['fr', 'en', 'es'];
+        if (!supportedLanguages.includes(defaultLang)) {
+            defaultLang = 'fr';
+        }
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-lang-fr]');
+            
+            elements.forEach(el => {
+                // Cherche l'attribut de la langue demandée (ex: data-lang-en), sinon prend le français en secours
+                const translatedText = el.getAttribute(`data-lang-${lang}`) || el.getAttribute('data-lang-fr');
+                if (translatedText) {
+                    el.innerHTML = translatedText;
+                }
+            });
+            
+            // Met à jour la valeur affichée dans le menu déroulant
+            langSelect.value = lang;
+            document.documentElement.lang = lang;
+            localStorage.setItem('lang', lang);
+        }
+
+        // Écouter le changement de sélection dans le menu déroulant
+        langSelect.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+
+        // Appliquer la langue détectée ou sauvegardée au chargement complet
+        window.addEventListener('DOMContentLoaded', () => {
+            setLanguage(defaultLang);
+        });
+
         // --- GESTION DU THÈME ---
         const themeSlider = document.getElementById('themeSlider');
         themeSlider.addEventListener('click', () => {
@@ -823,7 +787,7 @@
             }
         });
 
-        // --- GESTION DE LA LIGHTBOX INTERACTIVE ---
+        // --- GESTION DE LA LIGHTBOX ---
         const lightbox = document.getElementById('lightboxView');
         const lightboxClose = document.getElementById('lightboxClose');
         const mediaContainer = document.getElementById('lightboxMediaContainer');
@@ -831,7 +795,6 @@
         const openLegal = document.getElementById('openLegal');
         const legalTemplate = document.getElementById('legalTemplate');
 
-        // Ouverture Médias (Images / Vidéos)
         cards.forEach(card => {
             card.addEventListener('click', () => {
                 const type = card.getAttribute('data-type');
@@ -855,50 +818,25 @@
             });
         });
 
-        // Fonction pour ouvrir les mentions légales
         function triggerLegalView() {
             mediaContainer.innerHTML = legalTemplate.innerHTML;
             lightbox.classList.add('active');
         }
-
         openLegal.addEventListener('click', triggerLegalView);
 
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            mediaContainer.innerHTML = '';
-        }
+        function closeLightbox() { lightbox.classList.remove('active'); mediaContainer.innerHTML = ''; }
         lightboxClose.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
 
-        // --- GESTION DU BANDEAU COOKIES ---
+        // --- COOKIES ---
         const cookieBanner = document.getElementById('cookieBanner');
-        const cookieAccept = document.getElementById('cookieAccept');
-        const cookieDeny = document.getElementById('cookieDeny');
-        const cookiePolicyLink = document.getElementById('cookiePolicyLink');
-
-        // Affichage temporisé du bandeau si le choix n'a pas encore été fait
         window.addEventListener('DOMContentLoaded', () => {
             if (!localStorage.getItem('brk_cookies_accepted')) {
-                setTimeout(() => {
-                    cookieBanner.classList.add('show');
-                }, 1200);
+                setTimeout(() => { cookieBanner.classList.add('show'); }, 1200);
             }
         });
-
-        cookieAccept.addEventListener('click', () => {
-            localStorage.setItem('brk_cookies_accepted', 'true');
-            cookieBanner.classList.remove('show');
-        });
-
-        cookieDeny.addEventListener('click', () => {
-            localStorage.setItem('brk_cookies_accepted', 'false');
-            cookieBanner.classList.remove('show');
-        });
-
-        cookiePolicyLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            triggerLegalView();
-        });
+        document.getElementById('cookieAccept').addEventListener('click', () => { localStorage.setItem('brk_cookies_accepted', 'true'); cookieBanner.classList.remove('show'); });
+        document.getElementById('cookieDeny').addEventListener('click', () => { localStorage.setItem('brk_cookies_accepted', 'false'); cookieBanner.classList.remove('show'); });
     </script>
 </body>
 </html>
