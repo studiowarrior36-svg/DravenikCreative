@@ -12,19 +12,20 @@
     <meta name="keywords" content="BRK Creative, post-production, montage video, motion design, animation 3d, blender, premiere pro, after effects, portfolio">
     <meta name="author" content="BRK Creative">
     
-    <!-- Open Graph (Pour un bel affichage sur Facebook, WhatsApp, etc.) -->
+    <!-- Open Graph (Aperçu WhatsApp, Facebook, Messenger) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="BRK Creative — Portfolio Professionnel">
     <meta property="og:description" content="Découvrez mes créations et projets en post-production visuelle, motion design et modélisation 3D.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80">
-    <meta property="og:url" content="https://brkcreative.github.io">
+    <!-- REMPLACE 'TON-IMAGE-DE-PARTAGE.png' PAR LE NOM DE TON FICHIER LOGO -->
+    <meta property="og:image" content="https://studiowarrior36-svg.github.io/Brkcreative/TON-IMAGE-DE-PARTAGE.png">
+    <meta property="og:url" content="https://studiowarrior36-svg.github.io/Brkcreative/">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         /* ==========================================
-           1. RESET & VARIABLES (THÈME SOMBRE FIXE)
+           1. RESET & VARIABLES
            ========================================== */
         * {
             margin: 0;
@@ -54,23 +55,40 @@
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR & SELECTION PAYS --- */
+        /* --- ANIMATION DE MONTÉE (FADE-UP) --- */
+        @keyframes headerFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- NAVBAR CENTRÉE & ANIMÉE --- */
         .navbar {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 12px 5%;
+            justify-content: center;
+            text-align: center;
+            padding: 25px 5%;
             background-color: var(--bg-navbar);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--bordure);
+            gap: 15px;
+            animation: headerFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .logo-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo-img {
@@ -81,34 +99,37 @@
         }
 
         .slogan-nav {
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            margin-top: 6px;
-            color: var(--texte-principal); /* Changement en blanc éclatant */
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            color: var(--texte-principal);
             font-weight: 700;
-            text-transform: uppercase; /* Forcé en majuscules */
+            text-transform: uppercase;
         }
 
         .nav-controls {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
+            width: 100%;
         }
 
         .btn-cta-nav {
             background-color: var(--bleu-accent);
             color: white;
             text-decoration: none;
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, transform 0.2s;
             white-space: nowrap;
         }
 
         .btn-cta-nav:hover {
             background-color: var(--bleu-hover);
+            transform: scale(1.02);
         }
 
         .dropdown-pays-container {
@@ -119,14 +140,14 @@
             background: transparent;
             color: var(--texte-principal);
             border: 1px solid var(--bleu-accent);
-            padding: 7px 14px;
+            padding: 9px 18px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .dropdown-trigger:hover {
@@ -136,7 +157,8 @@
         .dropdown-menu-pays {
             display: none;
             position: absolute;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             top: 45px;
             background-color: var(--bg-carte);
             border: 1px solid var(--bleu-accent);
@@ -145,10 +167,11 @@
             box-shadow: 0 15px 40px var(--shadow-color);
             width: max-content;
             max-width: 90vw;
-            max-height: 80vh;
+            max-height: 70vh;
             overflow-y: auto;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
         }
 
         .dropdown-pays-container:hover .dropdown-menu-pays {
@@ -176,12 +199,12 @@
             color: var(--texte-principal);
         }
 
-        /* --- SECTION D'ACCUEIL ÉPURÉE (SANS VISUEL) --- */
+        /* --- SECTION D'ACCUEIL --- */
         .presentation-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 10%;
+            padding: 80px 10%;
             text-align: center;
         }
 
@@ -218,7 +241,7 @@
             font-size: 1.1rem;
         }
 
-        /* --- SECTION : NOS CRÉATIONS --- */
+        /* --- CRÉATIONS --- */
         .creations-section {
             background-color: var(--bg-tarifs);
             padding: 80px 10%;
@@ -321,6 +344,11 @@
         .tarifs-header h2 {
             font-size: 2.2rem;
             letter-spacing: 1px;
+        }
+
+        .tarifs-sub {
+            color: var(--texte-secondaire);
+            margin-top: 10px;
         }
 
         .tarifs-container {
@@ -496,7 +524,6 @@
             padding: 40px;
             position: relative;
             box-shadow: 0 20px 50px var(--shadow-color);
-            text-align: left;
         }
 
         .modal-close {
@@ -510,46 +537,7 @@
             border: none;
         }
 
-        .modal-close:hover {
-            color: var(--texte-principal);
-        }
-
-        .modal-content h3 {
-            color: var(--bleu-accent);
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .modal-content h4 {
-            color: var(--texte-principal);
-            margin: 20px 0 8px 0;
-            font-size: 1rem;
-        }
-
-        .modal-content p {
-            color: var(--texte-secondaire);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .btn-save-cookies {
-            background-color: var(--bleu-accent);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-        .btn-save-cookies:hover {
-            background-color: var(--bleu-hover);
-        }
-
-        /* --- FOOTER FLEXIBLE --- */
+        /* --- FOOTER --- */
         footer {
             display: flex;
             justify-content: space-between;
@@ -577,49 +565,44 @@
             text-decoration: none;
             font-size: 0.85rem;
             cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .footer-legal a:hover {
-            color: var(--texte-principal);
         }
 
         /* =========================================================
-           MEDIA QUERIES (Adaptabilité Écrans & Panneaux Latéraux)
+           MEDIA QUERIES (ADAPTATION MOBILE COMPLÈTE)
            ========================================================= */
-        @media (max-width: 968px) {
-            .navbar { flex-direction: column; gap: 15px; text-align: center; padding: 20px 5%; }
-            .logo-container { align-items: center; }
-            .presentation-section { padding: 60px 5%; }
-            .presentation-text h1 { font-size: 2.5rem; }
-            .creations-section, .tarifs-section, .testimonials-section { padding: 60px 5%; }
-            footer { flex-direction: column; gap: 15px; text-align: center; }
-            .footer-legal { justify-content: center; gap: 15px; }
-        }
-
-        @media (max-width: 450px) {
-            .nav-controls { flex-direction: column; width: 100%; gap: 10px; }
-            .btn-cta-nav { width: 100%; text-align: center; }
-            .dropdown-trigger { width: 100%; justify-content: center; }
-            .presentation-text h1 { font-size: 2rem; }
-            .presentation-text h2 { font-size: 1.4rem; }
-            .filter-container { gap: 8px; }
-            .filter-btn { padding: 6px 14px; font-size: 0.8rem; }
-            .footer-legal { flex-direction: column; align-items: center; gap: 12px; }
-            .footer-legal a { font-size: 0.8rem; }
-            .tarif-card { width: 100%; padding: 30px 20px; }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 20px;
+            }
+            .nav-controls {
+                flex-direction: row;
+                justify-content: center;
+                gap: 12px;
+            }
+            .btn-cta-nav, .dropdown-trigger {
+                font-size: 0.85rem;
+                padding: 8px 16px;
+            }
+            .dropdown-menu-pays {
+                grid-template-columns: 1fr;
+                width: 260px;
+            }
+            .presentation-section { padding: 50px 20px; }
+            .presentation-text h1 { font-size: 2.2rem; }
+            .creations-section, .tarifs-section, .testimonials-section { padding: 50px 20px; }
+            footer { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
+    <!-- NAV BAR ENTIÈREMENT CENTRÉE ET STRUCTURÉE -->
     <header class="navbar">
         <div class="logo-container">
             <img src="Method Draw Image.png" alt="Logo BRK Creative" class="logo-img">
-            <span class="slogan-nav">CRÉER POUR INSPIRER</span>
+            <span class="slogan-nav" id="trans-slogan">CRÉER POUR INSPIRER</span>
         </div>
         <div class="nav-controls">
-            <!-- CTA Direct lié à ton adresse mail -->
             <a href="mailto:Studiowarrior36@gmail.com?subject=Demande%20de%20collaboration%20-%20BRK%20Creative" class="btn-cta-nav" id="trans-nav-cta">Travailler avec moi</a>
             
             <div class="dropdown-pays-container">
@@ -631,32 +614,19 @@
                         <a onclick="changeCountry('Côte d\'Ivoire', 'fr')">Côte d'Ivoire</a>
                         <a onclick="changeCountry('Sénégal', 'fr')">Sénégal</a>
                         <a onclick="changeCountry('Cameroun', 'fr')">Cameroun</a>
-                        <a onclick="changeCountry('Congo', 'fr')">Congo</a>
                     </div>
                     <div class="menu-col">
-                        <h4>AMÉRIQUES</h4>
+                        <h4>EUROPE & AMÉRIQUE</h4>
+                        <a onclick="changeCountry('France', 'fr')">France</a>
                         <a onclick="changeCountry('États-Unis', 'en')">États-Unis</a>
                         <a onclick="changeCountry('Canada', 'en')">Canada</a>
-                        <a onclick="changeCountry('Mexique', 'es')">Mexique</a>
-                    </div>
-                    <div class="menu-col">
-                        <h4>EUROPE</h4>
-                        <a onclick="changeCountry('France', 'fr')">France</a>
-                        <a onclick="changeCountry('Belgique', 'fr')">Belgique</a>
-                        <a onclick="changeCountry('Suisse', 'fr')">Suisse</a>
-                    </div>
-                    <div class="menu-col">
-                        <h4>ASIE / MOYEN-ORIENT</h4>
-                        <a onclick="changeCountry('Chine', 'en')">Chine</a>
-                        <a onclick="changeCountry('Singapour', 'en')">Singapour</a>
-                        <a onclick="changeCountry('Qatar', 'en')">Qatar</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- SECTION D'ACCUEIL ÉPURÉE CENTRÉE (SANS VISUEL) -->
+    <!-- SECTION D'ACCUEIL -->
     <section class="presentation-section">
         <div class="presentation-text">
             <span class="subtitle" id="trans-about-sub">À PROPOS</span>
@@ -719,11 +689,11 @@
         </div>
     </section>
 
-    <!-- SECTION TARIFS (Boutons redirigeant vers ton mail) -->
+    <!-- SECTION TARIFS -->
     <section class="tarifs-section">
         <div class="tarifs-header">
             <h2 id="trans-tarifs-title">TARIFS</h2>
-            <p id="trans-tarifs-sub">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
+            <p class="tarifs-sub" id="trans-tarifs-sub">Des solutions nettes et transparentes adaptées à vos ambitions.</p>
         </div>
         
         <div class="tarifs-container">
@@ -742,9 +712,9 @@
         </div>
     </section>
 
+    <!-- SECTION TÉMOIGNAGES -->
     <section class="testimonials-section">
         <h2 id="trans-testi-title">CE QUE DISENT NOS CLIENTS</h2>
-        
         <div class="testimonials-wrapper">
             <div class="testimonials-scroll-container">
                 <div class="testimonial-card">
@@ -757,32 +727,12 @@
                     <h4 class="client-name">NDJI</h4>
                     <span class="client-role" id="trans-r2">Producteur Indépendant</span>
                 </div>
-                <div class="testimonial-card">
-                    <p class="quote" id="trans-q3">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."</p>
-                    <h4 class="client-name">SOPHIE M.</h4>
-                    <span class="client-role" id="trans-r3">Directrice Artistique</span>
-                </div>
-                <div class="testimonial-card">
-                    <p class="quote" id="trans-q1-dup">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
-                    <h4 class="client-name">LUCAS MANDJI</h4>
-                    <span class="client-role" id="trans-r1-dup">Réalisateur Indépendant</span>
-                </div>
-                <div class="testimonial-card">
-                    <p class="quote" id="trans-q2-dup">"L'équipe a su capter instantanément l'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."</p>
-                    <h4 class="client-name">NDJI</h4>
-                    <span class="client-role" id="trans-r2-dup">Producteur Indépendant</span>
-                </div>
-                <div class="testimonial-card">
-                    <p class="quote" id="trans-q3-dup">"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."</p>
-                    <h4 class="client-name">SOPHIE M.</h4>
-                    <span class="client-role" id="trans-r3-dup">Directrice Artistique</span>
-                </div>
             </div>
         </div>
     </section>
 
     <div id="legalModal" class="modal-mentions">
-        <div class="modal-content" id="modal-content-area">
+        <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <div id="modal-dynamic-text"></div>
         </div>
@@ -795,8 +745,6 @@
         <div class="footer-legal">
             <a onclick="openModal('mentions')" id="trans-footer-legal">Mentions Légales</a>
             <a onclick="openModal('confidentialite')" id="trans-footer-conf">Politique de confidentialité</a>
-            <a onclick="openModal('conditions')" id="trans-footer-cond">Conditions d'utilisation</a>
-            <a onclick="openModal('cookies')" id="trans-footer-cook">Gérer vos préférences sur les cookies</a>
         </div>
     </footer>
 
@@ -806,21 +754,16 @@
         function filterCreations(category) {
             const items = document.querySelectorAll('.creation-item');
             const buttons = document.querySelectorAll('.filter-btn');
-            
             buttons.forEach(btn => btn.classList.remove('active'));
             if(event) event.target.classList.add('active');
-
             items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = (category === 'all' || item.getAttribute('data-category') === category) ? 'block' : 'none';
             });
         }
 
         const translations = {
             fr: {
+                slogan: "CRÉER POUR INSPIRER",
                 navCta: "Travailler avec moi",
                 aboutSub: "À PROPOS",
                 welcomeTitle: "Bienvenue sur mon portfolio",
@@ -843,20 +786,12 @@
                 r1: "Réalisateur Indépendant",
                 q2: '"L\'équipe a su capter instantanément l\'essence même de notre marque. Le rendu visuel final dépasse de loin nos attentes."',
                 r2: "Producteur Indépendant",
-                q3: '"Professionnalisme, réactivité constante et fluidité totale dans les échanges. Les échéances ont été scrupuleusement respectées."',
-                r3: "Directrice Artistique",
                 footerCopy: "© 2026 BRK Creative — Tous droits réservés.",
                 footerLegal: "Mentions Légales",
-                footerConf: "Politique de confidentialité",
-                footerCond: "Conditions d'utilisation",
-                footerCook: "Gérer vos préférences sur les cookies",
-                
-                mentions: `<h3>Mentions Légales</h3><h4>1. Édition du site</h4><p>Le présent site vitrine est édité et géré par le studio de création <strong>BRK Creative</strong>.</p><h4>2. Hébergement</h4><p>Ce site est hébergé sur les serveurs de la plateforme GitHub Inc., située au 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis.</p><h4>3. Propriété intellectuelle</h4><p>L'ensemble des contenus (textes, animations 3D, vidéos, designs graphiques) sont la propriété de BRK Creative. Toute reproduction est interdite.</p>`,
-                confidentialite: `<h3>Politique de confidentialité</h3><h4>1. Données collectées</h4><p>Ce site est un portfolio vitrine. Nous ne collectons aucune donnée personnelle nominative à votre insu.</p><h4>2. Formulaires et Contact</h4><p>Les informations transmises lors de vos demandes de devis sont uniquement utilisées pour l'établissement de votre proposition commerciale.</p>`,
-                conditions: `<h3>Conditions d'utilisation</h3><h4>1. Objet</h4><p>Le présent site a pour objet la présentation des prestations professionnelles et créatives de BRK Creative.</p><h4>2. Responsabilité</h4><p>BRK Creative s'efforce d'assurer l'exactitude des informations diffusées, mais ne saurait être tenu responsable d'éventuelles interruptions du site.</p>`,
-                cookies: `<h3>Gérer vos préférences sur les cookies</h3><p>We utilisent uniquement des cookies techniques essentiels pour le bon fonctionnement et la mémorisation de vos choix d'affichage (comme votre pays).</p><label><input type="checkbox" checked disabled> Cookies essentiels (Toujours activés)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Enregistrer mes choix</button>`
+                footerConf: "Politique de confidentialité"
             },
             en: {
+                slogan: "CREATE TO INSPIRE",
                 navCta: "Work with me",
                 aboutSub: "ABOUT US",
                 welcomeTitle: "Welcome to my portfolio",
@@ -879,54 +814,9 @@
                 r1: "Freelance Filmmaker",
                 q2: '"The team instantly captured the core essence of our brand. The final visual result far exceeded our expectations."',
                 r2: "Independent Producer",
-                q3: '"Professionalism, constant responsiveness, and total fluidity in exchanges. Deadlines were strictly met."',
-                r3: "Art Director",
                 footerCopy: "© 2026 BRK Creative — All rights reserved.",
                 footerLegal: "Legal Notices",
-                footerConf: "Privacy Policy",
-                footerCond: "Terms of Use",
-                footerCook: "Manage Cookie Preferences",
-                
-                mentions: `<h3>Legal Notices</h3><h4>1. Website Edition</h4><p>This website is published and managed by <strong>BRK Creative</strong> studio.</p><h4>2. Hosting</h4><p>This site is hosted by GitHub Inc., located at 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA.</p><h4>3. Intellectual Property</h4><p>All content (text, 3D animations, videos, graphic designs) is the property of BRK Creative.</p>`,
-                confidentialite: `<h3>Privacy Policy</h3><h4>1. Data Collection</h4><p>This is a portfolio website. We do not collect personal data without your knowledge.</p><h4>2. Contact Information</h4><p>Information sent for quote requests is strictly used for business communication purposes.</p>`,
-                conditions: `<h3>Terms of Use</h3><h4>1. Purpose</h4><p>This site presents the professional and creative services of BRK Creative.</p><h4>2. Liability</h4><p>BRK Creative strives to maintain accurate information but is not liable for temporary site downtime.</p>`,
-                cookies: `<h3>Manage Cookie Preferences</h3><p>We only use essential technical cookies to remember your display preferences (such as your country choice).</p><label><input type="checkbox" checked disabled> Essential Cookies (Always enabled)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Save Preferences</button>`
-            },
-            es: {
-                navCta: "Trabaja conmigo",
-                aboutSub: "SOBRE NOSOTROS",
-                welcomeTitle: "Bienvenido a mi portafolio",
-                aboutDesc: "Descubre mis creaciones, mis proyectos y mi universo visual. BRK Creative es un estudio especializado en postproducción de alta calidad, Motion Design de impacto y animación 3D. Destacamos su marca a través de un riguroso conocimiento técnico y una creatividad sin límites.",
-                creationsTitle: "NUESTRAS CREACIONES",
-                filterAll: "Todos",
-                filterGraphique: "Diseño Gráfico",
-                proj4Title: "Identidad Visual",
-                proj4Desc: "Diseño de identidades corporativas únicas y logotipos de alto impacto.",
-                tarifsTitle: "TARIFAS",
-                tarifsSub: "Soluciones claras y transparentes adaptadas a sus ambiciones.",
-                opt1Title: "OPCIÓN 1: PROFESIONAL",
-                opt1Desc: "Las tarifas varían según la complejidad y las necesidades específicas del proyecto. Póngase en contacto con nuestro equipo para diseñar un presupuesto totalmente a medida.",
-                opt2Title: "OPCIÓN 2: BUSINESS PREMIUM",
-                opt2Desc: "Soporte completo, despliegue de identidad visual integral, animaciones gráficas avanzadas y entregas prioritarias con seguimiento personalizado.",
-                badge: "RECOMENDADO",
-                btn: "Solicitar presupuesto",
-                testiTitle: "LO QUE DICEN NUESTROS CLIENTS",
-                q1: '"Un trabajo de postproducción de una calidad excepcional. El ritmo del montage trascendió nuestro proyecto de principio a fin."',
-                r1: "Director de Cine Independiente",
-                q2: '"El equipo captó instantáneamente la esencia misma de nuestra marca. El resultado visual final supera con creces nuestras expectativas."',
-                r2: "Productor Independiente",
-                q3: '"Profesionalidad, capacidad de respuesta constante y total fluidez en los intercambios. Los plazos se cumplieron estrictamente."',
-                r3: "Directora Artística",
-                footerCopy: "© 2026 BRK Creative — Todos los derechos reservados.",
-                footerLegal: "Avisos Legales",
-                footerConf: "Política de privacidad",
-                footerCond: "Condiciones de uso",
-                footerCook: "Gestionar preferencias de cookies",
-                
-                mentions: `<h3>Avisos Legales</h3><h4>1. Edición del Sitio</h4><p>Este sitio web está editado y gestionado por el estudio <strong>BRK Creative</strong>.</p><h4>2. Alojamiento</h4><p>Este sitio está alojado por GitHub Inc., 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, EE. UU.</p><h4>3. Propriedad Intelectual</h4><p>Todo el contenido (texto, animaciones 3D, videos, designs gráficos) es propiedad exclusiva de BRK Creative.</p>`,
-                confidentialite: `<h3>Política de privacidad</h3><h4>1. Datos recolectados</h4><p>Este es un sitio web de portafolio. No recolectamos datos personales sin su consentimiento.</p><h4>2. Uso de información</h4><p>La información enviada para solicitudes de presupuesto se utiliza únicamente para la propuesta comercial.</p>`,
-                conditions: `<h3>Conditions de uso</h3><h4>1. Objeto</h4><p>Este sitio tiene como objeto presentar los servicios profesionales y créativos de BRK Creative.</p><h4>2. Responsabilidad</h4><p>BRK Creative no se hace responsable de las interrupciones temporales del servicio del sitio.</p>`,
-                cookies: `<h3>Gestionar preferencias de cookies</h3><p>Solo utilizamos cookies técnicas esenciales para recordar sus preferencias de visualización (como el idioma de su país).</p><label><input type="checkbox" checked disabled> Cookies esenciales (Siempre activas)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Guardar opciones</button>`
+                footerConf: "Privacy Policy"
             }
         };
 
@@ -935,6 +825,7 @@
             document.getElementById('country-label').textContent = countryName;
             const data = translations[langCode] || translations['en']; 
             
+            document.getElementById('trans-slogan').textContent = data.slogan;
             document.getElementById('trans-nav-cta').textContent = data.navCta;
             document.getElementById('trans-about-sub').textContent = data.aboutSub;
             document.getElementById('trans-welcome-title').textContent = data.welcomeTitle;
@@ -952,49 +843,22 @@
             document.getElementById('trans-opt2-desc').textContent = data.opt2Desc;
             document.getElementById('trans-badge').textContent = data.badge;
             
-            document.querySelectorAll('.id-trans-btn, .id-trans-btn2').forEach(btn => {
-                btn.textContent = data.btn;
-            });
-
+            document.querySelectorAll('.id-trans-btn, .id-trans-btn2').forEach(btn => btn.textContent = data.btn);
             document.getElementById('trans-testi-title').textContent = data.testiTitle;
             document.getElementById('trans-q1').textContent = data.q1;
             document.getElementById('trans-r1').textContent = data.r1;
             document.getElementById('trans-q2').textContent = data.q2;
             document.getElementById('trans-r2').textContent = data.r2;
-            document.getElementById('trans-q3').textContent = data.q3;
-            document.getElementById('trans-r3').textContent = data.r3;
-            
-            document.getElementById('trans-q1-dup').textContent = data.q1;
-            document.getElementById('trans-r1-dup').textContent = data.r1;
-            document.getElementById('trans-q2-dup').textContent = data.q2;
-            document.getElementById('trans-r2-dup').textContent = data.r2;
-            document.getElementById('trans-q3-dup').textContent = data.q3;
-            document.getElementById('trans-r3-dup').textContent = data.r3;
-
             document.getElementById('trans-footer-copy').textContent = data.footerCopy;
             document.getElementById('trans-footer-legal').textContent = data.footerLegal;
             document.getElementById('trans-footer-conf').textContent = data.footerConf;
-            document.getElementById('trans-footer-cond').textContent = data.footerCond;
-            document.getElementById('trans-footer-cook').textContent = data.footerCook;
         }
 
         function openModal(type) {
-            const modal = document.getElementById('legalModal');
-            const dynamicTextZone = document.getElementById('modal-dynamic-text');
-            dynamicTextZone.innerHTML = translations[currentLang][type];
-            modal.style.display = 'flex';
+            document.getElementById('modal-dynamic-text').innerHTML = translations[currentLang][type];
+            document.getElementById('legalModal').style.display = 'flex';
         }
-
-        function closeModal() {
-            document.getElementById('legalModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('legalModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
+        function closeModal() { document.getElementById('legalModal').style.display = 'none'; }
     </script>
 </body>
 </html>
