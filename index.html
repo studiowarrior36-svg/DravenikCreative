@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRK Creative</title>
+    
+    <!-- ==========================================
+       OPTIMISATION SEO & RÉSEAUX SOCIAUX (OG)
+       ========================================== -->
+    <title>BRK Creative — Post-Production, Motion Design & 3D</title>
+    <meta name="description" content="Studio de création spécialisé dans la post-production vidéo de haute qualité, le Motion Design d'impact et l'animation 3D narratologique.">
+    <meta name="keywords" content="BRK Creative, post-production, montage video, motion design, animation 3d, blender, premiere pro, after effects, portfolio">
+    <meta name="author" content="BRK Creative">
+    
+    <!-- Open Graph (Pour un bel affichage sur Facebook, WhatsApp, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BRK Creative — Portfolio Professionnel">
+    <meta property="og:description" content="Découvrez mes créations et projets en post-production visuelle, motion design et modélisation 3D.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://brkcreative.github.io">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
@@ -59,7 +73,6 @@
             align-items: flex-start;
         }
 
-        /* Ajustement précis de la taille du logo */
         .logo-img {
             width: 90px;
             max-height: 45px;
@@ -68,18 +81,35 @@
         }
 
         .slogan-nav {
-            font-size: 0.70rem;
-            opacity: 0.75;
+            font-size: 0.85rem;
+            opacity: 0.9;
             letter-spacing: 0.8px;
-            margin-top: 4px;
+            margin-top: 5px;
             color: var(--texte-secondaire);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .nav-controls {
             display: flex;
             align-items: center;
             gap: 15px;
+        }
+
+        /* Nouveau CTA En-tête */
+        .btn-cta-nav {
+            background-color: var(--bleu-accent);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-cta-nav:hover {
+            background-color: var(--bleu-hover);
         }
 
         .dropdown-pays-container {
@@ -90,13 +120,14 @@
             background: transparent;
             color: var(--texte-principal);
             border: 1px solid var(--bleu-accent);
-            padding: 8px 16px;
+            padding: 7px 14px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.85rem;
         }
 
         .dropdown-trigger:hover {
@@ -146,18 +177,19 @@
             color: var(--texte-principal);
         }
 
-        /* --- SECTION D'ACCUEIL & PRÉSENTATION --- */
+        /* --- SECTION D'ACCUEIL AVEC SHOWREEL INTÉGRÉ --- */
         .presentation-section {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 100px 10%;
-            text-align: center;
+            justify-content: space-between;
+            padding: 80px 10%;
+            gap: 50px;
         }
 
         .presentation-text {
-            width: 100%;
-            max-width: 800px;
+            flex: 1;
+            text-align: left;
+            max-width: 600px;
         }
 
         .presentation-text .subtitle {
@@ -176,7 +208,7 @@
         }
 
         .presentation-text h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--texte-principal);
             margin-bottom: 20px;
             font-weight: 600;
@@ -185,7 +217,27 @@
         .presentation-text p {
             color: var(--texte-secondaire);
             line-height: 1.8;
-            font-size: 1.15rem;
+            font-size: 1.05rem;
+        }
+
+        /* Conteneur Showreel / Visuel Signature */
+        .presentation-visual {
+            flex: 1;
+            max-width: 500px;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--bordure);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        .presentation-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* --- SECTION : NOS CRÉATIONS --- */
@@ -209,7 +261,7 @@
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
@@ -233,7 +285,7 @@
 
         .creations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
         }
 
@@ -519,6 +571,7 @@
             background-color: var(--bleu-hover);
         }
 
+        /* --- FOOTER FLEXIBLE ET RESPONSIVE --- */
         footer {
             display: flex;
             justify-content: space-between;
@@ -526,11 +579,18 @@
             padding: 30px 5%;
             border-top: 1px solid var(--bordure);
             background-color: var(--bg-principal);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-copyright {
+            color: var(--texte-secondaire);
+            font-size: 0.9rem;
         }
 
         .footer-legal {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -539,20 +599,38 @@
             text-decoration: none;
             font-size: 0.85rem;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .footer-legal a:hover {
             color: var(--texte-principal);
         }
 
+        /* =========================================================
+           MEDIA QUERIES (Adaptabilité Écrans & Panneaux Latéraux)
+           ========================================================= */
         @media (max-width: 968px) {
             .navbar { flex-direction: column; gap: 15px; text-align: center; padding: 20px 5%; }
             .logo-container { align-items: center; }
-            .presentation-section { padding: 60px 5%; }
+            .presentation-section { flex-direction: column; text-align: center; padding: 60px 5%; gap: 30px; }
+            .presentation-text { text-align: center; }
             .presentation-text h1 { font-size: 2.5rem; }
             .creations-section, .tarifs-section, .testimonials-section { padding: 60px 5%; }
             footer { flex-direction: column; gap: 15px; text-align: center; }
             .footer-legal { justify-content: center; gap: 15px; }
+        }
+
+        @media (max-width: 450px) {
+            .nav-controls { flex-direction: column; width: 100%; gap: 10px; }
+            .btn-cta-nav { width: 100%; text-align: center; }
+            .dropdown-trigger { width: 100%; justify-content: center; }
+            .presentation-text h1 { font-size: 2rem; }
+            .presentation-text h2 { font-size: 1.4rem; }
+            .filter-container { gap: 8px; }
+            .filter-btn { padding: 6px 14px; font-size: 0.8rem; }
+            .footer-legal { flex-direction: column; align-items: center; gap: 12px; }
+            .footer-legal a { font-size: 0.8rem; }
+            .tarif-card { width: 100%; padding: 30px 20px; }
         }
     </style>
 </head>
@@ -564,6 +642,9 @@
             <span class="slogan-nav">Créer pour inspirer</span>
         </div>
         <div class="nav-controls">
+            <!-- CTA Direct dans l'En-tête -->
+            <a href="#" class="btn-cta-nav" id="trans-nav-cta">Travailler avec moi</a>
+            
             <div class="dropdown-pays-container">
                 <button class="dropdown-trigger" id="country-label">Gabon</button>
                 <div class="dropdown-menu-pays">
@@ -598,6 +679,7 @@
         </div>
     </header>
 
+    <!-- SECTION D'ACCUEIL MISE À JOUR AVEC LE MINI SHOWREEL -->
     <section class="presentation-section">
         <div class="presentation-text">
             <span class="subtitle" id="trans-about-sub">À PROPOS</span>
@@ -605,9 +687,16 @@
             <h2 id="trans-welcome-title">Bienvenue sur mon portfolio</h2>
             <p id="trans-about-desc">Découvrez mes créations, mes projets et mon univers visuel. BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.</p>
         </div>
+        <!-- Vidéo Signature en Autoplay Silencieux -->
+        <div class="presentation-visual">
+            <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42013-large.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas le lecteur vidéo.
+            </video>
+        </div>
     </section>
 
-    <!-- PLAN INTERACTIF : NOS CRÉATIONS -->
+    <!-- SECTION : NOS CRÉATIONS -->
     <section class="creations-section">
         <div class="creations-header">
             <h2 id="trans-creations-title">NOS CRÉATIONS</h2>
@@ -616,11 +705,11 @@
                 <button class="filter-btn" onclick="filterCreations('postprod')" id="filter-postprod">Post-Production</button>
                 <button class="filter-btn" onclick="filterCreations('motion')" id="filter-motion">Motion Design</button>
                 <button class="filter-btn" onclick="filterCreations('3d')" id="filter-3d">Animation 3D</button>
+                <button class="filter-btn" onclick="filterCreations('graphique')" id="filter-graphique">Design Graphique</button>
             </div>
         </div>
 
         <div class="creations-grid" id="creations-container-grid">
-            <!-- Projet 1 -->
             <div class="creation-item" data-category="postprod">
                 <div class="creation-media">
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80" alt="Cinematic Edit">
@@ -630,7 +719,6 @@
                     <p>Montage dynamique et étalonnage colorimétrique professionnel.</p>
                 </div>
             </div>
-            <!-- Projet 2 -->
             <div class="creation-item" data-category="motion">
                 <div class="creation-media">
                     <video autoplay loop muted src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-42013-large.mp4"></video>
@@ -640,7 +728,6 @@
                     <p>Animations graphiques et habillage visuel percutant pour réseaux.</p>
                 </div>
             </div>
-            <!-- Projet 3 -->
             <div class="creation-item" data-category="3d">
                 <div class="creation-media">
                     <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80" alt="3D Environment">
@@ -648,6 +735,15 @@
                 <div class="creation-info">
                     <h3>Concept 3D</h3>
                     <p>Modélisation et rendu d'univers narratifs sous Blender.</p>
+                </div>
+            </div>
+            <div class="creation-item" data-category="graphique">
+                <div class="creation-media">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500&q=80" alt="Design Graphique">
+                </div>
+                <div class="creation-info">
+                    <h3 id="trans-proj4-title">Visual Identity</h3>
+                    <p id="trans-proj4-desc">Conception de chartes graphiques uniques et logotypes à fort impact.</p>
                 </div>
             </div>
         </div>
@@ -695,7 +791,6 @@
                     <h4 class="client-name">SOPHIE M.</h4>
                     <span class="client-role" id="trans-r3">Directrice Artistique</span>
                 </div>
-                <!-- Duplication pour boucle infinie -->
                 <div class="testimonial-card">
                     <p class="quote" id="trans-q1-dup">"Un travail de post-production d'une qualité rare. Le rythme du montage a transcendé notre projet du début à la fin."</p>
                     <h4 class="client-name">LUCAS MANDJI</h4>
@@ -742,7 +837,7 @@
             const buttons = document.querySelectorAll('.filter-btn');
             
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if(event) event.target.classList.add('active');
 
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -755,11 +850,15 @@
 
         const translations = {
             fr: {
+                navCta: "Travailler avec moi",
                 aboutSub: "À PROPOS",
                 welcomeTitle: "Bienvenue sur mon portfolio",
                 aboutDesc: "Découvrez mes créations, mes projets et mon univers visuel. BRK Creative est un studio spécialisé dans la post-production de haute qualité, le Motion Design d'impact et l'animation 3D. Nous mettons en valeur votre marque grâce à un savoir-faire technique rigoureux et une créativité sans limite.",
                 creationsTitle: "NOS CRÉATIONS",
                 filterAll: "Tous",
+                filterGraphique: "Design Graphique",
+                proj4Title: "Visual Identity",
+                proj4Desc: "Conception de chartes graphiques uniques et logotypes à fort impact.",
                 tarifsTitle: "TARIFS",
                 tarifsSub: "Des solutions nettes et transparentes adaptées à vos ambitions.",
                 opt1Title: "OPTION 1 : PROFESSIONNELLE",
@@ -781,27 +880,21 @@
                 footerCond: "Conditions d'utilisation",
                 footerCook: "Gérer vos préférences sur les cookies",
                 
-                mentions: `<h3>Mentions Légales</h3>
-                           <h4>1. Édition du site</h4><p>Le présent site vitrine est édité et géré par le studio de création <strong>BRK Creative</strong>.</p>
-                           <h4>2. Hébergement</h4><p>Ce site est hébergé sur les serveurs de la plateforme GitHub Inc., située au 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis.</p>
-                           <h4>3. Propriété intellectuelle</h4><p>L'ensemble des contenus (textes, animations 3D, vidéos, designs graphiques) sont la propriété de BRK Creative. Toute reproduction est interdite.</p>`,
-                confidentialite: `<h3>Politique de confidentialité</h3>
-                                  <h4>1. Données collectées</h4><p>Ce site est un portfolio vitrine. Nous ne collectons aucune donnée personnelle nominative à votre insu.</p>
-                                  <h4>2. Formulaires et Contact</h4><p>Les informations transmises lors de vos demandes de devis sont uniquement utilisées pour l'établissement de votre proposition commerciale.</p>`,
-                conditions: `<h3>Conditions d'utilisation</h3>
-                             <h4>1. Objet</h4><p>Le présent site a pour objet la présentation des prestations professionnelles et créatives de BRK Creative.</p>
-                             <h4>2. Responsabilité</h4><p>BRK Creative s'efforce d'assurer l'exactitude des informations diffusées, mais ne saurait être tenu responsable d'éventuelles interruptions du site.</p>`,
-                cookies: `<h3>Gérer vos préférences sur les cookies</h3>
-                          <p>Nous utilisons uniquement des cookies techniques essentiels pour le bon fonctionnement et la mémorisation de vos choix d'affichage (comme votre pays).</p>
-                          <label><input type="checkbox" checked disabled> Cookies essentiels (Toujours activés)</label><br><br>
-                          <button class="btn-save-cookies" onclick="closeModal()">Enregistrer mes choix</button>`
+                mentions: `<h3>Mentions Légales</h3><h4>1. Édition du site</h4><p>Le présent site vitrine est édité et géré par le studio de création <strong>BRK Creative</strong>.</p><h4>2. Hébergement</h4><p>Ce site est hébergé sur les serveurs de la plateforme GitHub Inc., située au 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, États-Unis.</p><h4>3. Propriété intellectuelle</h4><p>L'ensemble des contenus (textes, animations 3D, vidéos, designs graphiques) sont la propriété de BRK Creative. Toute reproduction est interdite.</p>`,
+                confidentialite: `<h3>Politique de confidentialité</h3><h4>1. Données collectées</h4><p>Ce site est un portfolio vitrine. Nous ne collectons aucune donnée personnelle nominative à votre insu.</p><h4>2. Formulaires et Contact</h4><p>Les informations transmises lors de vos demandes de devis sont uniquement utilisées pour l'établissement de votre proposition commerciale.</p>`,
+                conditions: `<h3>Conditions d'utilisation</h3><h4>1. Objet</h4><p>Le présent site a pour objet la présentation des prestations professionnelles et créatives de BRK Creative.</p><h4>2. Responsabilité</h4><p>BRK Creative s'efforce d'assurer l'exactitude des informations diffusées, mais ne saurait être tenu responsable d'éventuelles interruptions du site.</p>`,
+                cookies: `<h3>Gérer vos préférences sur les cookies</h3><p>Nous utilisons uniquement des cookies techniques essentiels pour le bon fonctionnement et la mémorisation de vos choix d'affichage (comme votre pays).</p><label><input type="checkbox" checked disabled> Cookies essentiels (Toujours activés)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Enregistrer mes choix</button>`
             },
             en: {
+                navCta: "Work with me",
                 aboutSub: "ABOUT US",
                 welcomeTitle: "Welcome to my portfolio",
                 aboutDesc: "Discover my creations, my projects, and my visual universe. BRK Creative is a studio specializing in high-quality post-production, impactful Motion Design, and 3D animation. We showcase your brand through rigorous technical expertise and boundless creativity.",
                 creationsTitle: "OUR CREATIONS",
                 filterAll: "All",
+                filterGraphique: "Graphic Design",
+                proj4Title: "Visual Identity",
+                proj4Desc: "Designing unique corporate designs and high-impact logos.",
                 tarifsTitle: "PRICING",
                 tarifsSub: "Clear and transparent solutions tailored to your ambitions.",
                 opt1Title: "OPTION 1: PROFESSIONAL",
@@ -823,27 +916,21 @@
                 footerCond: "Terms of Use",
                 footerCook: "Manage Cookie Preferences",
                 
-                mentions: `<h3>Legal Notices</h3>
-                           <h4>1. Website Edition</h4><p>This website is published and managed by <strong>BRK Creative</strong> studio.</p>
-                           <h4>2. Hosting</h4><p>This site is hosted by GitHub Inc., located at 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA.</p>
-                           <h4>3. Intellectual Property</h4><p>All content (text, 3D animations, videos, graphic designs) is the property of BRK Creative.</p>`,
-                confidentialite: `<h3>Privacy Policy</h3>
-                                  <h4>1. Data Collection</h4><p>This is a portfolio website. We do not collect personal data without your knowledge.</p>
-                                  <h4>2. Contact Information</h4><p>Information sent for quote requests is strictly used for business communication purposes.</p>`,
-                conditions: `<h3>Terms of Use</h3>
-                             <h4>1. Purpose</h4><p>This site presents the professional and creative services of BRK Creative.</p>
-                             <h4>2. Liability</h4><p>BRK Creative strives to maintain accurate information but is not liable for temporary site downtime.</p>`,
-                cookies: `<h3>Manage Cookie Preferences</h3>
-                          <p>We only use essential technical cookies to remember your display preferences (such as your country choice).</p>
-                          <label><input type="checkbox" checked disabled> Essential Cookies (Always enabled)</label><br><br>
-                          <button class="btn-save-cookies" onclick="closeModal()">Save Preferences</button>`
+                mentions: `<h3>Legal Notices</h3><h4>1. Website Edition</h4><p>This website is published and managed by <strong>BRK Creative</strong> studio.</p><h4>2. Hosting</h4><p>This site is hosted by GitHub Inc., located at 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA.</p><h4>3. Intellectual Property</h4><p>All content (text, 3D animations, videos, graphic designs) is the property of BRK Creative.</p>`,
+                confidentialite: `<h3>Privacy Policy</h3><h4>1. Data Collection</h4><p>This is a portfolio website. We do not collect personal data without your knowledge.</p><h4>2. Contact Information</h4><p>Information sent for quote requests is strictly used for business communication purposes.</p>`,
+                conditions: `<h3>Terms of Use</h3><h4>1. Purpose</h4><p>This site presents the professional and creative services of BRK Creative.</p><h4>2. Liability</h4><p>BRK Creative strives to maintain accurate information but is not liable for temporary site downtime.</p>`,
+                cookies: `<h3>Manage Cookie Preferences</h3><p>We only use essential technical cookies to remember your display preferences (such as your country choice).</p><label><input type="checkbox" checked disabled> Essential Cookies (Always enabled)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Save Preferences</button>`
             },
             es: {
+                navCta: "Trabaja conmigo",
                 aboutSub: "SOBRE NOSOTROS",
                 welcomeTitle: "Bienvenido a mi portafolio",
                 aboutDesc: "Descubre mis creaciones, mis proyectos y mi universo visual. BRK Creative es un estudio especializado en postproducción de alta calidad, Motion Design de impacto y animación 3D. Destacamos su marca a través de un riguroso conocimiento técnico y una creatividad sin límites.",
                 creationsTitle: "NUESTRAS CREACIONES",
                 filterAll: "Todos",
+                filterGraphique: "Diseño Gráfico",
+                proj4Title: "Identidad Visual",
+                proj4Desc: "Diseño de identidades corporativas únicas y logotipos de alto impacto.",
                 tarifsTitle: "TARIFAS",
                 tarifsSub: "Soluciones claras y transparentes adaptadas a sus ambiciones.",
                 opt1Title: "OPCIÓN 1: PROFESIONAL",
@@ -852,7 +939,7 @@
                 opt2Desc: "Soporte completo, despliegue de identidad visual integral, animaciones gráficas avanzadas y entregas prioritarias con seguimiento personalizado.",
                 badge: "RECOMENDADO",
                 btn: "Solicitar presupuesto",
-                testiTitle: "LO QUE DICEN NUESTROS CLIENTES",
+                testiTitle: "LO QUE DICEN NUESTROS CLIENTS",
                 q1: '"Un trabajo de postproducción de una calidad excepcional. El ritmo del montage trascendió nuestro proyecto de principio a fin."',
                 r1: "Director de Cine Independiente",
                 q2: '"El equipo captó instantáneamente la esencia misma de nuestra marca. El resultado visual final supera con creces nuestras expectativas."',
@@ -865,20 +952,10 @@
                 footerCond: "Condiciones de uso",
                 footerCook: "Gestionar preferencias de cookies",
                 
-                mentions: `<h3>Avisos Legales</h3>
-                           <h4>1. Edición del Sitio</h4><p>Este sitio web está editado y gestionado por el estudio <strong>BRK Creative</strong>.</p>
-                           <h4>2. Alojamiento</h4><p>Este sitio está alojado por GitHub Inc., 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, EE. UU.</p>
-                           <h4>3. Propriedad Intelectual</h4><p>Todo el contenido (texto, animaciones 3D, videos, diseños gráficos) es propiedad exclusiva de BRK Creative.</p>`,
-                confidentialite: `<h3>Política de privacidad</h3>
-                                  <h4>1. Datos recolectados</h4><p>Este es un sitio web de portafolio. No recolectamos datos personales sin su consentimiento.</p>
-                                  <h4>2. Uso de información</h4><p>La información enviada para solicitudes de presupuesto se utiliza únicamente para la propuesta comercial.</p>`,
-                conditions: `<h3>Conditions de uso</h3>
-                             <h4>1. Objeto</h4><p>Este sitio tiene como objeto presentar los servicios profesionales y creativos de BRK Creative.</p>
-                             <h4>2. Responsabilidad</h4><p>BRK Creative no se hace responsable de las interrupciones temporales del servicio del sitio.</p>`,
-                cookies: `<h3>Gestionar preferencias de cookies</h3>
-                          <p>Solo utilizamos cookies técnicas esenciales para recordar sus preferencias de visualización (como el idioma de su país).</p>
-                          <label><input type="checkbox" checked disabled> Cookies esenciales (Siempre activas)</label><br><br>
-                          <button class="btn-save-cookies" onclick="closeModal()">Guardar opciones</button>`
+                mentions: `<h3>Avisos Legales</h3><h4>1. Edición del Sitio</h4><p>Este sitio web está editado y gestionado por el estudio <strong>BRK Creative</strong>.</p><h4>2. Alojamiento</h4><p>Este sitio está alojado por GitHub Inc., 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, EE. UU.</p><h4>3. Propriedad Intelectual</h4><p>Todo el contenido (texto, animaciones 3D, videos, diseños gráficos) es propiedad exclusiva de BRK Creative.</p>`,
+                confidentialite: `<h3>Política de privacidad</h3><h4>1. Datos recolectados</h4><p>Este es un sitio web de portafolio. No recolectamos datos personales sin su consentimiento.</p><h4>2. Uso de información</h4><p>La información enviada para solicitudes de presupuesto se utiliza únicamente para la propuesta comercial.</p>`,
+                conditions: `<h3>Conditions de uso</h3><h4>1. Objeto</h4><p>Este sitio tiene como objeto presentar los servicios profesionales y creativos de BRK Creative.</p><h4>2. Responsabilidad</h4><p>BRK Creative no se hace responsable de las interrupciones temporales del servicio del sitio.</p>`,
+                cookies: `<h3>Gestionar preferencias de cookies</h3><p>Solo utilizamos cookies técnicas esenciales para recordar sus preferencias de visualización (como el idioma de su país).</p><label><input type="checkbox" checked disabled> Cookies esenciales (Siempre activas)</label><br><br><button class="btn-save-cookies" onclick="closeModal()">Guardar opciones</button>`
             }
         };
 
@@ -887,11 +964,15 @@
             document.getElementById('country-label').textContent = countryName;
             const data = translations[langCode] || translations['en']; 
             
+            document.getElementById('trans-nav-cta').textContent = data.navCta;
             document.getElementById('trans-about-sub').textContent = data.aboutSub;
             document.getElementById('trans-welcome-title').textContent = data.welcomeTitle;
             document.getElementById('trans-about-desc').textContent = data.aboutDesc;
             document.getElementById('trans-creations-title').textContent = data.creationsTitle;
             document.getElementById('filter-all').textContent = data.filterAll;
+            document.getElementById('filter-graphique').textContent = data.filterGraphique;
+            document.getElementById('trans-proj4-title').textContent = data.proj4Title;
+            document.getElementById('trans-proj4-desc').textContent = data.proj4Desc;
             document.getElementById('trans-tarifs-title').textContent = data.tarifsTitle;
             document.getElementById('trans-tarifs-sub').textContent = data.tarifsSub;
             document.getElementById('trans-opt1-title').textContent = data.opt1Title;
