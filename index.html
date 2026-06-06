@@ -542,11 +542,12 @@
         <div class="creations-header">
             <h2 id="trans-creations-title">NOS CRÉATIONS</h2>
             <div class="filter-container">
-                <button class="filter-btn active" onclick="filterCreations('all', event)" id="filter-all">Tous</button>
-                <button class="filter-btn" onclick="filterCreations('postprod', event)" id="filter-postprod">Post-Production</button>
-                <button class="filter-btn" onclick="filterCreations('motion', event)" id="filter-motion">Motion Design</button>
-                <button class="filter-btn" onclick="filterCreations('3d', event)" id="filter-3d">Animation 3D</button>
-                <button class="filter-btn" onclick="filterCreations('graphique', event)" id="filter-graphique">Design Graphic</button>
+                
+        <button class="filter-btn active" onclick="filterCreations('all', event)" id="filter-all" style="transition: background-color 0.3s ease, transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Tous</button>
+        <button class="filter-btn" onclick="filterCreations('postprod', event)" id="filter-postprod" style="transition: background-color 0.3s ease, transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Post-Production</button>
+        <button class="filter-btn" onclick="filterCreations('motion', event)" id="filter-motion" style="transition: background-color 0.3s ease, transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Motion Design</button>
+        <button class="filter-btn" onclick="filterCreations('graphique', event)" id="filter-graphique" style="transition: background-color 0.3s ease, transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Design Graphic</button>
+       
             </div>
         </div>
 
@@ -650,7 +651,8 @@
             <a onclick="openModal('conditions')">Conditions d'utilisation</a>
             <a onclick="openModal('plan')">Plan du site</a>
 
-                <span style="color: #666; margin-left: 15px; font-size: 0.9rem;">Basé au Gabon</span>
+                    <span style="color: #666; margin-left: 15px; font-size: 0.9rem; font-weight: bold;">Basé au Gabon</span>
+
 
     <script>
         let currentLang = 'fr';
