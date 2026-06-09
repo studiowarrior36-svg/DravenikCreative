@@ -60,8 +60,9 @@
         }
 
         .logo-container {
-            display: flex;
-            align-items: center;
+            display: flex !important;
+            align-items: center !important;
+            width: auto !important;
             gap: 20px;
         }
 
@@ -82,7 +83,12 @@
             padding-left: 20px;
         }
 
+        /* Positionne le bouton tout à droite au fond de l'écran */
         .nav-controls {
+            position: absolute !important;
+            top: 20px;                     /* Ajustez la hauteur par rapport au haut de l'écran */
+            right: 5%;                     /* Aligne parfaitement avec le bord droit */
+            margin: 0 !important;          /* Supprime les marges parasites */
             display: flex;
             align-items: center;
         }
@@ -447,19 +453,7 @@
             cursor: pointer;
             background: transparent;
             border: none;
-       /* Positionne le bouton tout à droite au fond de l'écran */
-.nav-controls {
-    position: absolute !important;
-    top: 20px;                     /* Ajustez la hauteur par rapport au haut de l'écran */
-    right: 5%;                     /* Aligne parfaitement avec le bord droit */
-    margin: 0 !important;          /* Supprime les marges parasites */
-}
-/* Redonne une taille normale au bloc logo pour éviter qu'il pousse le reste */
-.logo-container {
-    display: flex !important;
-    align-items: center !important;
-    width: auto !important;
-}
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -519,6 +513,12 @@
                 border-left: none;
                 padding-left: 0;
             }
+            .nav-controls {
+                position: relative !important;
+                top: auto;
+                right: auto;
+                margin-top: 15px !important;
+            }
             .presentation-section { padding: 60px 20px; }
             .presentation-text h1 { font-size: 2.2rem; }
             .creations-section, .tarifs-section, .testimonials-section { padding: 60px 20px; }
@@ -528,22 +528,22 @@
         }
         
         .separator {
-    display: inline-block;
-    width: 3px;               /* Plus épaisse pour l'effet "en gras" */
-    height: 16px;             /* Hauteur réduite pour s'aligner sur le texte */
-    background-color: #ffffff; /* Couleur blanche (ou votre variable) */
-    margin: 0 5px;            /* Ajuste l'espace horizontal si besoin */
-    border-radius: 2px;       /* Optionnel : adoucit légèrement les bords de la barre */
-}
+            display: inline-block;
+            width: 3px;               /* Plus épaisse pour l'effet "en gras" */
+            height: 16px;             /* Hauteur réduite pour s'aligner sur le texte */
+            background-color: #ffffff; /* Couleur blanche (ou votre variable) */
+            margin: 0 5px;            /* Ajuste l'espace horizontal si besoin */
+            border-radius: 2px;       /* Optionnel : adoucit légèrement les bords de la barre */
+        }
     </style>   
 </head>
 <body>
 
-       <header>
+    <header class="navbar">
         <div class="logo-container">
             <img src="Method Draw Image.png" alt="Logo BRK Creative" class="logo-img">
-            <span class="separator">|</span>
-            <span class="slogan">CRÉER POUR INSPIRER</span>
+            <span class="separator"></span>
+            <span class="slogan-nav">CRÉER POUR INSPIRER</span>
         </div>
         
         <div class="nav-controls">
@@ -653,14 +653,12 @@
     </section>
 
     <div id="legalModal" class="modal-mentions">
-                <div class="modal-content">
+        <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">&times;</button>
             <div id="modal-dynamic-text"></div>
         </div>
     </div>
-</div>
 
-    <!-- VOTRE FOOTER MODIFIÉ -->
     <footer>
         <div class="footer-copyright" id="trans-footer-copy">
             © 2026 BRK Creative — Tous droits réservés.
@@ -674,8 +672,9 @@
             <a onclick="openModal('conditions')">Conditions d'utilisation</a>
             <a onclick="openModal('plan')">Plan du site</a>
 
-                    <span style="color: #666; margin-left: 15px; font-size: 0.9rem; font-weight: bold;">Basé au Gabon</span>
-
+            <span style="color: #666; margin-left: 15px; font-size: 0.9rem; font-weight: bold;">Basé au Gabon</span>
+        </div>
+    </footer>
 
     <script>
         let currentLang = 'fr';
@@ -742,6 +741,7 @@
                 document.getElementById('legalModal').style.display = 'flex';
             }
         }
+        
         function closeModal() { 
             document.getElementById('legalModal').style.display = 'none'; 
         }
