@@ -54,7 +54,7 @@
         .navbar {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 30px 5%;
             background-color: var(--bg-navbar);
             border-bottom: 1px solid var(--bordure);
@@ -65,6 +65,7 @@
         .logo-container {
             display: flex !important;
             align-items: center !important;
+            justify-content: center !important;
             width: auto !important;
         }
 
@@ -237,11 +238,20 @@
             overflow: hidden;
             box-shadow: 0 10px 20px var(--shadow-color);
             display: block;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .creation-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 28px 55px rgba(0, 0, 0, 0.75);
+            border-color: var(--bleu-accent);
         }
 
         .creation-media {
             width: 100%;
-            height: 200px;
+            height: 260px;
             background-color: #000;
             position: relative;
             overflow: hidden;
@@ -251,11 +261,28 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .creation-item:hover .creation-media img,
+        .creation-item:hover .creation-media video {
+            transform: scale(1.07);
         }
 
         .creation-info {
-            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 20px;
+            background: linear-gradient(to top, rgba(5,11,20,0.97) 45%, rgba(5,11,20,0.55) 80%, transparent);
             text-align: left;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .creation-item:hover .creation-info {
+            transform: translateY(0);
         }
 
         .creation-info h3 {
@@ -629,6 +656,7 @@
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
+                align-items: center;
                 gap: 20px;
                 padding: 20px;
                 text-align: center;
