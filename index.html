@@ -68,40 +68,11 @@
             width: auto !important;
         }
 
-        .logo-text-wrapper {
-            position: relative;
-            display: inline-block;
-            padding: 8px 22px;
-            border-radius: 30px;
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .logo-text-wrapper::before {
-            content: "";
-            position: absolute;
-            inset: -60%;
-            background: linear-gradient(120deg, #007bff, #00e0ff, #7b2ff7, #ff2fb4, #ff7a18, #007bff);
-            background-size: 400% 400%;
-            filter: blur(10px);
-            z-index: -1;
-            animation: animatedColors 8s ease infinite;
-        }
-
-        @keyframes animatedColors {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .logo-text {
-            position: relative;
-            z-index: 1;
-            font-size: 1.3rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: var(--texte-principal);
-            white-space: nowrap;
+        .logo-img {
+            width: 95px;
+            max-height: 48px;
+            object-fit: contain;
+            display: block;
         }
 
         /* Positionne le bouton tout à droite */
@@ -514,6 +485,65 @@
             border: none;
         }
 
+        /* --- BANNIÈRE COOKIES --- */
+        .cookie-banner {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 720px;
+            background-color: var(--bg-carte);
+            border: 1px solid var(--bordure);
+            border-radius: 12px;
+            box-shadow: 0 15px 40px var(--shadow-color);
+            padding: 22px 26px;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-banner.show {
+            display: flex;
+        }
+
+        .cookie-banner p {
+            color: var(--texte-secondaire);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+            flex: 1 1 320px;
+        }
+
+        .cookie-banner a {
+            color: var(--bleu-accent);
+            text-decoration: underline;
+        }
+
+        .cookie-banner a:hover {
+            color: var(--bleu-hover);
+        }
+
+        .cookie-accept-btn {
+            background-color: var(--bleu-accent);
+            color: white;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .cookie-accept-btn:hover {
+            background-color: var(--bleu-hover);
+        }
+
         /* --- SECTION CONTACT & RÉSEAUX --- */
         .contact-section {
             background-color: var(--bg-alternatif);
@@ -603,10 +633,6 @@
                 padding: 20px;
                 text-align: center;
             }
-            .logo-container {
-                flex-direction: column;
-                gap: 8px;
-            }
             .nav-controls {
                 position: relative !important;
                 top: auto;
@@ -626,11 +652,9 @@
 
     <header class="navbar">
         <div class="logo-container">
-            <span class="logo-text-wrapper">
-                <span class="logo-text">BIENVENUE CHEZ NOUS</span>
-            </span>
+            <img src="My%20Logo%203.png" alt="Logo Dravenik Creative" class="logo-img">
         </div>
-        
+
     </header>
 
     <section class="presentation-section">
@@ -691,7 +715,7 @@
             </div>
             <div class="creation-item" data-category="graphique">
                 <div class="creation-media">
-                    <img src="Phrase%202.png" alt="Visual Identity">
+                    <img src="Phrase%202.png" alt="Visual Identity" style="object-fit: contain; padding: 10px; background-color: #000;">
                 </div>
                 <div class="creation-info">
                     <h3 id="trans-proj4-title">Visual Identity</h3>
@@ -777,8 +801,29 @@
         </div>
     </footer>
 
+    <div class="cookie-banner" id="cookieBanner">
+        <p>Nous utilisons des cookies pour vous offrir une excellente expérience utilisateur. En utilisant ce site web, vous acceptez notre <a href="https://beacons.ai/i/2023-cookie-notice" target="_blank" rel="noopener noreferrer">utilisation des cookies.</a></p>
+        <button class="cookie-accept-btn" onclick="acceptCookies()">J'accepte</button>
+    </div>
+
     <script>
         let currentLang = 'fr';
+
+        // Bannière cookies
+        function acceptCookies() {
+            document.getElementById('cookieBanner').classList.remove('show');
+            try { localStorage.setItem('cookiesAccepted', 'true'); } catch(e) {}
+        }
+
+        (function() {
+            let accepted = false;
+            try { accepted = localStorage.getItem('cookiesAccepted') === 'true'; } catch(e) {}
+            if (!accepted) {
+                setTimeout(function() {
+                    document.getElementById('cookieBanner').classList.add('show');
+                }, 800);
+            }
+        })();
 
         function filterCreations(category, event) {
             const items = document.querySelectorAll('.creation-item');
