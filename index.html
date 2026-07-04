@@ -513,6 +513,54 @@
             border: none;
         }
 
+        /* --- LECTEUR MUSIQUE --- */
+        .music-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(20, 20, 20, 0.85);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 4000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background-color: rgba(30,30,30,0.95);
+            border-color: var(--bleu-accent);
+        }
+
+        .music-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            transition: opacity 0.2s;
+        }
+
+        .music-btn.playing {
+            border-color: var(--bleu-accent);
+            box-shadow: 0 0 0 3px rgba(0,113,227,0.25), 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(0,113,227,0.4), 0 4px 20px rgba(0,0,0,0.5); }
+            70% { box-shadow: 0 0 0 8px rgba(0,113,227,0), 0 4px 20px rgba(0,0,0,0.5); }
+            100% { box-shadow: 0 0 0 0 rgba(0,113,227,0), 0 4px 20px rgba(0,0,0,0.5); }
+        }
+
+        .music-btn.playing {
+            animation: pulse-ring 2.5s ease-out infinite;
+        }
+
         /* --- BANNIÈRE COOKIES --- */
         .cookie-banner {
             display: none;
@@ -830,12 +878,105 @@
         </div>
     </footer>
 
+    <!-- Lecteur YouTube caché — API officielle -->
+    <div id="yt-player-wrap" style="position:fixed;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;top:-9999px;left:-9999px;" aria-hidden="true">
+        <div id="yt-player"></div>
+    </div>
+
+    <button class="music-btn" id="musicBtn" title="Musique d'ambiance" aria-label="Lecture / pause musique">
+        <!-- Icône note de musique -->
+        <svg id="iconPlay" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v11.5a3.5 3.5 0 1 0 2 3.17V7h6V3H9z"/></svg>
+        <!-- Icône pause (cachée par défaut) -->
+        <svg id="iconPause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
     <div class="cookie-banner" id="cookieBanner">
         <p>Nous utilisons des cookies pour vous offrir une excellente expérience utilisateur. En utilisant ce site web, vous acceptez notre <a href="https://beacons.ai/i/2023-cookie-notice" target="_blank" rel="noopener noreferrer">utilisation des cookies.</a></p>
         <button class="cookie-accept-btn" onclick="acceptCookies()">J'accepte</button>
     </div>
 
     <script>
+        // --- MUSIQUE YOUTUBE ---
+        const VIDEO_ID = 'yOlWF8Jc9Pk';
+        const btn    = document.getElementById('musicBtn');
+        const iPlay  = document.getElementById('iconPlay');
+        const iPause = document.getElementById('iconPause');
+        let ytPlayer = null;
+        let started  = false;
+        let playing  = false;
+
+        // Charge l'API YouTube IFrame
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+
+        window.onYouTubeIframeAPIReady = function() {
+            ytPlayer = new YT.Player('yt-player', {
+                videoId: VIDEO_ID,
+                playerVars: {
+                    autoplay: 0,
+                    controls: 0,
+                    loop: 1,
+                    playlist: VIDEO_ID,
+                    modestbranding: 1,
+                    rel: 0
+                },
+                events: { onReady: onPlayerReady }
+            });
+        };
+
+        function onPlayerReady() {
+            ytPlayer.setVolume(0);
+        }
+
+        function fadeInYT() {
+            let v = 0;
+            const t = setInterval(() => {
+                v = Math.min(v + 2, 40);
+                ytPlayer.setVolume(v);
+                if (v >= 40) clearInterval(t);
+            }, 80);
+        }
+
+        function startMusic() {
+            if (!started && ytPlayer && ytPlayer.playVideo) {
+                started = true;
+                ytPlayer.playVideo();
+                playing = true;
+                fadeInYT();
+                btn.classList.add('playing');
+                iPlay.style.display  = 'none';
+                iPause.style.display = '';
+            }
+        }
+
+        function toggleMusic() {
+            if (!ytPlayer || !ytPlayer.playVideo) return;
+            if (!started) { startMusic(); return; }
+            if (playing) {
+                ytPlayer.pauseVideo();
+                playing = false;
+                btn.classList.remove('playing');
+                iPlay.style.display  = '';
+                iPause.style.display = 'none';
+            } else {
+                ytPlayer.playVideo();
+                playing = true;
+                btn.classList.add('playing');
+                iPlay.style.display  = 'none';
+                iPause.style.display = '';
+            }
+        }
+
+        btn.addEventListener('click', toggleMusic);
+
+        ['click','scroll','keydown','touchstart'].forEach(ev => {
+            document.addEventListener(ev, function handler() {
+                startMusic();
+                document.removeEventListener(ev, handler);
+            }, { once: true });
+        });
+
         let currentLang = 'fr';
 
         // Bannière cookies
