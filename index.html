@@ -734,7 +734,7 @@
 
     </header>
 
-    <section class="presentation-section">
+    <section class="presentation-section" data-music="presentation">
         <div class="presentation-text">
             <span class="subtitle" id="trans-about-sub">À PROPOS</span>
             <div class="hero-banner">
@@ -750,7 +750,7 @@
         </div>
     </section>
 
-    <section class="creations-section">
+    <section class="creations-section" data-music="portfolio">
         <div class="creations-header">
             <h2 id="trans-creations-title">NOS CRÉATIONS</h2>
             <div class="filter-container">
@@ -896,46 +896,50 @@
     </div>
 
     <script>
-        // --- MUSIQUE YOUTUBE ---
-        const VIDEO_ID = 'yOlWF8Jc9Pk';
+        // --- MUSIQUE YOUTUBE — PLAYLIST PAR SECTION ---
+        const TRACKS = {
+            presentation: '8GW6sLrK40k',  // HOME – Resonance (doux, nostalgique)
+            portfolio:     '8GW6sLrK40k',  // Remplacez par une piste plus dynamique si souhaité
+        };
+        const VOLUME_MAX = 25; // % — discret, en arrière-plan
+
         const btn    = document.getElementById('musicBtn');
         const iPlay  = document.getElementById('iconPlay');
         const iPause = document.getElementById('iconPause');
-        let ytPlayer = null;
-        let started  = false;
-        let playing  = false;
+        let ytPlayer    = null;
+        let started     = false;
+        let playing     = false;
+        let currentTrack = 'presentation';
 
-        // Charge l'API YouTube IFrame
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
         document.head.appendChild(tag);
 
         window.onYouTubeIframeAPIReady = function() {
             ytPlayer = new YT.Player('yt-player', {
-                videoId: VIDEO_ID,
-                playerVars: {
-                    autoplay: 0,
-                    controls: 0,
-                    loop: 1,
-                    playlist: VIDEO_ID,
-                    modestbranding: 1,
-                    rel: 0
-                },
-                events: { onReady: onPlayerReady }
+                videoId: TRACKS.presentation,
+                playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: TRACKS.presentation, modestbranding: 1, rel: 0 },
+                events: { onReady: function() { ytPlayer.setVolume(0); } }
             });
         };
 
-        function onPlayerReady() {
-            ytPlayer.setVolume(0);
+        function fadeVolume(from, to, cb) {
+            let v = from;
+            const step = from < to ? 1 : -1;
+            const t = setInterval(() => {
+                v += step;
+                ytPlayer.setVolume(Math.max(0, Math.min(100, v)));
+                if (v === to) { clearInterval(t); if (cb) cb(); }
+            }, 60);
         }
 
-        function fadeInYT() {
-            let v = 0;
-            const t = setInterval(() => {
-                v = Math.min(v + 2, 40);
-                ytPlayer.setVolume(v);
-                if (v >= 40) clearInterval(t);
-            }, 80);
+        function switchTrack(section) {
+            if (!playing || !ytPlayer || TRACKS[section] === TRACKS[currentTrack]) return;
+            currentTrack = section;
+            fadeVolume(VOLUME_MAX, 0, () => {
+                ytPlayer.loadVideoById({ videoId: TRACKS[section], suggestedQuality: 'small' });
+                setTimeout(() => fadeVolume(0, VOLUME_MAX), 1200);
+            });
         }
 
         function startMusic() {
@@ -943,7 +947,7 @@
                 started = true;
                 ytPlayer.playVideo();
                 playing = true;
-                fadeInYT();
+                fadeVolume(0, VOLUME_MAX);
                 btn.classList.add('playing');
                 iPlay.style.display  = 'none';
                 iPause.style.display = '';
@@ -954,13 +958,14 @@
             if (!ytPlayer || !ytPlayer.playVideo) return;
             if (!started) { startMusic(); return; }
             if (playing) {
-                ytPlayer.pauseVideo();
+                fadeVolume(VOLUME_MAX, 0, () => ytPlayer.pauseVideo());
                 playing = false;
                 btn.classList.remove('playing');
                 iPlay.style.display  = '';
                 iPause.style.display = 'none';
             } else {
                 ytPlayer.playVideo();
+                fadeVolume(0, VOLUME_MAX);
                 playing = true;
                 btn.classList.add('playing');
                 iPlay.style.display  = 'none';
@@ -976,6 +981,17 @@
                 document.removeEventListener(ev, handler);
             }, { once: true });
         });
+
+        // Détection de section pour la playlist
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const section = e.target.dataset.music;
+                if (section && section !== currentTrack) switchTrack(section);
+            });
+        }, { threshold: 0.4 });
+
+        document.querySelectorAll('[data-music]').forEach(el => observer.observe(el));
 
         let currentLang = 'fr';
 
